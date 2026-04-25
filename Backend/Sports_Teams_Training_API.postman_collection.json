@@ -1,0 +1,3449 @@
+{
+  "info": {
+    "_postman_id": "sports-teams-training-api-2026",
+    "name": "Sports, Teams, Training & Fields API - Complete",
+    "description": "Complete API collection for Sports Management, Team Operations, Training Schedules, Field Management, Booking System, Attendance Tracking, and Member/Team Member Subscriptions\n\n**Base URL**: {{baseUrl}}\n**Authentication**: Bearer token in Authorization header\n**Content-Type**: application/json\n\n**Latest Addition**: Complete Booking System with available slots, calendar view, training conflict detection, and invitation link management",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000/api",
+      "type": "string"
+    },
+    {
+      "key": "authToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "teamId",
+      "value": "550e8400-e29b-41d4-a716-446655440000",
+      "type": "string"
+    },
+    {
+      "key": "scheduleId",
+      "value": "550e8400-e29b-41d4-a716-446655440001",
+      "type": "string"
+    },
+    {
+      "key": "memberId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "fieldId",
+      "value": "550e8400-e29b-41d4-a716-446655440002",
+      "type": "string"
+    },
+    {
+      "key": "sportId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "branchId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "bookingId",
+      "value": "550e8400-e29b-41d4-a716-446655440003",
+      "type": "string"
+    },
+    {
+      "key": "shareToken",
+      "value": "abc123def456...",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Teams Management",
+      "description": "Team CRUD operations and team-related queries",
+      "item": [
+        {
+          "name": "Create Team",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sport_id\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"branch_id\": \"550e8400-e29b-41d4-a716-446655440001\",\n  \"name\": \"Basketball Team A\",\n  \"max_members\": 15,\n  \"status\": \"active\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/teams",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teams"
+              ]
+            },
+            "description": "Create a new team\n\n**Access**: SportActivityManager, SportActivitySpecialist\n**Required Fields**:\n- sport_id: UUID\n- branch_id: UUID\n- name: string\n- max_members: number\n- status: 'active' | 'inactive' | 'suspended' | 'archived'"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Teams",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/teams?sport_id=&status=active&branch_id=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teams"
+              ],
+              "query": [
+                {
+                  "key": "sport_id",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "status",
+                  "value": "active",
+                  "disabled": false
+                },
+                {
+                  "key": "branch_id",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Get all teams with optional filters\n\n**Access**: All authenticated users\n**Query Parameters** (optional):\n- sport_id: Filter by sport UUID\n- status: Filter by status (active, inactive, suspended, archived)\n- branch_id: Filter by branch UUID"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Team By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/teams/{{teamId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teams",
+                "{{teamId}}"
+              ]
+            },
+            "description": "Get team details by ID\n\n**Access**: All authenticated users\n**Path Parameters**:\n- id: Team UUID"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Team",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Basketball Team A - Updated\",\n  \"max_members\": 20,\n  \"status\": \"active\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/teams/{{teamId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teams",
+                "{{teamId}}"
+              ]
+            },
+            "description": "Update team details\n\n**Access**: SportActivityManager, SportActivitySpecialist\n**Path Parameters**:\n- id: Team UUID\n**Optional Fields**:\n- name\n- max_members\n- status"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Team Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"active\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/teams/{{teamId}}/status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teams",
+                "{{teamId}}",
+                "status"
+              ]
+            },
+            "description": "Update team status\n\n**Access**: SportActivityManager\n**Path Parameters**:\n- id: Team UUID\n**Body**:\n- status: 'active' | 'inactive' | 'suspended' | 'archived'"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Team Members",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/teams/{{teamId}}/members",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teams",
+                "{{teamId}}",
+                "members"
+              ]
+            },
+            "description": "Get all members in a team (both regular members and team members)\n\n**Access**: SportActivityManager, SportActivitySpecialist\n**Path Parameters**:\n- id: Team UUID"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Available Slots",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/teams/{{teamId}}/available-slots",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teams",
+                "{{teamId}}",
+                "available-slots"
+              ]
+            },
+            "description": "Get available slots in a team\n\n**Access**: All authenticated users\n**Path Parameters**:\n- id: Team UUID"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Team",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/teams/{{teamId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teams",
+                "{{teamId}}"
+              ]
+            },
+            "description": "Delete a team\n\n**Access**: SportActivityManager\n**Path Parameters**:\n- id: Team UUID"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Training Schedules",
+      "description": "Create, retrieve, and manage team training schedules",
+      "item": [
+        {
+          "name": "Create Training Schedule",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"team_id\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"day_of_week\": \"MONDAY\",\n  \"start_time\": \"18:00:00\",\n  \"end_time\": \"19:30:00\",\n  \"location\": \"Main Hall\",\n  \"max_participants\": 25,\n  \"training_fee\": 50\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/teams/{{teamId}}/schedules",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teams",
+                "{{teamId}}",
+                "schedules"
+              ]
+            },
+            "description": "Create a new training schedule for a team\n\n**Access**: SportActivityManager, SportActivitySpecialist\n**Path Parameters**:\n- teamId: Team UUID\n**Required Fields**:\n- day_of_week: 'MONDAY' | 'TUESDAY' | 'WEDNESDAY' | 'THURSDAY' | 'FRIDAY' | 'SATURDAY' | 'SUNDAY'\n- start_time: HH:MM:SS format\n- end_time: HH:MM:SS format\n- location: string\n- max_participants: number\n- training_fee: number (decimal)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Team Schedules",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/teams/{{teamId}}/schedules",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teams",
+                "{{teamId}}",
+                "schedules"
+              ]
+            },
+            "description": "Get all training schedules for a team\n\n**Access**: All authenticated users\n**Path Parameters**:\n- teamId: Team UUID"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Schedule By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/schedules/{{scheduleId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "schedules",
+                "{{scheduleId}}"
+              ]
+            },
+            "description": "Get schedule details by ID\n\n**Access**: All authenticated users\n**Path Parameters**:\n- scheduleId: Schedule UUID"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Training Schedule",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"day_of_week\": \"MONDAY\",\n  \"start_time\": \"19:00:00\",\n  \"end_time\": \"20:30:00\",\n  \"location\": \"Main Hall\",\n  \"max_participants\": 30,\n  \"training_fee\": 60\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/schedules/{{scheduleId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "schedules",
+                "{{scheduleId}}"
+              ]
+            },
+            "description": "Update a training schedule\n\n**Access**: SportActivityManager, SportActivitySpecialist\n**Path Parameters**:\n- scheduleId: Schedule UUID\n**Optional Fields**: Any field from schedule creation"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Training Schedule",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/schedules/{{scheduleId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "schedules",
+                "{{scheduleId}}"
+              ]
+            },
+            "description": "Delete a training schedule\n\n**Access**: SportActivityManager\n**Path Parameters**:\n- scheduleId: Schedule UUID"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Sport Schedules",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/schedules/sports/550e8400-e29b-41d4-a716-446655440000/schedules",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "schedules",
+                "sports",
+                "550e8400-e29b-41d4-a716-446655440000",
+                "schedules"
+              ]
+            },
+            "description": "Get all training schedules for a specific sport\n\n**Access**: All authenticated users\n**Path Parameters**:\n- sportId: Sport UUID"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Schedules by Day of Week",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/schedules/sports/550e8400-e29b-41d4-a716-446655440000/schedules/day/MONDAY",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "schedules",
+                "sports",
+                "550e8400-e29b-41d4-a716-446655440000",
+                "schedules",
+                "day",
+                "MONDAY"
+              ]
+            },
+            "description": "Get training schedules for a specific sport on a specific day of the week\n\n**Access**: All authenticated users\n**Path Parameters**:\n- sportId: Sport UUID\n- dayOfWeek: 'MONDAY' | 'TUESDAY' | 'WEDNESDAY' | 'THURSDAY' | 'FRIDAY' | 'SATURDAY' | 'SUNDAY'"
+          },
+          "response": []
+        },
+        {
+          "name": "Check Schedule Availability",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/schedules/{{scheduleId}}/availability",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "schedules",
+                "{{scheduleId}}",
+                "availability"
+              ]
+            },
+            "description": "Check availability for a training schedule\n\n**Access**: All authenticated users\n**Path Parameters**:\n- scheduleId: Schedule UUID"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Attendance Tracking",
+      "description": "Record, track, and manage team member attendance",
+      "item": [
+        {
+          "name": "Record Attendance",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"member_id\": 1,\n  \"team_id\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"training_schedule_id\": \"550e8400-e29b-41d4-a716-446655440001\",\n  \"attendance_date\": \"2026-03-02\",\n  \"attended\": true,\n  \"notes\": \"Present\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/attendance",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "attendance"
+              ]
+            },
+            "description": "Record attendance for a member in a training session\n\n**Access**: SportActivityManager, SportActivitySpecialist\n**Required Fields**:\n- member_id: integer\n- team_id: UUID\n- training_schedule_id: UUID\n- attendance_date: ISO 8601 date format (YYYY-MM-DD)\n- attended: boolean\n- notes: string (optional)"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Attendance Record",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"attended\": false,\n  \"notes\": \"Excused absence - illness\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/attendance/550e8400-e29b-41d4-a716-446655440002",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "attendance",
+                "550e8400-e29b-41d4-a716-446655440002"
+              ]
+            },
+            "description": "Update an attendance record\n\n**Access**: SportActivityManager, SportActivitySpecialist\n**Path Parameters**:\n- id: Attendance record UUID\n**Optional Fields**:\n- attended: boolean\n- notes: string"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Member Attendance History",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/attendance/members/{{memberId}}/attendance",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "attendance",
+                "members",
+                "{{memberId}}",
+                "attendance"
+              ]
+            },
+            "description": "Get complete attendance history for a member\n\n**Access**: SportActivityManager, SportActivitySpecialist, Member (own records)\n**Path Parameters**:\n- member_id: Member integer ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Member Team Absences",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/attendance/members/{{memberId}}/teams/{{teamId}}/absences",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "attendance",
+                "members",
+                "{{memberId}}",
+                "teams",
+                "{{teamId}}",
+                "absences"
+              ]
+            },
+            "description": "Get absence records for a member in a specific team\n\n**Access**: SportActivityManager, SportActivitySpecialist\n**Path Parameters**:\n- member_id: Member integer ID\n- team_id: Team UUID"
+          },
+          "response": []
+        },
+        {
+          "name": "Send Absence Alert",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"team_id\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"threshold\": 3,\n  \"message\": \"Member has exceeded absence threshold\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/attendance/members/{{memberId}}/absence-alert",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "attendance",
+                "members",
+                "{{memberId}}",
+                "absence-alert"
+              ]
+            },
+            "description": "Send absence alert to admin when member exceeds absence threshold\n\n**Access**: SportActivityManager, SportActivitySpecialist\n**Path Parameters**:\n- member_id: Member integer ID\n**Body**:\n- team_id: UUID\n- threshold: number (absence count to trigger alert)\n- message: string (alert message)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Team Attendance Report",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/attendance/teams/{{teamId}}/attendance-report",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "attendance",
+                "teams",
+                "{{teamId}}",
+                "attendance-report"
+              ]
+            },
+            "description": "Get comprehensive attendance report for an entire team\n\n**Access**: SportActivityManager, SportActivitySpecialist\n**Path Parameters**:\n- team_id: Team UUID"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Member Weekly Schedule",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/attendance/members/{{memberId}}/weekly-schedule",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "attendance",
+                "members",
+                "{{memberId}}",
+                "weekly-schedule"
+              ]
+            },
+            "description": "Get member's training schedule for the week\n\n**Access**: All authenticated users (own schedule) or SportActivityManager (any member)\n**Path Parameters**:\n- member_id: Member integer ID"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Member Subscriptions",
+      "description": "Member sport subscription management - approval workflow",
+      "item": [
+        {
+          "name": "Subscribe to Team",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"team_id\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"member_id\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/member-subscriptions/subscribe",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "member-subscriptions",
+                "subscribe"
+              ]
+            },
+            "description": "Member can subscribe to a team\n\n**Access**: Authenticated members (no special privilege required)\n**Required Body**:\n- team_id: Team UUID (string)\n- member_id: Member ID (number)\n\n**Validations**:\n- Team must exist and be active\n- Member must exist and be active\n- No duplicate subscriptions allowed\n- Team must have available capacity\n\n**Returns**: 201 Created with pending subscription awaiting approval"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Pending Member Subscriptions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/member-subscriptions/pending?page=1&limit=20&member_id=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "member-subscriptions",
+                "pending"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "member_id",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Get all pending member sport subscription requests\n\n**Privilege**: APPROVE_SPORT_SUBSCRIPTION\n**Query Parameters** (optional):\n- page: Page number (default: 1)\n- limit: Items per page (default: 20)\n- member_id: Filter by member ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Member Subscription By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/member-subscriptions/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "member-subscriptions",
+                "1"
+              ]
+            },
+            "description": "Get specific member subscription request details\n\n**Privilege**: APPROVE_SPORT_SUBSCRIPTION\n**Path Parameters**:\n- subscriptionId: Member subscription ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Approve Member Subscription",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"notes\": \"Approved by manager\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/member-subscriptions/1/approve",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "member-subscriptions",
+                "1",
+                "approve"
+              ]
+            },
+            "description": "Approve a pending member sport subscription request\n\n**Privilege**: APPROVE_SPORT_SUBSCRIPTION\n**Path Parameters**:\n- subscriptionId: Member subscription ID\n**Optional Body**:\n- notes: Additional approval notes"
+          },
+          "response": []
+        },
+        {
+          "name": "Decline Member Subscription",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"Membership requirements not met\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/member-subscriptions/1/decline",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "member-subscriptions",
+                "1",
+                "decline"
+              ]
+            },
+            "description": "Decline a pending member sport subscription request\n\n**Privilege**: APPROVE_SPORT_SUBSCRIPTION\n**Path Parameters**:\n- subscriptionId: Member subscription ID\n**Body**:\n- reason: Decline reason"
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel Member Subscription",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"Member requested cancellation\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/member-subscriptions/1/cancel",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "member-subscriptions",
+                "1",
+                "cancel"
+              ]
+            },
+            "description": "Cancel an already approved member sport subscription\n\n**Privilege**: APPROVE_SPORT_SUBSCRIPTION\n**Path Parameters**:\n- subscriptionId: Member subscription ID\n**Optional Body**:\n- reason: Cancellation reason"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Member Subscription Statistics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/member-subscriptions/stats/summary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "member-subscriptions",
+                "stats",
+                "summary"
+              ]
+            },
+            "description": "Get summary statistics for member sport subscriptions\n\n**Privilege**: APPROVE_SPORT_SUBSCRIPTION\n**Returns**: Count of pending, approved, declined, and cancelled subscriptions"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Team Member Subscriptions",
+      "description": "Team member subscription management with approval workflow",
+      "item": [
+        {
+          "name": "Team Member Self Subscribe to Team",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"team_id\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"team_member_id\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/team-member-subscriptions/subscribe",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team-member-subscriptions",
+                "subscribe"
+              ]
+            },
+            "description": "Team member can subscribe themselves to a team\n\n**Access**: Authenticated team members (no staff privilege required)\n**Required Body**:\n- team_id: Team UUID (string)\n- team_member_id: Team member ID (number)\n\n**Validations**:\n- Team must exist and be active\n- Team member must exist and be active/approved\n- No duplicate subscriptions allowed\n- Team must have available capacity\n\n**Returns**: 201 Created with pending subscription awaiting approval"
+          },
+          "response": []
+        },
+        {
+          "name": "Subscribe Team Member to Team",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"start_date\": \"2026-03-02\",\n  \"price\": 150.00\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/team-members/1/subscriptions/teams/550e8400-e29b-41d4-a716-446655440000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team-members",
+                "1",
+                "subscriptions",
+                "teams",
+                "550e8400-e29b-41d4-a716-446655440000"
+              ]
+            },
+            "description": "Subscribe a team member to a team (creates pending status)\n\n**Access**: Staff only\n**Path Parameters**:\n- teamMemberId: Team member integer ID\n- teamId: Team UUID\n**Optional Body**:\n- start_date: ISO date format (YYYY-MM-DD)\n- price: Subscription price (number)"
+          },
+          "response": []
+        },
+        {
+          "name": "Unsubscribe Team Member from Team",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/team-members/1/subscriptions/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team-members",
+                "1",
+                "subscriptions",
+                "1"
+              ]
+            },
+            "description": "Unsubscribe a team member from a team\n\n**Access**: Staff only\n**Path Parameters**:\n- teamMemberId: Team member integer ID\n- subscriptionId: Subscription integer ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Approve Team Member Subscription",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/team-members/subscriptions/1/approve",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team-members",
+                "subscriptions",
+                "1",
+                "approve"
+              ]
+            },
+            "description": "Approve a pending team member subscription\n\n**Access**: Staff only\n**Path Parameters**:\n- subscriptionId: Subscription integer ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Reject Team Member Subscription",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/team-members/subscriptions/1/reject",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team-members",
+                "subscriptions",
+                "1",
+                "reject"
+              ]
+            },
+            "description": "Reject a pending team member subscription\n\n**Access**: Staff only\n**Path Parameters**:\n- subscriptionId: Subscription integer ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Team Member Subscriptions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/team-members/1/subscriptions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team-members",
+                "1",
+                "subscriptions"
+              ]
+            },
+            "description": "Get all teams a team member is subscribed to\n\n**Access**: Public\n**Path Parameters**:\n- teamMemberId: Team member integer ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Team Members",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/teams/550e8400-e29b-41d4-a716-446655440000/members",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teams",
+                "550e8400-e29b-41d4-a716-446655440000",
+                "members"
+              ]
+            },
+            "description": "Get all team members subscribed to a team with capacity info\n\n**Access**: Public\n**Path Parameters**:\n- teamId: Team UUID\n**Returns**: List of members with subscription status and capacity info"
+          },
+          "response": []
+        },
+        {
+          "name": "Check Team Member Subscription",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/team-members/1/subscriptions/teams/550e8400-e29b-41d4-a716-446655440000/check",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team-members",
+                "1",
+                "subscriptions",
+                "teams",
+                "550e8400-e29b-41d4-a716-446655440000",
+                "check"
+              ]
+            },
+            "description": "Check if team member is subscribed to a team\n\n**Access**: Public\n**Path Parameters**:\n- teamMemberId: Team member integer ID\n- teamId: Team UUID\n**Returns**: Boolean is_subscribed value"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Pending Team Member Subscriptions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/teams/550e8400-e29b-41d4-a716-446655440000/pending-subscriptions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teams",
+                "550e8400-e29b-41d4-a716-446655440000",
+                "pending-subscriptions"
+              ]
+            },
+            "description": "Get all pending subscriptions for a team (staff review queue)\n\n**Access**: Staff only\n**Path Parameters**:\n- teamId: Team UUID\n**Returns**: List of pending subscription requests for staff approval"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Team Member Subscription Count",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/team-members/1/subscription-count",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team-members",
+                "1",
+                "subscription-count"
+              ]
+            },
+            "description": "Get number of active teams a team member is subscribed to\n\n**Access**: Public\n**Path Parameters**:\n- teamMemberId: Team member integer ID\n**Returns**: Count of active team subscriptions"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Sports Management",
+      "description": "Create and manage sports categories",
+      "item": [
+        {
+          "name": "Create Sport",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name_en\": \"Basketball\",\n  \"name_ar\": \"كرة السلة\",\n  \"description_en\": \"Indoor basketball league\",\n  \"description_ar\": \"دوري كرة السلة الداخلية\",\n  \"teams\": [\n    {\n      \"name_en\": \"Team Alpha\",\n      \"name_ar\": \"فريق الفا\",\n      \"max_participants\": 15,\n      \"training\": {\n        \"days_en\": \"Monday,Tuesday,Wednesday\",\n        \"days_ar\": \"الاثنين, الثلاثاء, الاربعاء\",\n        \"start_time\": \"18:00:00\",\n        \"end_time\": \"19:30:00\",\n        \"field_id\": 1,\n        \"training_fee\": 50\n      }\n    },\n    {\n      \"name_en\": \"Team Beta\",\n      \"name_ar\": \"فريق بيتا\",\n      \"max_participants\": 10,\n      \"training\": {\n        \"days_en\": \"Monday,Tuesday,Wednesday\",\n        \"days_ar\": \"الاثنين, الثلاثاء, الاربعاء\",\n        \"start_time\": \"18:00:00\",\n        \"end_time\": \"19:30:00\",\n        \"field_id\": 1,\n        \"training_fee\": 50\n      }\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/sports",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "sports"
+              ]
+            },
+            "description": "Create a new sport with teams and training schedules\n\n**Access**: SportActivityManager, SportActivitySpecialist\n**Required Fields**:\n- name_en: string (English sport name)\n- name_ar: string (Arabic sport name)\n- teams: array (at least one team required)\n\n**Optional Fields**:\n- description_en: string\n- description_ar: string\n- sport_image: string\n\n**Team Fields (Required)**:\n- name_en: string (English team name)\n- name_ar: string (Arabic team name)\n- max_participants: number (must match field capacity)\n- training: object (training schedule)\n  - days_en: string (comma-separated, e.g., \"Monday,Tuesday,Wednesday\")\n  - days_ar: string (comma-separated Arabic, e.g., \"الاثنين, الثلاثاء, الاربعاء\")\n  - start_time: string (HH:MM:SS format)\n  - end_time: string (HH:MM:SS format)\n  - field_id: number (must be of this sport)\n  - training_fee: number (non-negative)\n\n**Note**: Sport, teams, and training schedules are created atomically"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Sports",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/sports?status=active",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "sports"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "active",
+                  "disabled": false
+                }
+              ]
+            },
+            "description": "Get all sports with optional status filter\n\n**Access**: All authenticated users\n**Query Parameters** (optional):\n- status: Filter by status (active, inactive)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Sport By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/sports/550e8400-e29b-41d4-a716-446655440000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "sports",
+                "550e8400-e29b-41d4-a716-446655440000"
+              ]
+            },
+            "description": "Get sport details by ID\n\n**Access**: All authenticated users\n**Path Parameters**:\n- id: Sport UUID"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Sport",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Basketball Pro League\",\n  \"description\": \"Professional indoor basketball\",\n  \"equipment_required\": \"Professional ball, court, shoes\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/sports/550e8400-e29b-41d4-a716-446655440000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "sports",
+                "550e8400-e29b-41d4-a716-446655440000"
+              ]
+            },
+            "description": "Update sport details\n\n**Access**: SportActivityManager\n**Path Parameters**:\n- id: Sport UUID\n**Optional Fields**: name, description, equipment_required, status"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Sport",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/sports/550e8400-e29b-41d4-a716-446655440000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "sports",
+                "550e8400-e29b-41d4-a716-446655440000"
+              ]
+            },
+            "description": "Delete a sport category\n\n**Access**: SportActivityManager\n**Path Parameters**:\n- id: Sport UUID"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Field Management",
+      "description": "Field CRUD operations, operating hours, and availability checking",
+      "item": [
+        {
+          "name": "Create Field",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name_en\": \"Main Football Field\",\n  \"name_ar\": \"ملعب كرة القدم الرئيسي\",\n  \"description_en\": \"Large outdoor football field with artificial turf\",\n  \"description_ar\": \"ملعب كرة قدم كبير في الهواء الطلق مع عشب صناعي\",\n  \"sport_id\": {{sportId}},\n  \"capacity\": 50,\n  \"branch_id\": {{branchId}},\n  \"status\": \"active\",\n  \"hourly_rate\": 100.00,\n  \"operating_hours\": [\n    {\n      \"day_of_week\": 0,\n      \"opening_time\": \"08:00:00\",\n      \"closing_time\": \"22:00:00\"\n    },\n    {\n      \"day_of_week\": 1,\n      \"opening_time\": \"08:00:00\",\n      \"closing_time\": \"22:00:00\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/fields",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "fields"
+              ]
+            },
+            "description": "Create a new field with optional operating hours\n\n**Privilege**: CREATE_FIELD\n**Required Fields**:\n- name_en: English name\n- name_ar: Arabic name\n- sport_id: Sport ID (integer)\n\n**Optional Fields**:\n- description_en, description_ar: Descriptions\n- capacity: Maximum capacity\n- branch_id: Branch ID\n- status: active, inactive, maintenance (default: active)\n- hourly_rate: Rental rate\n- operating_hours: Array of operating hours\n  - day_of_week: 0 (Sunday) to 6 (Saturday)\n  - opening_time: HH:MM:SS\n  - closing_time: HH:MM:SS"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Fields",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/fields?sport_id=&branch_id=&status=active",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "fields"
+              ],
+              "query": [
+                {
+                  "key": "sport_id",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "branch_id",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "status",
+                  "value": "active"
+                }
+              ]
+            },
+            "description": "Get all fields with optional filters\n\n**Privilege**: VIEW_FIELDS\n**Query Parameters** (optional):\n- sport_id: Filter by sport ID\n- branch_id: Filter by branch ID\n- status: Filter by status (active, inactive, maintenance)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Field By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/fields/{{fieldId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "fields",
+                "{{fieldId}}"
+              ]
+            },
+            "description": "Get field details by ID\n\n**Privilege**: VIEW_FIELDS\n**Path Parameters**:\n- fieldId: Field UUID"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Available Fields for Sport",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/fields/sport/{{sportId}}/available",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "fields",
+                "sport",
+                "{{sportId}}",
+                "available"
+              ]
+            },
+            "description": "Get all active fields for a sport\n\n**Privilege**: VIEW_FIELDS\n**Path Parameters**:\n- sportId: Sport ID (integer)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Fields by Branch",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/fields/branch/{{branchId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "fields",
+                "branch",
+                "{{branchId}}"
+              ]
+            },
+            "description": "Get all fields for a branch\n\n**Privilege**: VIEW_FIELDS\n**Path Parameters**:\n- branchId: Branch ID (integer)"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Field",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name_en\": \"Updated Field Name\",\n  \"name_ar\": \"اسم الملعب المحدث\",\n  \"capacity\": 60,\n  \"hourly_rate\": 150.00\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/fields/{{fieldId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "fields",
+                "{{fieldId}}"
+              ]
+            },
+            "description": "Update field details\n\n**Privilege**: UPDATE_FIELD\n**Path Parameters**:\n- fieldId: Field UUID\n**Optional Fields**: All field properties"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Field Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"maintenance\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/fields/{{fieldId}}/status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "fields",
+                "{{fieldId}}",
+                "status"
+              ]
+            },
+            "description": "Update field status\n\n**Privilege**: MANAGE_FIELD_STATUS\n**Path Parameters**:\n- fieldId: Field UUID\n**Body**:\n- status: active, inactive, or maintenance"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Field",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/fields/{{fieldId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "fields",
+                "{{fieldId}}"
+              ]
+            },
+            "description": "Delete a field\n\n**Privilege**: DELETE_FIELD\n**Path Parameters**:\n- fieldId: Field UUID"
+          },
+          "response": []
+        },
+        {
+          "name": "Add Operating Hours",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"hours\": [\n    {\n      \"day_of_week\": 2,\n      \"opening_time\": \"08:00:00\",\n      \"closing_time\": \"22:00:00\"\n    },\n    {\n      \"day_of_week\": 3,\n      \"opening_time\": \"08:00:00\",\n      \"closing_time\": \"22:00:00\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/fields/{{fieldId}}/operating-hours",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "fields",
+                "{{fieldId}}",
+                "operating-hours"
+              ]
+            },
+            "description": "Add operating hours to a field\n\n**Privilege**: MANAGE_FIELD_HOURS\n**Path Parameters**:\n- fieldId: Field UUID\n**Body**:\n- hours: Array of operating hours\n  - day_of_week: 0 (Sunday) to 6 (Saturday)\n  - opening_time: HH:MM:SS\n  - closing_time: HH:MM:SS"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Operating Hours",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"hours\": [\n    {\n      \"day_of_week\": 0,\n      \"opening_time\": \"09:00:00\",\n      \"closing_time\": \"21:00:00\"\n    },\n    {\n      \"day_of_week\": 1,\n      \"opening_time\": \"09:00:00\",\n      \"closing_time\": \"21:00:00\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/fields/{{fieldId}}/operating-hours",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "fields",
+                "{{fieldId}}",
+                "operating-hours"
+              ]
+            },
+            "description": "Replace all operating hours for a field\n\n**Privilege**: MANAGE_FIELD_HOURS\n**Path Parameters**:\n- fieldId: Field UUID\n**Body**: Same as Add Operating Hours"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Operating Hours",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/fields/{{fieldId}}/operating-hours",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "fields",
+                "{{fieldId}}",
+                "operating-hours"
+              ]
+            },
+            "description": "Get operating hours for a field\n\n**Privilege**: VIEW_FIELDS\n**Path Parameters**:\n- fieldId: Field UUID"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Operating Hours for Day",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/fields/{{fieldId}}/operating-hours/0",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "fields",
+                "{{fieldId}}",
+                "operating-hours",
+                "0"
+              ]
+            },
+            "description": "Delete operating hours for a specific day\n\n**Privilege**: MANAGE_FIELD_HOURS\n**Path Parameters**:\n- fieldId: Field UUID\n- day: Day of week (0-6, where 0 is Sunday)"
+          },
+          "response": []
+        },
+        {
+          "name": "Check Field Availability",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"day_of_week\": 1,\n  \"time\": \"10:00:00\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/fields/{{fieldId}}/check-availability",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "fields",
+                "{{fieldId}}",
+                "check-availability"
+              ]
+            },
+            "description": "Check if field is available at specific time\n\n**Privilege**: VIEW_FIELDS\n**Path Parameters**:\n- fieldId: Field UUID\n**Body**:\n- day_of_week: 0 (Sunday) to 6 (Saturday)\n- time: HH:MM:SS format"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Field Booking Settings",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"is_available_for_booking\": true,\n  \"booking_slot_duration\": 60\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/fields/{{fieldId}}/booking-settings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "fields",
+                "{{fieldId}}",
+                "booking-settings"
+              ]
+            },
+            "description": "Update field booking availability settings\n\n**Privilege**: MANAGE_FIELD_HOURS\n**Path Parameters**:\n- fieldId: Field UUID\n**Body**:\n- is_available_for_booking: Enable/disable booking\n- booking_slot_duration: Slot duration in minutes (15-480)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Bookable Fields",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/fields/bookable?sport_id={{sportId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "fields",
+                "bookable"
+              ],
+              "query": [
+                {
+                  "key": "sport_id",
+                  "value": "{{sportId}}"
+                }
+              ]
+            },
+            "description": "Get all bookable fields (active and available for booking)\n\n**Privilege**: VIEW_FIELDS\n**Query Parameters**:\n- sport_id (optional): Filter by sport"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Bookable Fields By Sport",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/fields/bookable/by-sport",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "fields",
+                "bookable",
+                "by-sport"
+              ]
+            },
+            "description": "Get bookable fields grouped by sport\n\n**Privilege**: VIEW_FIELDS"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Booking Management",
+      "item": [
+        {
+          "name": "Create Booking",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userType\": \"member\",\n  \"userId\": {{memberId}},\n  \"sport_id\": {{sportId}},\n  \"field_id\": \"{{fieldId}}\",\n  \"start_time\": \"2026-03-15T10:00:00Z\",\n  \"end_time\": \"2026-03-15T11:00:00Z\",\n  \"expected_participants\": 10,\n  \"notes\": \"Team gathering\",\n  \"language\": \"ar\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/bookings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bookings"
+              ]
+            },
+            "description": "Create a new booking for a field\n\n**Auth**: Required\n**Body**:\n- userType: \"member\" or \"team_member\"\n- userId: Member or Team Member ID (integer)\n- sport_id: Sport ID\n- field_id: Field UUID\n- start_time: ISO datetime\n- end_time: ISO datetime\n- expected_participants: Number of expected participants\n- notes: Optional notes\n- language: \"ar\" or \"en\""
+          },
+          "response": []
+        },
+        {
+          "name": "Get Booking Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bookings/{{bookingId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bookings",
+                "{{bookingId}}"
+              ]
+            },
+            "description": "Get detailed booking information\n\n**Auth**: Required"
+          },
+          "response": []
+        },
+        {
+          "name": "Get User Bookings",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bookings/users/member/{{memberId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bookings",
+                "users",
+                "member",
+                "{{memberId}}"
+              ]
+            },
+            "description": "Get all bookings for a specific user\n\n**Auth**: Required\n**Path Parameters**:\n- userType: \"member\" or \"team_member\"\n- userId: User ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Booking Statistics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bookings/stats/member/{{memberId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bookings",
+                "stats",
+                "member",
+                "{{memberId}}"
+              ]
+            },
+            "description": "Get booking statistics for a user\n\n**Auth**: Required\n**Path Parameters**:\n- userType: \"member\" or \"team_member\"\n- userId: User ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Confirm Payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentReference\": \"payment_12345\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/bookings/{{bookingId}}/confirm-payment",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bookings",
+                "{{bookingId}}",
+                "confirm-payment"
+              ]
+            },
+            "description": "Confirm payment for a booking\n\n**Auth**: Required\n**Body**:\n- paymentReference: Payment reference from gateway"
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel Booking",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"User requested cancellation\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/bookings/{{bookingId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bookings",
+                "{{bookingId}}"
+              ]
+            },
+            "description": "Cancel a booking\n\n**Auth**: Required\n**Body**:\n- reason (optional): Cancellation reason"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Available Slots",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bookings/fields/{{fieldId}}/available-slots?date=2026-03-15",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bookings",
+                "fields",
+                "{{fieldId}}",
+                "available-slots"
+              ],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "2026-03-15"
+                }
+              ]
+            },
+            "description": "Get available booking slots for a specific date\n\n**Auth**: Required\n**Query Parameters**:\n- date: YYYY-MM-DD format"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Calendar View",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bookings/fields/{{fieldId}}/calendar?start_date=2026-03-01&end_date=2026-03-07",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bookings",
+                "fields",
+                "{{fieldId}}",
+                "calendar"
+              ],
+              "query": [
+                {
+                  "key": "start_date",
+                  "value": "2026-03-01"
+                },
+                {
+                  "key": "end_date",
+                  "value": "2026-03-07"
+                }
+              ]
+            },
+            "description": "Get calendar view with available and booked slots\n\n**Auth**: Required\n**Query Parameters**:\n- start_date: YYYY-MM-DD\n- end_date: YYYY-MM-DD (max 31 days range)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Bookings (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bookings/all?field_id={{fieldId}}&status=confirmed",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bookings",
+                "all"
+              ],
+              "query": [
+                {
+                  "key": "field_id",
+                  "value": "{{fieldId}}"
+                },
+                {
+                  "key": "status",
+                  "value": "confirmed"
+                },
+                {
+                  "key": "start_date",
+                  "value": "2026-03-01",
+                  "disabled": true
+                },
+                {
+                  "key": "end_date",
+                  "value": "2026-03-31",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Get all bookings across all fields (admin view)\n\n**Auth**: Required (Admin/Staff)\n**Privilege**: VIEW_ALL_BOOKINGS\n**Query Parameters** (all optional):\n- field_id: Filter by field\n- status: Filter by status\n- start_date: Filter from date\n- end_date: Filter to date"
+          },
+          "response": []
+        },
+        {
+          "name": "Complete Booking (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bookings/{{bookingId}}/complete",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bookings",
+                "{{bookingId}}",
+                "complete"
+              ]
+            },
+            "description": "Mark a booking as completed\n\n**Auth**: Required (Admin/Staff)\n**Privilege**: MANAGE_FIELD_BOOKINGS"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Field Operating Hours",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/bookings/fields/{{fieldId}}/hours",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bookings",
+                "fields",
+                "{{fieldId}}",
+                "hours"
+              ]
+            },
+            "description": "Get operating hours for a field (public endpoint)\n\n**Auth**: Not required"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Booking By Share Token (Public)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/bookings/join/{{shareToken}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bookings",
+                "join",
+                "{{shareToken}}"
+              ]
+            },
+            "description": "Get booking details via invitation link (public endpoint)\n\n**Auth**: Not required\n**Path Parameters**:\n- shareToken: 64-character booking share token\n\n**Returns**:\n- booking_id: UUID\n- sport_name_ar, sport_name_en: Sport names\n- field_name_ar, field_name_en: Field names\n- field_location_ar, field_location_en: Field locations\n- start_time, end_time: ISO datetime\n- expected_participants: Number\n- registered_participants: Current count\n- available_spots: Remaining capacity\n- status: Booking status\n- booker_name, booker_phone: Organizer info\n\n**Use Case**: Display booking invitation page with all details"
+          },
+          "response": []
+        },
+        {
+          "name": "Register Participant Via Share Link (Public)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "full_name",
+                  "value": "أحمد محمد علي",
+                  "type": "text",
+                  "description": "Required - Full participant name"
+                },
+                {
+                  "key": "phone_number",
+                  "value": "+201001234567",
+                  "type": "text",
+                  "description": "Optional - Phone number"
+                },
+                {
+                  "key": "national_id",
+                  "value": "29001011234567",
+                  "type": "text",
+                  "description": "Optional - National ID number"
+                },
+                {
+                  "key": "email",
+                  "value": "ahmed@example.com",
+                  "type": "text",
+                  "description": "Optional - Email address"
+                },
+                {
+                  "key": "national_id_front",
+                  "type": "file",
+                  "description": "Optional - Front photo of national ID (JPEG/PNG/PDF, max 5MB)",
+                  "src": []
+                },
+                {
+                  "key": "national_id_back",
+                  "type": "file",
+                  "description": "Optional - Back photo of national ID (JPEG/PNG/PDF, max 5MB)",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/bookings/join/{{shareToken}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bookings",
+                "join",
+                "{{shareToken}}"
+              ]
+            },
+            "description": "Register as participant via invitation link with national ID photos (public endpoint)\n\n**Auth**: Not required\n**Content-Type**: multipart/form-data\n**Path Parameters**:\n- shareToken: 64-character booking share token\n\n**Form Fields**:\n- full_name: string (required)\n- phone_number: string (optional)\n- national_id: string (optional)\n- email: string (optional)\n- national_id_front: file (optional, JPEG/PNG/PDF, max 5MB)\n- national_id_back: file (optional, JPEG/PNG/PDF, max 5MB)\n\n**Validations**:\n- At least one contact method required (phone/email/national_id)\n- Cannot register if booking is cancelled or completed\n- Cannot register if maximum participants reached\n- Duplicate check on national_id per booking\n- Files uploaded to Cloudinary (helwan-club/participant-ids/)\n\n**Returns**:\n- participant_id: UUID\n- full_name, phone_number, national_id, email\n- has_national_id_photos: boolean\n- registered_at: timestamp\n- message: Success message\n\n**Use Case**: Public registration form for booking participants"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Booking Participants (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/bookings/{{bookingId}}/participants",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "bookings",
+                "{{bookingId}}",
+                "participants"
+              ]
+            },
+            "description": "Get all participants for a booking with national ID photos (admin endpoint)\n\n**Auth**: Required (Admin/Staff)\n**Privilege**: VIEW_BOOKING_PARTICIPANTS (recommended)\n**Path Parameters**:\n- bookingId: Booking UUID\n\n**Returns**:\n- booking: Complete booking details\n  - id, sport, field, start_time, end_time\n  - status, price, expected_participants\n  - share_token, created_at\n- booker: Organizer information\n  - type: \"member\" or \"team_member\"\n  - id, name, phone, email\n- participants: Array of all participants\n  - participant_id: UUID\n  - full_name, phone_number, national_id, email\n  - national_id_front: Cloudinary URL (if uploaded)\n  - national_id_back: Cloudinary URL (if uploaded)\n  - is_creator: boolean (true for booker)\n  - registered_at: timestamp\n- statistics:\n  - total_participants: count\n  - expected_participants: count\n  - available_spots: remaining capacity\n  - with_national_id: count with ID photos\n\n**Use Case**: \n- Admin dashboard to view booking details\n- Verify participant identities\n- Download/view national ID photos\n- Check attendance list"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Member Booking API",
+      "description": "Simplified member-focused booking endpoints for field reservations",
+      "item": [
+        {
+          "name": "Get Bookable Sports",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/members/bookings/sports",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "members",
+                "bookings",
+                "sports"
+              ]
+            },
+            "description": "Browse all sports with bookable fields\n\n**Auth**: Not required\n**Returns**: Sports with their bookable fields"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Bookable Fields by Sport",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/members/bookings/fields/{{sportId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "members",
+                "bookings",
+                "fields",
+                "{{sportId}}"
+              ]
+            },
+            "description": "Get all bookable fields for a specific sport\n\n**Auth**: Not required\n**Path Parameters**:\n- sportId: Sport ID (integer)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Field Calendar (7 Days)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/members/bookings/fields/{{fieldId}}/calendar?start_date=2026-03-15&end_date=2026-03-21",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "members",
+                "bookings",
+                "fields",
+                "{{fieldId}}",
+                "calendar"
+              ],
+              "query": [
+                {
+                  "key": "start_date",
+                  "value": "2026-03-15",
+                  "description": "Start date (YYYY-MM-DD) - defaults to today"
+                },
+                {
+                  "key": "end_date",
+                  "value": "2026-03-21",
+                  "description": "End date (YYYY-MM-DD) - defaults to today + 7 days"
+                }
+              ]
+            },
+            "description": "View calendar with available/booked/training slots\n\n**Auth**: Not required\n**Path Parameters**:\n- fieldId: Field UUID\n**Query Parameters** (optional):\n- start_date: Start date (defaults to today)\n- end_date: End date (defaults to today + 7 days)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Available Slots for Date",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/members/bookings/fields/{{fieldId}}/available-slots?date=2026-03-15",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "members",
+                "bookings",
+                "fields",
+                "{{fieldId}}",
+                "available-slots"
+              ],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "2026-03-15",
+                  "description": "Date (YYYY-MM-DD) - defaults to today"
+                }
+              ]
+            },
+            "description": "Get available time slots for a specific date\n\n**Auth**: Not required\n**Path Parameters**:\n- fieldId: Field UUID\n**Query Parameters** (optional):\n- date: Date (defaults to today)"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Member Booking",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"memberId\": {{memberId}},\n  \"sport_id\": {{sportId}},\n  \"field_id\": \"{{fieldId}}\",\n  \"start_time\": \"2026-03-15T10:00:00Z\",\n  \"end_time\": \"2026-03-15T11:00:00Z\",\n  \"expected_participants\": 10,\n  \"notes\": \"Team practice session\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/members/bookings/book",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "members",
+                "bookings",
+                "book"
+              ]
+            },
+            "description": "Create a new booking (simplified member endpoint)\n\n**Auth**: Required\n**Body**:\n- memberId: Member ID (integer) - Required\n- sport_id: Sport ID - Required\n- field_id: Field UUID - Required\n- start_time: ISO datetime - Required (must be in future)\n- end_time: ISO datetime - Required\n- expected_participants: Number (default: 1)\n- notes: Optional notes\n\n**Validations**:\n- Cannot book in the past\n- Checks booking conflicts\n- Checks training schedule conflicts"
+          },
+          "response": []
+        },
+        {
+          "name": "Confirm Booking Payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentReference\": \"payment_ref_12345\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/members/bookings/{{bookingId}}/confirm-payment",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "members",
+                "bookings",
+                "{{bookingId}}",
+                "confirm-payment"
+              ]
+            },
+            "description": "Confirm payment for a booking\n\n**Auth**: Required\n**Path Parameters**:\n- bookingId: Booking UUID\n**Body**:\n- paymentReference: Payment reference from gateway"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Member's All Bookings",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/members/{{memberId}}/bookings?status=confirmed",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "members",
+                "{{memberId}}",
+                "bookings"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "confirmed",
+                  "description": "Filter by status: pending_payment, confirmed, completed, cancelled"
+                }
+              ]
+            },
+            "description": "Get all bookings for a member\n\n**Auth**: Required\n**Path Parameters**:\n- memberId: Member ID (integer)\n**Query Parameters** (optional):\n- status: Filter by booking status"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Upcoming Bookings",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/members/{{memberId}}/bookings/upcoming",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "members",
+                "{{memberId}}",
+                "bookings",
+                "upcoming"
+              ]
+            },
+            "description": "Get upcoming bookings (future confirmed or pending)\n\n**Auth**: Required\n**Path Parameters**:\n- memberId: Member ID (integer)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Booking History",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/members/{{memberId}}/bookings/history",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "members",
+                "{{memberId}}",
+                "bookings",
+                "history"
+              ]
+            },
+            "description": "Get past bookings (completed or cancelled)\n\n**Auth**: Required\n**Path Parameters**:\n- memberId: Member ID (integer)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Member Booking Statistics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/members/{{memberId}}/bookings/stats",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "members",
+                "{{memberId}}",
+                "bookings",
+                "stats"
+              ]
+            },
+            "description": "Get booking statistics for a member\n\n**Auth**: Required\n**Path Parameters**:\n- memberId: Member ID (integer)\n**Returns**: Total bookings, confirmed, participants, revenue"
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel Member Booking",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"Cannot attend\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/members/bookings/{{bookingId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "members",
+                "bookings",
+                "{{bookingId}}"
+              ]
+            },
+            "description": "Cancel a booking\n\n**Auth**: Required\n**Path Parameters**:\n- bookingId: Booking UUID\n**Body** (optional):\n- reason: Cancellation reason"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Team Member Booking API",
+      "description": "Simplified team member booking endpoints for field reservations",
+      "item": [
+        {
+          "name": "Get Bookable Sports",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/team-members-booking/bookings/sports",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team-members-booking",
+                "bookings",
+                "sports"
+              ]
+            },
+            "description": "Browse all sports with bookable fields\n\n**Auth**: Not required\n**Returns**: Sports with their bookable fields"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Bookable Fields by Sport",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/team-members-booking/bookings/fields/{{sportId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team-members-booking",
+                "bookings",
+                "fields",
+                "{{sportId}}"
+              ]
+            },
+            "description": "Get all bookable fields for a specific sport\n\n**Auth**: Not required\n**Path Parameters**:\n- sportId: Sport ID (integer)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Field Calendar (7 Days)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/team-members-booking/bookings/fields/{{fieldId}}/calendar?start_date=2026-03-15&end_date=2026-03-21",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team-members-booking",
+                "bookings",
+                "fields",
+                "{{fieldId}}",
+                "calendar"
+              ],
+              "query": [
+                {
+                  "key": "start_date",
+                  "value": "2026-03-15",
+                  "description": "Start date (YYYY-MM-DD) - defaults to today"
+                },
+                {
+                  "key": "end_date",
+                  "value": "2026-03-21",
+                  "description": "End date (YYYY-MM-DD) - defaults to today + 7 days"
+                }
+              ]
+            },
+            "description": "View calendar with available/booked/training slots\n\n**Auth**: Not required\n**Path Parameters**:\n- fieldId: Field UUID\n**Query Parameters** (optional):\n- start_date: Start date (defaults to today)\n- end_date: End date (defaults to today + 7 days)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Available Slots for Date",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/team-members-booking/bookings/fields/{{fieldId}}/available-slots?date=2026-03-15",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team-members-booking",
+                "bookings",
+                "fields",
+                "{{fieldId}}",
+                "available-slots"
+              ],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "2026-03-15",
+                  "description": "Date (YYYY-MM-DD) - defaults to today"
+                }
+              ]
+            },
+            "description": "Get available time slots for a specific date\n\n**Auth**: Not required\n**Path Parameters**:\n- fieldId: Field UUID\n**Query Parameters** (optional):\n- date: Date (defaults to today)"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Team Member Booking",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"teamMemberId\": 1,\n  \"sport_id\": {{sportId}},\n  \"field_id\": \"{{fieldId}}\",\n  \"start_time\": \"2026-03-15T10:00:00Z\",\n  \"end_time\": \"2026-03-15T11:00:00Z\",\n  \"expected_participants\": 10,\n  \"notes\": \"Team training session\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/team-members-booking/bookings/book",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team-members-booking",
+                "bookings",
+                "book"
+              ]
+            },
+            "description": "Create a new booking for team member\n\n**Auth**: Required\n**Body**:\n- teamMemberId: Team Member ID (integer) - Required\n- sport_id: Sport ID - Required\n- field_id: Field UUID - Required\n- start_time: ISO datetime - Required (must be in future)\n- end_time: ISO datetime - Required\n- expected_participants: Number (default: 1)\n- notes: Optional notes\n\n**Validations**:\n- Cannot book in the past\n- Checks booking conflicts\n- Checks training schedule conflicts"
+          },
+          "response": []
+        },
+        {
+          "name": "Confirm Booking Payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentReference\": \"payment_ref_12345\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/team-members-booking/bookings/{{bookingId}}/confirm-payment",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team-members-booking",
+                "bookings",
+                "{{bookingId}}",
+                "confirm-payment"
+              ]
+            },
+            "description": "Confirm payment for a booking\n\n**Auth**: Required\n**Path Parameters**:\n- bookingId: Booking UUID\n**Body**:\n- paymentReference: Payment reference from gateway"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Team Member's All Bookings",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/team-members-booking/1/bookings?status=confirmed",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team-members-booking",
+                "1",
+                "bookings"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "confirmed",
+                  "description": "Filter by status: pending_payment, confirmed, completed, cancelled"
+                }
+              ]
+            },
+            "description": "Get all bookings for a team member\n\n**Auth**: Required\n**Path Parameters**:\n- teamMemberId: Team Member ID (integer)\n**Query Parameters** (optional):\n- status: Filter by booking status"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Upcoming Bookings",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/team-members-booking/1/bookings/upcoming",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team-members-booking",
+                "1",
+                "bookings",
+                "upcoming"
+              ]
+            },
+            "description": "Get upcoming bookings (future confirmed or pending)\n\n**Auth**: Required\n**Path Parameters**:\n- teamMemberId: Team Member ID (integer)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Booking History",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/team-members-booking/1/bookings/history",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team-members-booking",
+                "1",
+                "bookings",
+                "history"
+              ]
+            },
+            "description": "Get past bookings (completed or cancelled)\n\n**Auth**: Required\n**Path Parameters**:\n- teamMemberId: Team Member ID (integer)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Team Member Booking Statistics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/team-members-booking/1/bookings/stats",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team-members-booking",
+                "1",
+                "bookings",
+                "stats"
+              ]
+            },
+            "description": "Get booking statistics for a team member\n\n**Auth**: Required\n**Path Parameters**:\n- teamMemberId: Team Member ID (integer)\n**Returns**: Total bookings, confirmed, participants, revenue"
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel Team Member Booking",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"Cannot attend\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/team-members-booking/bookings/{{bookingId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team-members-booking",
+                "bookings",
+                "{{bookingId}}"
+              ]
+            },
+            "description": "Cancel a booking\n\n**Auth**: Required\n**Path Parameters**:\n- bookingId: Booking UUID\n**Body** (optional):\n- reason: Cancellation reason"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Team Subscription Payment Flow",
+      "description": "Complete team subscription payment flow with automatic validation, payment processing, and optional admin approval",
+      "item": [
+        {
+          "name": "Validate Subscription (Pre-check)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": {{memberId}},\n  \"userType\": \"member\",\n  \"teamId\": \"{{teamId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/team-subscriptions/validate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team-subscriptions",
+                "validate"
+              ]
+            },
+            "description": "Validate subscription rules before payment\n\n**Auth**: Required\n**Body**:\n- userId: Member or Team Member ID (integer)\n- userType: \"member\" or \"team_member\"\n- teamId: Team UUID\n\n**Validations**:\n- Team exists and is active\n- Team has available capacity\n- User not already subscribed to this team\n- User not subscribed to another team in same sport\n- No training schedule conflicts\n\n**Returns**: Validation result with errors if any"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Subscription (with Payment)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": {{memberId}},\n  \"userType\": \"member\",\n  \"teamId\": \"{{teamId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/team-subscriptions/subscribe",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team-subscriptions",
+                "subscribe"
+              ]
+            },
+            "description": "Create subscription and payment record\n\n**Auth**: Required\n**Body**:\n- userId: Member or Team Member ID (integer)\n- userType: \"member\" or \"team_member\"\n- teamId: Team UUID\n\n**Process**:\n1. Validates all subscription rules automatically\n2. Creates payment record in payments table\n3. Creates subscription with status 'pending_payment'\n4. Links subscription to payment via payment_id\n\n**Returns**:\n- subscription: Subscription details\n- payment: Payment reference, amount, currency, status\n- team: Team details\n- paymentRequired: true\n- approvalRequiredAfterPayment: boolean\n\n**Next Step**: Redirect user to payment gateway with payment_reference"
+          },
+          "response": []
+        },
+        {
+          "name": "Confirm Payment (Webhook)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userType\": \"member\",\n  \"paymentReference\": \"PAY_20260303_143025_ABC123\",\n  \"transactionId\": \"PAYMOB_TXN_12345\",\n  \"gatewayResponse\": \"{\\\"status\\\":\\\"success\\\",\\\"amount\\\":150.00}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/team-subscriptions/:subscriptionId/confirm-payment",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team-subscriptions",
+                ":subscriptionId",
+                "confirm-payment"
+              ],
+              "variable": [
+                {
+                  "key": "subscriptionId",
+                  "value": "1"
+                }
+              ]
+            },
+            "description": "Confirm payment and activate subscription\n\n**Auth**: Required (typically called by payment gateway webhook)\n**Path Parameters**:\n- subscriptionId: Subscription ID (integer)\n**Body**:\n- userType: \"member\" or \"team_member\"\n- paymentReference: Payment reference from subscription creation\n- transactionId: Gateway transaction ID\n- gatewayResponse: Full gateway response (optional, for debugging)\n\n**Process**:\n1. Updates payment status in payments table to 'completed'\n2. Sets payment_completed_at timestamp\n3. If team.approval_required = false:\n   - Activates subscription immediately (status = 'active')\n4. If team.approval_required = true:\n   - Sets subscription status to 'pending_admin_approval'\n\n**Returns**:\n- subscription: Updated subscription details\n- payment: Payment details\n- requiresAdminApproval: boolean\n- message: Status message"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Pending Approvals (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/team-subscriptions/pending-approvals?userType=member",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team-subscriptions",
+                "pending-approvals"
+              ],
+              "query": [
+                {
+                  "key": "userType",
+                  "value": "member",
+                  "description": "Filter by user type: 'member' or 'team_member' (optional)"
+                }
+              ]
+            },
+            "description": "Get all subscriptions pending admin approval\n\n**Auth**: Required (Admin/Staff)\n**Privilege**: APPROVE_SPORT_SUBSCRIPTION\n**Query Parameters** (optional):\n- userType: Filter by \"member\" or \"team_member\"\n\n**Returns**: Array of pending subscriptions with:\n- Subscription details\n- Member/Team member info\n- Team details\n- Payment information\n- Timestamps"
+          },
+          "response": []
+        },
+        {
+          "name": "Approve Subscription (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userType\": \"member\",\n  \"staffId\": 45\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/team-subscriptions/:subscriptionId/approve",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team-subscriptions",
+                ":subscriptionId",
+                "approve"
+              ],
+              "variable": [
+                {
+                  "key": "subscriptionId",
+                  "value": "1"
+                }
+              ]
+            },
+            "description": "Approve pending subscription\n\n**Auth**: Required (Admin/Staff)\n**Privilege**: APPROVE_SPORT_SUBSCRIPTION\n**Path Parameters**:\n- subscriptionId: Subscription ID (integer)\n**Body**:\n- userType: \"member\" or \"team_member\"\n- staffId: Staff member ID who approved\n\n**Process**:\n1. Updates subscription status to 'active'\n2. Sets admin_approved_at timestamp\n3. Records approved_by_staff_id\n\n**Returns**:\n- subscription: Activated subscription details\n- message: Success message"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Payment Management",
+      "description": "Central payment tracking and management for all transaction types",
+      "item": [
+        {
+          "name": "Get Payment by Reference",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/payments/reference/:paymentReference",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "payments",
+                "reference",
+                ":paymentReference"
+              ],
+              "variable": [
+                {
+                  "key": "paymentReference",
+                  "value": "PAY_20260303_143025_ABC123"
+                }
+              ]
+            },
+            "description": "Get payment details by payment reference\n\n**Auth**: Required\n**Path Parameters**:\n- paymentReference: Payment reference (PAY_YYYYMMDD_HHMMSS_RANDOM)\n\n**Returns**: Complete payment record with:\n- id, payment_reference, transaction_id\n- payment_type, amount, currency, status\n- entity details (who paid)\n- related entity (what they paid for)\n- gateway details\n- timestamps\n- staff tracking (if manual payment)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get User Payment History",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/payments/user/:entityType/:entityId?status=completed",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "payments",
+                "user",
+                ":entityType",
+                ":entityId"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "completed",
+                  "description": "Filter by status: pending, completed, failed, refunded, cancelled (optional)"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "entityType",
+                  "value": "member",
+                  "description": "member or team_member"
+                },
+                {
+                  "key": "entityId",
+                  "value": "{{memberId}}"
+                }
+              ]
+            },
+            "description": "Get payment history for a user\n\n**Auth**: Required\n**Path Parameters**:\n- entityType: \"member\" or \"team_member\"\n- entityId: User ID (integer)\n**Query Parameters** (optional):\n- status: Filter by payment status\n\n**Returns**: Array of all payments by this user\n\n**Payment Types**:\n- team_subscription\n- field_booking\n- package_purchase\n- membership_fee\n- training_session\n- tournament_registration\n- equipment_rental\n- late_fee\n- refund"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Team Revenue",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/payments/team/:teamId?status=completed",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "payments",
+                "team",
+                ":teamId"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "completed",
+                  "description": "Filter by status (optional)"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "teamId",
+                  "value": "{{teamId}}"
+                }
+              ]
+            },
+            "description": "Get all payments for a team (revenue tracking)\n\n**Auth**: Required (Admin/Staff)\n**Privilege**: VIEW_PAYMENT_REPORTS\n**Path Parameters**:\n- teamId: Team UUID\n**Query Parameters** (optional):\n- status: Filter by payment status\n\n**Returns**: Array of all team subscription payments\n\n**Use for**:\n- Team revenue reports\n- Subscription tracking\n- Financial analytics"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Payment Statistics",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"startDate\": \"2026-03-01\",\n  \"endDate\": \"2026-03-31\",\n  \"paymentType\": \"team_subscription\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/payments/statistics",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "payments",
+                "statistics"
+              ]
+            },
+            "description": "Get payment statistics for date range\n\n**Auth**: Required (Admin/Staff)\n**Privilege**: VIEW_PAYMENT_REPORTS\n**Body**:\n- startDate: Start date (YYYY-MM-DD)\n- endDate: End date (YYYY-MM-DD)\n- paymentType: Filter by type (optional)\n\n**Returns**:\n- totalAmount: Total revenue\n- count: Number of transactions\n- byStatus: Breakdown by payment status\n  - completed: { count, amount }\n  - pending: { count, amount }\n  - failed: { count, amount }\n  - refunded: { count, amount }\n- byMethod: Breakdown by payment method\n  - credit_card: { count, amount }\n  - cash: { count, amount }\n  - bank_transfer: { count, amount }\n  - wallet: { count, amount }\n\n**Use for**:\n- Monthly/yearly revenue reports\n- Payment method analysis\n- Success rate tracking"
+          },
+          "response": []
+        },
+        {
+          "name": "Process Manual Payment (Cash)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentReference\": \"PAY_20260303_143025_ABC123\",\n  \"staffId\": 45,\n  \"paymentMethod\": \"cash\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/payments/manual-payment",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "payments",
+                "manual-payment"
+              ]
+            },
+            "description": "Process manual/cash payment\n\n**Auth**: Required (Admin/Staff)\n**Privilege**: PROCESS_MANUAL_PAYMENTS\n**Body**:\n- paymentReference: Payment reference from subscription\n- staffId: Staff member processing payment\n- paymentMethod: \"cash\", \"bank_transfer\", \"wallet\"\n\n**Process**:\n1. Updates payment status to 'completed'\n2. Sets completed_at timestamp\n3. Records processed_by_staff_id\n4. Sets gateway_name to 'manual'\n\n**Use for**:\n- Cash payments at facility\n- Bank transfer confirmations\n- Manual payment processing"
+          },
+          "response": []
+        },
+        {
+          "name": "Refund Payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentReference\": \"PAY_20260303_143025_ABC123\",\n  \"staffId\": 45,\n  \"reason\": \"User cancelled subscription within 24 hours\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/payments/refund",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "payments",
+                "refund"
+              ]
+            },
+            "description": "Process payment refund\n\n**Auth**: Required (Admin/Staff)\n**Privilege**: PROCESS_REFUNDS\n**Body**:\n- paymentReference: Payment reference to refund\n- staffId: Staff member processing refund\n- reason: Refund reason (optional)\n\n**Process**:\n1. Validates payment status is 'completed'\n2. Updates status to 'refunded'\n3. Sets refunded_at timestamp\n4. Records refunded_by_staff_id\n5. Saves reason in notes\n\n**Returns**: Updated payment record\n\n**Note**: Does not automatically cancel subscription - handle separately"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Payments by Type",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/payments/type/:paymentType?status=completed&limit=100",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "payments",
+                "type",
+                ":paymentType"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "completed",
+                  "description": "Filter by status (optional)"
+                },
+                {
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Limit results (default: 100)"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "paymentType",
+                  "value": "team_subscription",
+                  "description": "team_subscription, field_booking, package_purchase, etc."
+                }
+              ]
+            },
+            "description": "Get payments by type\n\n**Auth**: Required (Admin/Staff)\n**Privilege**: VIEW_PAYMENT_REPORTS\n**Path Parameters**:\n- paymentType: Payment type\n\n**Payment Types**:\n- team_subscription\n- field_booking\n- package_purchase\n- membership_fee\n- training_session\n- tournament_registration\n- equipment_rental\n- late_fee\n- refund\n\n**Query Parameters** (optional):\n- status: Filter by status\n- limit: Max results (default: 100)\n\n**Returns**: Array of payments of specified type"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

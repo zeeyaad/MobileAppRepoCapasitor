@@ -1,0 +1,45 @@
+{
+  "id": 22,
+  "firstNameEn": "Mohammed",
+  "lastNameEn": "Ahmed",
+  "firstNameAr": "محمد",
+  "lastNameAr": "احمد",
+  "name_en": "Mohammed Ahmed",
+  "name_ar": "محمد احمد",
+  "national_id": "11223344556677",
+  "phone": "01577777777",
+  "gender": "male",
+  "nationality": "Egyptian",
+  "birthdate": "2026-02-01",
+  "address": null,
+  "status": "active",
+  "type": "TEAM_MEMBER",
+  "created_at": "2026-02-21T20:34:31.647Z",
+  "createdAt": "2026-02-21T20:34:31.647Z",
+  "join_date": "2026-02-21T20:34:31.647Z",
+  "teams": [
+    {
+      "id": 73,
+      "name": "Basketball",
+      "startDate": "2026-02-22",
+      "endDate": "2027-02-22",
+      "status": "active",
+      "price": 60
+    },
+    {
+      "id": 74,
+      "name": "FootBall",
+      "startDate": "2026-02-22",
+      "endDate": "2027-02-22",
+      "status": "active",
+      "price": 12345
+    }
+  ],
+  "documents": {
+    "personal_photo_url": "/uploads/personal_photo-1771713272672-161387829.jpg",
+    "medical_report_url": "/uploads/medical_report-1771713272672-215933909.webp",
+    "national_id_front_url": "/uploads/national_id_front-1771713272673-721949893.png",
+    "national_id_back_url": "/uploads/national_id_back-1771713272673-684602395.jpg",
+    "proof_url": "/uploads/proof-1771713272673-427924690.jpg"
+  }
+}

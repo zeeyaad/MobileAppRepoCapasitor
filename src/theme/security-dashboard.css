@@ -1,0 +1,669 @@
+/**
+ * Helwan Club — Security Dashboard Global CSS
+ * نادي حلوان — لوحة تحكم الأمن
+ *
+ * All design tokens are registered as CSS custom properties.
+ * This file is imported AFTER index.css so it can override or extend the
+ * existing @theme variables without conflict.
+ *
+ * Usage: import './theme/security-dashboard.css' in your SecurityDashboard page/layout
+ */
+
+/* ─── Google Fonts ──────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Barlow+Condensed:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap');
+
+/* ─── Tailwind v4 @theme Extension ─────────────────────────────────────────── */
+/*
+ * These tokens extend the global @theme without replacing it.
+ * All `--color-sec-*` tokens are automatically available as Tailwind utilities:
+ *   bg-sec-navy, text-sec-gold, border-sec-success, etc.
+ */
+
+@theme {
+  /* — Brand Palette — */
+  --color-sec-navy:         #0A1628;
+  --color-sec-navy-90:      #1A2A42;
+  --color-sec-navy-80:      #1E3355;
+  --color-sec-navy-70:      #243E6A;
+  --color-sec-navy-60:      #2B4B7E;
+  --color-sec-navy-40:      #5A7BAD;
+  --color-sec-navy-20:      #A8BBDA;
+  --color-sec-navy-10:      #D4DDED;
+  --color-sec-navy-5:       #EDF1F7;
+
+  --color-sec-gold:         #C9A84C;
+  --color-sec-gold-light:   #E8D49A;
+  --color-sec-gold-dark:    #9B7D2E;
+  --color-sec-gold-muted:   #F5EDD0;
+
+  /* — Semantic Status — */
+  --color-sec-success:      #22C55E;
+  --color-sec-success-light:#DCFCE7;
+  --color-sec-success-dark: #15803D;
+
+  --color-sec-warning:      #F59E0B;
+  --color-sec-warning-light:#FEF3C7;
+  --color-sec-warning-dark: #B45309;
+
+  --color-sec-danger:       #EF4444;
+  --color-sec-danger-light: #FEE2E2;
+  --color-sec-danger-dark:  #B91C1C;
+
+  /* — Surfaces — */
+  --color-sec-bg:           #F0F2F5;
+  --color-sec-card:         #FFFFFF;
+  --color-sec-border:       #DDE3EF;
+
+  /* — Text — */
+  --color-sec-text:         #0A1628;
+  --color-sec-text-secondary:#64748B;
+  --color-sec-text-muted:   #94A3B8;
+  --color-sec-text-inverse: #FFFFFF;
+
+  /* — Typography — */
+  --font-sec-arabic: 'Cairo', ui-sans-serif, system-ui, sans-serif;
+  --font-sec-latin:  'Barlow Condensed', ui-sans-serif, system-ui, sans-serif;
+
+  --text-sec-heading:    1.75rem;   /* 28px */
+  --text-sec-subheading: 1.25rem;   /* 20px */
+  --text-sec-body:       0.9375rem; /* 15px */
+  --text-sec-small:      0.8125rem; /* 13px */
+  --text-sec-xsmall:     0.6875rem; /* 11px */
+
+  /* — Border Radius — */
+  --radius-sec-sm:   6px;
+  --radius-sec-md:   10px;
+  --radius-sec-lg:   14px;
+  --radius-sec-xl:   18px;
+  --radius-sec-pill: 9999px;
+
+  /* — Shadows — */
+  --shadow-sec-card:      0 1px 4px rgba(10,22,40,0.06), 0 4px 16px rgba(10,22,40,0.06);
+  --shadow-sec-card-hover:0 4px 20px rgba(10,22,40,0.12), 0 1px 6px rgba(10,22,40,0.08);
+  --shadow-sec-gold:      0 2px 12px rgba(201,168,76,0.30);
+  --shadow-sec-sidebar:   2px 0 20px rgba(10,22,40,0.15);
+  --shadow-sec-topbar:    0 1px 8px rgba(10,22,40,0.08);
+  --shadow-sec-focus:     0 0 0 3px rgba(201,168,76,0.35);
+
+  /* — Transitions — */
+  --transition-sec-fast:   150ms ease;
+  --transition-sec-normal: 250ms ease;
+  --transition-sec-slow:   400ms ease;
+  --transition-sec-spring: 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* — Spacing / Layout — */
+  --spacing-sec-page:    2rem;
+  --spacing-sec-card:    1.5rem;
+  --spacing-sec-section: 1.5rem;
+  --spacing-sec-grid:    1.25rem;
+
+  --size-sec-sidebar: 260px;
+  --size-sec-topbar:  64px;
+
+  /* ─── Keyframes ─────────────────────────────────────────────────────── */
+
+  @keyframes secFadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes secFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @keyframes secScaleIn {
+    from { opacity: 0; transform: scale(0.96); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes secSlideInRight {
+    from { opacity: 0; transform: translateX(-24px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes secGoldPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0.4); }
+    50%       { box-shadow: 0 0 0 8px rgba(201,168,76,0); }
+  }
+
+  @keyframes secCountUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* — Animate Utilities — */
+  --animate-sec-fade-up:       secFadeUp 0.45s ease both;
+  --animate-sec-fade-in:       secFadeIn 0.35s ease both;
+  --animate-sec-scale-in:      secScaleIn 0.30s ease both;
+  --animate-sec-slide-right:   secSlideInRight 0.40s ease both;
+  --animate-sec-gold-pulse:    secGoldPulse 2s ease-in-out infinite;
+  --animate-sec-count-up:      secCountUp 0.5s ease both;
+}
+
+/* ─── Raw :root Custom Properties ──────────────────────────────────────────── */
+/*
+ * These are *non-Tailwind* CSS custom properties for use in plain CSS rules,
+ * inline styles via React, or component-level CSS modules.
+ */
+
+:root {
+  /* Brand */
+  --hc-navy:              #0A1628;
+  --hc-navy-90:           #1A2A42;
+  --hc-navy-80:           #1E3355;
+  --hc-navy-10:           #D4DDED;
+  --hc-navy-5:            #EDF1F7;
+  --hc-gold:              #C9A84C;
+  --hc-gold-light:        #E8D49A;
+  --hc-gold-dark:         #9B7D2E;
+  --hc-gold-muted:        #F5EDD0;
+
+  /* Semantic */
+  --hc-success:           #22C55E;
+  --hc-success-light:     #DCFCE7;
+  --hc-warning:           #F59E0B;
+  --hc-warning-light:     #FEF3C7;
+  --hc-danger:            #EF4444;
+  --hc-danger-light:      #FEE2E2;
+
+  /* Surfaces */
+  --hc-bg:                #F0F2F5;
+  --hc-card:              #FFFFFF;
+  --hc-border:            #DDE3EF;
+
+  /* Text */
+  --hc-text:              #0A1628;
+  --hc-text-secondary:    #64748B;
+  --hc-text-muted:        #94A3B8;
+  --hc-text-inverse:      #FFFFFF;
+
+  /* Typography */
+  --hc-font-arabic:       'Cairo', ui-sans-serif, system-ui, sans-serif;
+  --hc-font-latin:        'Barlow Condensed', ui-sans-serif, system-ui, sans-serif;
+  --hc-fs-heading:        1.75rem;
+  --hc-fs-subheading:     1.25rem;
+  --hc-fs-body:           0.9375rem;
+  --hc-fs-small:          0.8125rem;
+  --hc-fs-xsmall:         0.6875rem;
+  --hc-fw-regular:        400;
+  --hc-fw-medium:         500;
+  --hc-fw-semibold:       600;
+  --hc-fw-bold:           700;
+  --hc-fw-extrabold:      800;
+  --hc-lh-tight:          1.25;
+  --hc-lh-normal:         1.6;
+
+  /* Radius */
+  --hc-radius-sm:         6px;
+  --hc-radius-md:         10px;
+  --hc-radius-lg:         14px;
+  --hc-radius-xl:         18px;
+  --hc-radius-pill:       9999px;
+
+  /* Shadows */
+  --hc-shadow-card:       0 1px 4px rgba(10,22,40,0.06), 0 4px 16px rgba(10,22,40,0.06);
+  --hc-shadow-card-hover: 0 4px 20px rgba(10,22,40,0.12), 0 1px 6px rgba(10,22,40,0.08);
+  --hc-shadow-gold:       0 2px 12px rgba(201,168,76,0.30);
+  --hc-shadow-sidebar:    2px 0 20px rgba(10,22,40,0.15);
+  --hc-shadow-topbar:     0 1px 8px rgba(10,22,40,0.08);
+  --hc-shadow-focus:      0 0 0 3px rgba(201,168,76,0.35);
+
+  /* Transitions */
+  --hc-t-fast:            150ms ease;
+  --hc-t-normal:          250ms ease;
+  --hc-t-slow:            400ms ease;
+  --hc-t-spring:          300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Layout */
+  --hc-sidebar-w:         260px;
+  --hc-topbar-h:          64px;
+  --hc-page-px:           2rem;
+  --hc-card-px:           1.5rem;
+  --hc-section-gap:       1.5rem;
+  --hc-grid-gap:          1.25rem;
+
+  /* Z-index scale */
+  --hc-z-card:            10;
+  --hc-z-sidebar:         30;
+  --hc-z-topbar:          50;
+  --hc-z-overlay:         100;
+  --hc-z-modal:           200;
+  --hc-z-toast:           300;
+}
+
+/* ─── Security Dashboard Layout Primitives ──────────────────────────────────── */
+
+/**
+ * .sec-layout — Root wrapper for the security dashboard.
+ * Sets up the RTL page background and the Arabic/Latin dual-font stack.
+ */
+.sec-layout {
+  direction: rtl;
+  background-color: var(--hc-bg);
+  min-height: 100dvh;
+  font-family: var(--hc-font-arabic);
+  font-size: var(--hc-fs-body);
+  color: var(--hc-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Numbers and Latin labels always use Barlow Condensed */
+.sec-layout .num,
+.sec-layout [data-font="latin"],
+.sec-layout .stat-value,
+.sec-layout .badge-count,
+.sec-layout time {
+  font-family: var(--hc-font-latin);
+  letter-spacing: 0.02em;
+}
+
+/* ─── Card ─────────────────────────────────────────────────────────────────── */
+
+.sec-card {
+  background: var(--hc-card);
+  border: 1px solid var(--hc-border);
+  border-radius: var(--hc-radius-lg);
+  padding: var(--hc-card-px);
+  box-shadow: var(--hc-shadow-card);
+  transition: box-shadow var(--hc-t-normal), transform var(--hc-t-normal);
+}
+
+.sec-card:hover {
+  box-shadow: var(--hc-shadow-card-hover);
+  transform: translateY(-1px);
+}
+
+/* ─── KPI / Stat Card ───────────────────────────────────────────────────────── */
+
+.sec-stat-card {
+  background: var(--hc-card);
+  border: 1px solid var(--hc-border);
+  border-radius: var(--hc-radius-lg);
+  padding: var(--hc-card-px);
+  box-shadow: var(--hc-shadow-card);
+  transition: box-shadow var(--hc-t-normal), transform var(--hc-t-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.sec-stat-card::before {
+  /* Gold left accent strip (flipped for RTL: right-positioned) */
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-end: 0;
+  width: 4px;
+  background: linear-gradient(to bottom, var(--hc-gold), var(--hc-gold-dark));
+  border-radius: 0 var(--hc-radius-lg) var(--hc-radius-lg) 0;
+}
+
+.sec-stat-card .stat-value {
+  font-family: var(--hc-font-latin);
+  font-size: 2.25rem;
+  font-weight: var(--hc-fw-extrabold);
+  line-height: 1;
+  color: var(--hc-navy);
+  letter-spacing: -0.02em;
+  animation: var(--animate-sec-count-up);
+}
+
+.sec-stat-card .stat-label {
+  font-size: var(--hc-fs-small);
+  color: var(--hc-text-secondary);
+  font-weight: var(--hc-fw-medium);
+  margin-top: 0.375rem;
+}
+
+/* ─── Status Badges ─────────────────────────────────────────────────────────── */
+
+.sec-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  padding: 0.2em 0.65em;
+  border-radius: var(--hc-radius-pill);
+  font-family: var(--hc-font-arabic);
+  font-size: var(--hc-fs-xsmall);
+  font-weight: var(--hc-fw-semibold);
+  line-height: 1.4;
+}
+
+.sec-badge--success {
+  background: var(--hc-success-light);
+  color: var(--hc-success);
+}
+.sec-badge--warning {
+  background: var(--hc-warning-light);
+  color: #92400E; /* Amber-800 for legibility */
+}
+.sec-badge--danger {
+  background: var(--hc-danger-light);
+  color: var(--hc-danger);
+}
+.sec-badge--navy {
+  background: var(--hc-navy-5);
+  color: var(--hc-navy-80);
+}
+.sec-badge--gold {
+  background: var(--hc-gold-muted);
+  color: var(--hc-gold-dark);
+}
+
+/* ─── Buttons ───────────────────────────────────────────────────────────────── */
+
+.sec-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  padding: 0.55em 1.25em;
+  border-radius: var(--hc-radius-md);
+  font-family: var(--hc-font-arabic);
+  font-size: var(--hc-fs-body);
+  font-weight: var(--hc-fw-semibold);
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: background var(--hc-t-fast), box-shadow var(--hc-t-fast), transform var(--hc-t-spring);
+  text-decoration: none;
+}
+
+.sec-btn:focus-visible {
+  box-shadow: var(--hc-shadow-focus);
+}
+
+.sec-btn:active {
+  transform: scale(0.975);
+}
+
+.sec-btn--primary {
+  background: var(--hc-navy);
+  color: var(--hc-text-inverse);
+}
+.sec-btn--primary:hover {
+  background: var(--hc-navy-90);
+  box-shadow: var(--hc-shadow-card-hover);
+}
+
+.sec-btn--gold {
+  background: var(--hc-gold);
+  color: var(--hc-navy);
+}
+.sec-btn--gold:hover {
+  background: var(--hc-gold-dark);
+  box-shadow: var(--hc-shadow-gold);
+  color: var(--hc-text-inverse);
+}
+
+.sec-btn--ghost {
+  background: transparent;
+  color: var(--hc-text-secondary);
+  border: 1px solid var(--hc-border);
+}
+.sec-btn--ghost:hover {
+  background: var(--hc-navy-5);
+  color: var(--hc-navy);
+}
+
+.sec-btn--danger {
+  background: var(--hc-danger-light);
+  color: var(--hc-danger);
+}
+.sec-btn--danger:hover {
+  background: var(--hc-danger);
+  color: var(--hc-text-inverse);
+}
+
+/* ─── Typography Utilities ──────────────────────────────────────────────────── */
+
+.sec-heading {
+  font-family: var(--hc-font-arabic);
+  font-size: var(--hc-fs-heading);
+  font-weight: var(--hc-fw-bold);
+  color: var(--hc-text);
+  line-height: var(--hc-lh-tight);
+}
+
+.sec-subheading {
+  font-family: var(--hc-font-arabic);
+  font-size: var(--hc-fs-subheading);
+  font-weight: var(--hc-fw-semibold);
+  color: var(--hc-text);
+  line-height: var(--hc-lh-tight);
+}
+
+.sec-label {
+  font-family: var(--hc-font-latin);
+  font-size: var(--hc-fs-small);
+  font-weight: var(--hc-fw-semibold);
+  letter-spacing: var(--hc-ls-widest, 0.08em);
+  text-transform: uppercase;
+  color: var(--hc-text-secondary);
+}
+
+.sec-body   { font-size: var(--hc-fs-body);   color: var(--hc-text); }
+.sec-small  { font-size: var(--hc-fs-small);  color: var(--hc-text-secondary); }
+.sec-muted  { color: var(--hc-text-muted); }
+.sec-gold   { color: var(--hc-gold); }
+.sec-danger { color: var(--hc-danger); }
+
+/* ─── Table ──────────────────────────────────────────────────────────────── */
+
+.sec-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--hc-fs-body);
+}
+
+.sec-table th {
+  font-family: var(--hc-font-latin);
+  font-size: var(--hc-fs-small);
+  font-weight: var(--hc-fw-semibold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--hc-text-secondary);
+  padding: 0.75rem 1rem;
+  text-align: start;
+  border-bottom: 2px solid var(--hc-border);
+  background: var(--hc-navy-5);
+}
+
+.sec-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--hc-border);
+  color: var(--hc-text);
+  vertical-align: middle;
+}
+
+.sec-table tbody tr {
+  transition: background var(--hc-t-fast);
+}
+
+.sec-table tbody tr:hover {
+  background: var(--hc-navy-5);
+}
+
+.sec-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ─── Sidebar ───────────────────────────────────────────────────────────────── */
+
+.sec-sidebar {
+  width: var(--hc-sidebar-w);
+  background: var(--hc-navy);
+  box-shadow: var(--hc-shadow-sidebar);
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  position: fixed;
+  inset-block: 0;
+  inset-inline-end: 0; /* RTL: sidebar on the right */
+  z-index: var(--hc-z-sidebar);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201,168,76,0.3) transparent;
+}
+
+.sec-sidebar-logo {
+  padding: 1.5rem var(--hc-card-px) 1.25rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  font-family: var(--hc-font-arabic);
+  font-weight: var(--hc-fw-bold);
+  font-size: 1.125rem;
+  color: var(--hc-text-inverse);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.sec-sidebar-logo .logo-accent {
+  color: var(--hc-gold);
+}
+
+.sec-sidebar-nav {
+  padding: 1rem 0;
+  flex: 1;
+}
+
+.sec-sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 1.25rem;
+  color: rgba(255,255,255,0.65);
+  font-family: var(--hc-font-arabic);
+  font-size: var(--hc-fs-body);
+  font-weight: var(--hc-fw-medium);
+  text-decoration: none;
+  transition: color var(--hc-t-fast), background var(--hc-t-fast);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: start;
+  border-radius: 0;
+  position: relative;
+}
+
+.sec-sidebar-item:hover {
+  color: var(--hc-text-inverse);
+  background: rgba(255,255,255,0.05);
+}
+
+.sec-sidebar-item.active {
+  color: var(--hc-gold);
+  background: rgba(201,168,76,0.08);
+  font-weight: var(--hc-fw-semibold);
+}
+
+.sec-sidebar-item.active::after {
+  /* Gold active indicator on inline-start edge */
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-end: 0;
+  width: 3px;
+  background: var(--hc-gold);
+  border-radius: var(--hc-radius-pill) 0 0 var(--hc-radius-pill);
+}
+
+/* ─── Topbar ────────────────────────────────────────────────────────────────── */
+
+.sec-topbar {
+  height: var(--hc-topbar-h);
+  background: var(--hc-card);
+  border-bottom: 1px solid var(--hc-border);
+  box-shadow: var(--hc-shadow-topbar);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--hc-page-px);
+  position: sticky;
+  top: 0;
+  z-index: var(--hc-z-topbar);
+}
+
+/* ─── Page Section Entry Animations ─────────────────────────────────────────── */
+
+/* Staggered card entry: apply class .sec-stagger to container,
+   immediate children get staggered fade-up automatically */
+
+.sec-stagger > * {
+  animation: secFadeUp 0.45s ease both;
+}
+
+.sec-stagger > *:nth-child(1) { animation-delay: 0ms; }
+.sec-stagger > *:nth-child(2) { animation-delay: 60ms; }
+.sec-stagger > *:nth-child(3) { animation-delay: 120ms; }
+.sec-stagger > *:nth-child(4) { animation-delay: 180ms; }
+.sec-stagger > *:nth-child(5) { animation-delay: 240ms; }
+.sec-stagger > *:nth-child(n+6) { animation-delay: 300ms; }
+
+/* ─── Focus Ring ────────────────────────────────────────────────────────────── */
+
+.sec-layout :focus-visible {
+  outline: none;
+  box-shadow: var(--hc-shadow-focus);
+}
+
+/* ─── Divider ───────────────────────────────────────────────────────────────── */
+
+.sec-divider {
+  height: 1px;
+  background: var(--hc-border);
+  margin-block: var(--hc-section-gap);
+}
+
+/* ─── Gold Accent Rule ──────────────────────────────────────────────────────── */
+
+.sec-gold-rule {
+  height: 2px;
+  background: linear-gradient(to left, var(--hc-gold), var(--hc-gold-dark));
+  border-radius: var(--hc-radius-pill);
+}
+
+/* ─── Icon Wrapper ──────────────────────────────────────────────────────────── */
+
+.sec-icon-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--hc-radius-md);
+  flex-shrink: 0;
+}
+
+.sec-icon-box--navy   { background: var(--hc-navy-5);        color: var(--hc-navy); }
+.sec-icon-box--gold   { background: var(--hc-gold-muted);    color: var(--hc-gold-dark); }
+.sec-icon-box--success{ background: var(--hc-success-light); color: var(--hc-success); }
+.sec-icon-box--warning{ background: var(--hc-warning-light); color: #92400E; }
+.sec-icon-box--danger { background: var(--hc-danger-light);  color: var(--hc-danger); }
+
+/* ─── Scrollbar (dashboard internals) ──────────────────────────────────────── */
+
+.sec-layout ::-webkit-scrollbar       { width: 6px; height: 6px; }
+.sec-layout ::-webkit-scrollbar-track { background: transparent; }
+.sec-layout ::-webkit-scrollbar-thumb {
+  background: var(--hc-navy-10);
+  border-radius: var(--hc-radius-pill);
+}
+.sec-layout ::-webkit-scrollbar-thumb:hover {
+  background: var(--hc-gold-light);
+}
+
+/* ─── Reduced Motion ────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .sec-stagger > *,
+  .sec-stat-card .stat-value,
+  .sec-card,
+  .sec-btn {
+    animation: none !important;
+    transition: none !important;
+  }
+}

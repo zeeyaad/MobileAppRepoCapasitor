@@ -1,0 +1,303 @@
+export const printMemberTeamCard = async (
+  memberName,
+  teamName,
+  imgs,
+  ssn,
+  endDate,
+) => {
+  // Create hidden iframe
+  const iframe = document.createElement("iframe");
+  iframe.style.position = "fixed";
+  iframe.style.right = "0";
+  iframe.style.bottom = "0";
+  iframe.style.width = "0";
+  iframe.style.height = "0";
+  iframe.style.border = "0";
+  document.body.appendChild(iframe);
+
+  const doc = iframe.contentWindow.document;
+  const html = getHTML(memberName, teamName, imgs, ssn, endDate);
+
+  doc.open();
+  doc.write(html);
+  doc.close();
+
+  await waitForReady(iframe.contentWindow);
+
+  try {
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+  } finally {
+    // Clean up after print (with a fallback)
+    iframe.contentWindow.onafterprint = () => {
+      setTimeout(() => document.body.removeChild(iframe), 50);
+    };
+    setTimeout(() => {
+      if (document.body.contains(iframe)) document.body.removeChild(iframe);
+    }, 5000);
+  }
+};
+
+async function waitForReady(win) {
+  const doc = win.document;
+
+  // 1) DOM
+  if (doc.readyState === "loading") {
+    await new Promise((res) =>
+      doc.addEventListener("DOMContentLoaded", res, { once: true }),
+    );
+  }
+
+  // 2) Images decoded
+  const images = Array.from(doc.images || []);
+  await Promise.all(
+    images.map((img) => {
+      if (img.complete && img.naturalWidth !== 0) {
+        if (img.decode) {
+          try {
+            return img.decode();
+          } catch {
+            return;
+          }
+        }
+        return;
+      }
+      return new Promise((resolve) => {
+        const done = () => {
+          if (img.decode) {
+            img.decode().then(resolve).catch(resolve);
+          } else {
+            resolve();
+          }
+        };
+        img.addEventListener("load", done, { once: true });
+        img.addEventListener("error", done, { once: true });
+      });
+    }),
+  );
+
+  // 3) Fonts (if supported)
+  if (
+    doc.fonts &&
+    doc.fonts.ready &&
+    typeof doc.fonts.ready.then === "function"
+  ) {
+    try {
+      await doc.fonts.ready;
+    } catch {}
+  }
+
+  // Small settle delay
+  await new Promise((r) => setTimeout(r, 50));
+}
+
+function getHTML(memberName, teamName, imgs, ssn, endDate) {
+  const y = new Date().getFullYear();
+  const yearRange = `${y} - ${y + 1}`;
+
+  const escapeHtml = (s) =>
+    String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  return `
+<!DOCTYPE html>
+<html lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HUC — بطاقة العضوية</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;600;800&display=swap');
+
+@page {
+    size: landscape;
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    color:black;
+}
+
+body {
+    margin: 0;
+    font-family: "Cairo", system-ui, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.page {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+}
+
+/* Card size: CR80 85.6mm × 54mm */
+.card {
+    width: 8.56cm;
+    height: 5.4cm;
+    /* border-radius: 12px; */
+    background: #fff;
+    border: 1px solid #d9dee3;
+    box-shadow: 0 6px 24px rgba(2, 8, 20, 0.08);
+    overflow: hidden;
+    position: relative;
+
+    /* IMPORTANT: lock layout LTR so columns don't flip in RTL pages */
+    direction: ltr;
+    display: grid;
+    grid-template-columns: 3.2cm 1fr;
+    /* left fixed, right flexible */
+}
+
+/* LEFT (colorful) */
+.left {
+    /* background: radial-gradient(120% 120% at 0% 0%, #1e3a8a 0%, #0ea5e9 45%, #14b8a6 100%); */
+    color: #fff;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+/* Photo is fully contained inside the left panel */
+.photo {
+    width: 26mm;
+    height: 32mm;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, .65);
+    background: #fff;
+    position: relative;
+    left: -30px;
+    top: 26px;
+}
+
+.photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* RIGHT (black & white) */
+.right {  
+    padding: 10px 12px;
+    background: #ffffff;
+    position: relative; /* IMPORTANT: anchor signature inside right panel */
+}
+
+/* RTL text inside info, but layout remains LTR due to .card */
+.info {
+    display: grid;
+    align-content: center;
+    row-gap: 22px;
+}
+
+.field-value {
+    font-weight: 700;
+    font-size: 8pt;
+    color: black;
+    line-height: 1.2;
+}
+
+.member-name {
+    position: relative;
+    top: 41px;
+}
+
+.id-section {
+    position: relative;
+    top: 31px;
+    font-weight: bold;
+}
+
+.profession-section {
+    position: relative;
+    top: 19px;
+    font-weight: bold;
+}
+
+.topPadding {
+    padding-top: 25px;
+}
+
+/* SIGNATURE: bottom-right like the provided image */
+.executive-director-signature {
+    position: absolute;
+    bottom: 6px;
+    right: 10px;
+    text-align: right;
+    color: black;
+    font-weight: 800;
+    font-size: 8pt;
+    line-height: 1.25;
+    padding: 0;
+}
+
+.executive-director-title {
+text-align: center;
+    font-weight: 900;
+    font-size: 7pt;
+    margin-bottom: 2px;
+}
+
+.executive-director-name {
+    font-weight: 900;
+    font-size: 9.5pt;
+}
+
+@media print {
+    .page {
+        background: transparent;
+        padding: 0;
+    }
+
+    .card {
+        box-shadow: none;
+        margin: 0 auto;
+    }
+}
+    </style>
+  </head>
+
+  <body class="page">
+    <div class="card">   
+      <aside class="left">
+        <figure class="photo" aria-label="صورة العضو">
+          <img src="${imgs}" alt="Member Photo" />
+        </figure>
+      </aside>
+
+      <section class="right topPadding">
+        <div class="info" dir="rtl">
+          <div class="member-name">
+            <div class="field-value">الاسم : ${escapeHtml(memberName)}</div>
+          </div>
+
+          <div class="id-section field-value">
+            <div>النشاط : ${escapeHtml(teamName)}</div>
+          </div>  
+
+          <div class="profession-section field-value">
+            <div class="expiration-date">ساري حتى ${escapeHtml(endDate)}</div>
+          </div>  
+        </div>
+
+        <!-- MOVED INSIDE .right so it stays on the right column -->
+        <div class="executive-director-signature" dir="rtl">
+          <div class="executive-director-title">المدير التنفيذي</div>
+          <div class="executive-director-name">ا.د / احمد فاروق</div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
+`;
+}

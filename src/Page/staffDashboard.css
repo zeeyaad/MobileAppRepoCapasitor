@@ -1,0 +1,39 @@
+:root {
+  --huc-primary-dark: #1F3A5F;
+  --huc-primary-blue: #244A73;
+  --huc-accent-blue: #2EA7C9;
+  --huc-accent-orange: #F4A623;
+  --huc-background: #F4F6F9;
+  --huc-white: #FFFFFF;
+  --huc-success: #28A745;
+  --huc-warning: #FFC107;
+  --huc-danger: #DC3545;
+  --huc-info: #17A2B8;
+  --huc-text-primary: #1F2937;
+  --huc-text-secondary: #6C757D;
+  --huc-border-light: #E5E7EB;
+
+  --huc-radius-card: 12px;
+  --huc-radius-control: 8px;
+
+  --huc-shadow-soft: 0 1px 2px rgba(16, 24, 40, 0.06);
+}
+
+html[dir="rtl"],
+body[dir="rtl"] {
+  direction: rtl;
+}
+
+.huc-app {
+  font-family: Cairo, "IBM Plex Sans Arabic", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial;
+}
+
+.huc-page {
+  background: var(--huc-background);
+  color: var(--huc-text-primary);
+}
+
+/* Hide scrollbar in sidebar nav — keep scroll functional */
+.huc-sidebar-nav::-webkit-scrollbar {
+  display: none;
+}

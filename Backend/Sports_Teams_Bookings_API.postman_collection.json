@@ -1,0 +1,730 @@
+{
+  "info": {
+    "_postman_id": "sports-teams-bookings-api-2026",
+    "name": "Sports, Teams & Bookings API",
+    "description": "Comprehensive API collection for Sports Management, Team Members, and Field Booking System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "SPORTS MANAGEMENT",
+      "description": "Complete sports management endpoints",
+      "item": [
+        {
+          "name": "Create Sport",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/sports",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "sports"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name_en\": \"Football\",\n  \"name_ar\": \"كرة القدم\",\n  \"description_en\": \"Soccer/Football sport\",\n  \"description_ar\": \"رياضة كرة القدم\",\n  \"category\": \"team\",\n  \"min_members\": 11,\n  \"max_members\": 15,\n  \"requires_coach\": true,\n  \"requires_medical_report\": true\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Sports",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/sports?status=active&limit=20&offset=0",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "sports"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "active"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "offset",
+                  "value": "0"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Sport by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/sports/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "sports",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Sport",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/sports/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "sports",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name_en\": \"Football\",\n  \"name_ar\": \"كرة القدم\",\n  \"description_en\": \"Updated description\",\n  \"description_ar\": \"الوصف المحدث\",\n  \"max_members\": 20\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Toggle Sport Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/sports/1/toggle-status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "sports",
+                "1",
+                "toggle-status"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Approve Sport",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/sports/1/approve",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "sports",
+                "1",
+                "approve"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Sport",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/sports/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "sports",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "TEAM MEMBERS",
+      "description": "Team member management endpoints",
+      "item": [
+        {
+          "name": "Get All Team Members",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/sports/team-members",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "sports",
+                "team-members"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Team Members by Sport",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/sports/team-members/sport/Football",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "sports",
+                "team-members",
+                "sport",
+                "Football"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Team Member by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/sports/team-members/user/user-uuid",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "sports",
+                "team-members",
+                "user",
+                "user-uuid"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Submit Team Member Details",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/register/details/team-member",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "register",
+                "details",
+                "team-member"
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "personal_photo",
+                  "type": "file",
+                  "src": "path/to/photo.jpg"
+                },
+                {
+                  "key": "medical_report",
+                  "type": "file",
+                  "src": "path/to/report.pdf"
+                },
+                {
+                  "key": "national_id_front",
+                  "type": "file",
+                  "src": "path/to/id_front.jpg"
+                },
+                {
+                  "key": "national_id_back",
+                  "type": "file",
+                  "src": "path/to/id_back.jpg"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Select Teams",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/register/team-member/select-teams",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "register",
+                "team-member",
+                "select-teams"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"member_id\": \"uuid\",\n  \"team_ids\": [1, 2, 3]\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Team Member Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/register/team-member/status/member-id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "register",
+                "team-member",
+                "status",
+                "member-id"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Team Member Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/register/team-member/details/member-id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "register",
+                "team-member",
+                "details",
+                "member-id"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Team Member Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/register/team-member/details/member-id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "register",
+                "team-member",
+                "details",
+                "member-id"
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "personal_photo",
+                  "type": "file",
+                  "src": "path/to/photo.jpg"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Review All Team Member Data",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/register/team-member/review-all",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "register",
+                "team-member",
+                "review-all"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "FIELD BOOKINGS",
+      "description": "Field booking system endpoints",
+      "item": [
+        {
+          "name": "Get Field Operating Hours",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/bookings/fields/field-uuid/hours",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bookings",
+                "fields",
+                "field-uuid",
+                "hours"
+              ]
+            },
+            "description": "Get operating hours for a specific field\n\nResponse:\n{\n  \"success\": true,\n  \"data\": [\n    {\n      \"day_of_week\": 0,\n      \"opening_time\": \"08:00:00\",\n      \"closing_time\": \"22:00:00\"\n    }\n  ]\n}"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Booking",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bookings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bookings"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userType\": \"member\",\n  \"userId\": \"user-uuid\",\n  \"sport_id\": 1,\n  \"field_id\": \"field-uuid\",\n  \"start_time\": \"2025-03-15T10:00:00Z\",\n  \"end_time\": \"2025-03-15T11:00:00Z\",\n  \"expected_participants\": 10,\n  \"notes\": \"Team training session\",\n  \"language\": \"ar\"\n}"
+            },
+            "description": "Create a new field booking\n\nRequired fields:\n- userType: \"member\" | \"team_member\"\n- userId: UUID of the user\n- sport_id: Integer ID of the sport\n- field_id: UUID of the field\n- start_time: ISO datetime string\n- end_time: ISO datetime string\n- expected_participants: Positive integer\n- language: \"ar\" | \"en\"\n\nResponse (201):\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"booking-uuid\",\n    \"sport_id\": 1,\n    \"field_id\": \"field-uuid\",\n    \"start_time\": \"2025-03-15T10:00:00Z\",\n    \"end_time\": \"2025-03-15T11:00:00Z\",\n    \"duration_minutes\": 60,\n    \"price\": 150.00,\n    \"status\": \"pending_payment\",\n    \"share_token\": \"abc123...\",\n    \"share_url\": \"http://localhost:3000/bookings/share/abc123...\",\n    \"expected_participants\": 10,\n    \"participants\": [...],\n    \"created_at\": \"2025-03-01T10:00:00Z\"\n  },\n  \"message\": \"Booking created successfully. Please proceed to payment.\"\n}"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Booking Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bookings/booking-uuid",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bookings",
+                "booking-uuid"
+              ]
+            },
+            "description": "Get detailed information about a specific booking"
+          },
+          "response": []
+        },
+        {
+          "name": "Confirm Payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bookings/booking-uuid/confirm-payment",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bookings",
+                "booking-uuid",
+                "confirm-payment"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentReference\": \"PAYMENT_ID_FROM_GATEWAY\"\n}"
+            },
+            "description": "Confirm booking after successful payment\n\nChanges booking status from 'pending_payment' to 'confirmed'"
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel Booking",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bookings/booking-uuid",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bookings",
+                "booking-uuid"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"Schedule conflict\"\n}"
+            },
+            "description": "Cancel a booking with optional reason"
+          },
+          "response": []
+        },
+        {
+          "name": "Get User Bookings",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bookings/users/member/user-uuid",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bookings",
+                "users",
+                "member",
+                "user-uuid"
+              ]
+            },
+            "description": "Get all bookings for a specific user\n\nParams:\n- userType: \"member\" | \"team_member\"\n- userId: UUID of the user\n\nResponse:\n{\n  \"success\": true,\n  \"data\": [...],\n  \"count\": 5\n}"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Booking Statistics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bookings/stats/member/user-uuid",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bookings",
+                "stats",
+                "member",
+                "user-uuid"
+              ]
+            },
+            "description": "Get booking statistics for a user\n\nResponse:\n{\n  \"success\": true,\n  \"data\": {\n    \"total_bookings\": 10,\n    \"confirmed_bookings\": 8,\n    \"total_participants\": 45,\n    \"total_revenue\": 1200.00\n  }\n}"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "SHARED BOOKING LINKS",
+      "description": "Public endpoints for shared booking access (no authentication required)",
+      "item": [
+        {
+          "name": "Get Booking via Share Link",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/bookings/share/share-token/details",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bookings",
+                "share",
+                "share-token",
+                "details"
+              ]
+            },
+            "description": "Get booking details via shared link (public)\n\nNo authentication required"
+          },
+          "response": []
+        },
+        {
+          "name": "Register Participant via Share Link",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bookings/share/share-token/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bookings",
+                "share",
+                "share-token",
+                "register"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"full_name\": \"أحمد علي\",\n  \"phone_number\": \"+201001234567\",\n  \"national_id\": \"29001011234567\",\n  \"email\": \"ahmed@example.com\"\n}"
+            },
+            "description": "Register as a participant via shared booking link (public)\n\nNote: At least one contact method (phone_number, national_id, or email) is required\n\nResponse (201):\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"participant-uuid\",\n    \"full_name\": \"أحمد علي\",\n    \"phone_number\": \"+201001234567\",\n    \"national_id\": \"29001011234567\",\n    \"email\": \"ahmed@example.com\",\n    \"is_creator\": false\n  },\n  \"message\": \"You have been successfully registered for this booking!\"\n}"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000/api",
+      "type": "string"
+    },
+    {
+      "key": "authToken",
+      "value": "your-auth-token-here",
+      "type": "string"
+    }
+  ]
+}

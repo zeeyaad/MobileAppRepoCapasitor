@@ -1,0 +1,234 @@
+{
+  "info": {
+    "name": "Helwan Club - Authentication API",
+    "description": "Authentication endpoints for Helwan Club API including login, credential change, and user profile retrieval",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "🔐 Authentication",
+      "description": "Authentication and user management endpoints",
+      "item": [
+        {
+          "name": "Login - Email & Password",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    if (jsonData.data && jsonData.data.token) {",
+                  "        pm.environment.set('token', jsonData.data.token);",
+                  "        pm.environment.set('user_role', jsonData.data.role);",
+                  "        console.log('Token saved to environment');",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@helwan-club.local\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Login with email and password for admin/executive manager users.\n\n**Request Body:**\n```json\n{\n  \"email\": \"admin@helwan-club.local\",\n  \"password\": \"password123\"\n}\n```\n\n**Response:**\n```json\n{\n  \"success\": true,\n  \"message\": \"Login successful\",\n  \"data\": {\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\",\n    \"role\": \"staff\",\n    \"requires_credential_change\": false\n  }\n}\n```"
+          }
+        },
+        {
+          "name": "Login - National ID (First Login)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    if (jsonData.data && jsonData.data.token) {",
+                  "        pm.environment.set('token', jsonData.data.token);",
+                  "        console.log('Temporary token saved (requires credential change)');",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"national_id\": \"12345678901234\",\n  \"password\": \"12345678901234\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "First login for regular staff using national ID and national ID as password.\n\n**Request Body:**\n```json\n{\n  \"national_id\": \"12345678901234\",\n  \"password\": \"12345678901234\"\n}\n```\n\n**Response (Requires Credential Change):**\n```json\n{\n  \"success\": true,\n  \"message\": \"Login successful - Credential change required\",\n  \"data\": {\n    \"token\": \"temporary_token...\",\n    \"role\": \"staff\",\n    \"requires_credential_change\": true,\n    \"message\": \"You must change your credentials on first login\"\n  }\n}\n```\n\n**Next Step:** Call `/api/auth/change-credentials` endpoint to set new email and password."
+          }
+        },
+        {
+          "name": "Change Credentials (First Login)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"new_email\": \"user@helwan-club.local\",\n  \"new_password\": \"SecurePassword123!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/change-credentials",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "change-credentials"
+              ]
+            },
+            "description": "Update email and password after first login with national ID.\n\n**Requires:** Valid JWT token from initial national ID login with `requires_credential_change: true`\n\n**Request Body:**\n```json\n{\n  \"new_email\": \"user@helwan-club.local\",\n  \"new_password\": \"SecurePassword123!\"\n}\n```\n\n**Response:**\n```json\n{\n  \"success\": true,\n  \"message\": \"Credentials updated successfully\",\n  \"data\": {\n    \"token\": \"new_jwt_token...\",\n    \"email\": \"user@helwan-club.local\"\n  }\n}\n```\n\n**After This:** Use new email and password to login on subsequent requests."
+          }
+        },
+        {
+          "name": "Get Current User (GET /api/auth/me)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    var user = jsonData.data.user;",
+                  "    pm.environment.set('current_user_id', user.staff_id || user.member_id);",
+                  "    pm.environment.set('current_user_role', user.role);",
+                  "    console.log('Current user:');",
+                  "    console.log('Name:', user.name_en);",
+                  "    console.log('Role:', user.role);",
+                  "    console.log('Privileges:', user.privileges);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "me"
+              ]
+            },
+            "description": "Get current authenticated user's profile information.\n\n**Requires:** Valid JWT token in Authorization header\n\n**Response (Staff User):**\n```json\n{\n  \"success\": true,\n  \"message\": \"User information retrieved successfully\",\n  \"data\": {\n    \"user\": {\n      \"account_id\": 1,\n      \"email\": \"admin@helwan-club.local\",\n      \"role\": \"staff\",\n      \"status\": \"active\",\n      \"name_en\": \"Ahmed Hassan\",\n      \"name_ar\": \"أحمد حسن\",\n      \"staff_id\": 1,\n      \"staff_type_id\": 1,\n      \"staff_type\": \"Administrator\",\n      \"member_id\": null,\n      \"member_type_id\": null,\n      \"member_type\": null,\n      \"privileges\": [\n        \"VIEW_MEMBERS\",\n        \"CREATE_MEMBER\",\n        \"UPDATE_MEMBER\",\n        \"DELETE_MEMBER\",\n        \"VIEW_SPORTS\",\n        \"CREATE_SPORT\",\n        \"VIEW_FINANCE\",\n        \"VIEW_REPORTS\"\n      ]\n    }\n  }\n}\n```\n\n**Response (Member User):**\n```json\n{\n  \"success\": true,\n  \"message\": \"User information retrieved successfully\",\n  \"data\": {\n    \"user\": {\n      \"account_id\": 5,\n      \"email\": \"member@helwan-club.local\",\n      \"role\": \"member\",\n      \"status\": \"active\",\n      \"name_en\": \"Fatima Ahmed\",\n      \"name_ar\": \"فاطمة أحمد\",\n      \"staff_id\": null,\n      \"staff_type_id\": null,\n      \"staff_type\": null,\n      \"member_id\": 3,\n      \"member_type_id\": 1,\n      \"member_type\": \"Regular Member\",\n      \"privileges\": []\n    }\n  }\n}\n```\n\n**Use Cases:**\n- Validate current session on app load\n- Display user's name and role in header\n- Check user's privileges for UI rendering\n- Populate user profile page"
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "your_jwt_token_here",
+      "type": "string"
+    },
+    {
+      "key": "user_role",
+      "value": "staff",
+      "type": "string"
+    },
+    {
+      "key": "current_user_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "current_user_role",
+      "value": "staff",
+      "type": "string"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "groups": {
+    "home": "Home",
+    "members": "Members",
+    "dailyOps": "Daily Operations",
+    "sports": "Sports Management",
+    "finance": "Finance & Services",
+    "staff": "Staff",
+    "system": "System"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "registrations": "Registration Requests",
+    "membersManage": "Manage Members",
+    "membersNew": "Add Club Member",
+    "membersNewTeam": "Add Team Player",
+    "bookings": "Court Bookings",
+    "invitations": "Manage Invitations",
+    "sports": "Sports",
+    "teams": "Teams",
+    "courts": "Courts & Fields",
+    "assignSports": "Assign Sports",
+    "sportsView": "Members by Sport",
+    "subscriptions": "Subscriptions & Payments",
+    "memberships": "Memberships",
+    "media": "Media Gallery",
+    "staffNew": "Add New Staff",
+    "staffManage": "Manage Staff",
+    "branches": "Manage Branches",
+    "faculties": "Manage Faculties",
+    "professions": "Manage Professions",
+    "privilegePackages": "Privilege Packages",
+    "assignPrivileges": "Assign Privileges",
+    "revokePrivileges": "Revoke Privileges",
+    "auditLog": "Audit Log",
+    "profile": "My Profile"
+  },
+  "member": {
+    "home": "Home",
+    "profile": "My Profile",
+    "memberships": "My Membership",
+    "sports": "My Sports",
+    "subscribe": "Explore Sports",
+    "courts": "Book Courts"
+  },
+  "sidebar": {
+    "expand": "Expand menu",
+    "collapse": "Collapse menu"
+  },
+  "navbar": {
+    "logout": "Logout",
+    "profile": "Profile",
+    "changePassword": "Change Password",
+    "language": "Language",
+    "logoutConfirmTitle": "Are you sure you want to log out?",
+    "logoutConfirmDesc": "Your current session will end and you can log in again later.",
+    "clubName": "Helwan University Club"
+  }
+}

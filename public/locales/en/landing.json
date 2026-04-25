@@ -1,0 +1,14 @@
+{
+  "hero": {
+    "title": "Helwan University Club",
+    "subtitle": "The spirit of competition. The energy of the future.",
+    "cta": "Register now"
+  },
+  "sections": {
+    "branches": "Our branches",
+    "sports": "Sports",
+    "memberships": "Memberships",
+    "news": "Latest news",
+    "contact": "Contact us"
+  }
+}

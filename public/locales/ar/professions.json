@@ -1,0 +1,70 @@
+{
+  "page": {
+    "title": "إدارة المهن",
+    "totalCount": "إجمالي المهن المسجلة:",
+    "btnAdd": "إضافة مهنة"
+  },
+  "toast": {
+    "fetchFailTitle": "فشل التحميل",
+    "fetchFailDesc": "تعذر تحميل المهن",
+    "missingData": "بيانات ناقصة",
+    "missingDataDesc": "يرجى ملء جميع الحقول المطلوبة.",
+    "updateSuccess": "تم التحديث",
+    "updateSuccessDesc": "تم تحديث بيانات المهنة بنجاح",
+    "addSuccess": "تمت الإضافة",
+    "addSuccessDesc": "تمت إضافة المهنة بنجاح",
+    "saveFail": "فشل الحفظ",
+    "saveFailDesc": "حدث خطأ غير متوقع عند الحفظ",
+    "deleteSuccess": "تم الحذف",
+    "deleteSuccessDesc": "تم حذف المهنة بنجاح",
+    "deleteFail": "فشل الحذف",
+    "deleteFailDesc": "حدث خطأ غير متوقع عند الحذف",
+    "assignSuccess": "تم التعيين",
+    "assignSuccessDesc": "تم ربط العضو بالمهنة بنجاح",
+    "assignFail": "فشل التعيين",
+    "assignFailDesc": "حدث خطأ غير متوقع عند التعيين",
+    "missingMemberDesc": "يرجى تحديد العضو المطلوب."
+  },
+  "table": {
+    "serial": "#",
+    "code": "الكود المرجعي",
+    "nameAr": "المهنة (عربي)",
+    "nameEn": "المهنة (إنجليزي)",
+    "actions": "الإجراءات",
+    "emptyTitle": "لا توجد مهن مسجلة",
+    "emptyDesc": "لم يتم إدراج أي مهن بعد. أضف مهنك الآن."
+  },
+  "modal": {
+    "addTitle": "إضافة مهنة جديدة",
+    "editTitle": "تعديل مهنة",
+    "addDesc": "أدخل بيانات المهنة الجديدة. الكود يستخدم للتعريف السريع.",
+    "editDesc": "قم بتعديل بيانات المهنة المحددة."
+  },
+  "form": {
+    "codeLabel": "الكود (Code)",
+    "nameArLabel": "الاسم (عربي)",
+    "nameEnLabel": "الاسم (إنجليزي)",
+    "codePlaceholder": "ENG",
+    "nameArPlaceholder": "مثال: مهندس",
+    "nameEnPlaceholder": "Engineer",
+    "save": "حفظ المهنة",
+    "saving": "جارٍ الحفظ..."
+  },
+  "delete": {
+    "title": "تأكيد الحذف",
+    "desc": "هل أنت متأكد من حذف هذه المهنة؟ لا يمكن التراجع عن هذا الإجراء وسيؤثر على السجلات المرتبطة بها.",
+    "btn": "تأكيد الحذف",
+    "deleting": "جارٍ الحذف..."
+  },
+  "assign": {
+    "title": "تعيين عضو في المهنة",
+    "desc": "تحديد العضو المراد ربطه بمهنة:",
+    "btn": "تأكيد التعيين",
+    "assigning": "جارٍ الربط...",
+    "memberLookupPlaceholder": "رقم العضو (مثل: 5049)",
+    "memberLookupLabel": "رقم العضو",
+    "memberNotFound": "لم يُعثر على عضو يطابق هذا الرقم",
+    "memberFound": "الاسم: {{name}}",
+    "memberHint": "أدخل أرقاماً صحيحة وسيبدأ البحث التلقائي"
+  }
+}

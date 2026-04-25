@@ -1,0 +1,161 @@
+id,code,name_en,name_ar,description_en,description_ar,module,is_active,created_at,updated_at
+1,VIEW_PRIVILEGES,View Privileges,عرض الصلاحيات,Allows viewing all system privileges,يسمح بعرض جميع الصلاحيات في النظام,PRIVILEGE_MANAGEMENT,true,2026-02-09 22:32:12.44327,2026-02-09 22:32:12.44327
+2,VIEW_PACKAGES,View Packages,عرض الباقات,Allows viewing all privilege packages,يسمح بعرض جميع باقات الصلاحيات,PACKAGE_MANAGEMENT,true,2026-02-09 22:32:12.44327,2026-02-09 22:32:12.44327
+3,CREATE_PACKAGE,Create Package,إنشاء باقة,Allows creating new privilege packages,يسمح بإنشاء باقات صلاحيات جديدة,PACKAGE_MANAGEMENT,true,2026-02-09 22:32:12.44327,2026-02-09 22:32:12.44327
+4,CHANGE_PACKAGE_STATUS,Change Package Status,تغيير حالة الباقة,Allows activating or deactivating privilege packages,يسمح بتفعيل أو تعطيل باقات الصلاحيات,PACKAGE_MANAGEMENT,true,2026-02-09 22:32:12.44327,2026-02-09 22:32:12.44327
+5,EDIT_PACKAGE,Edit Package,تعديل باقة,Allows editing existing privilege packages,يسمح بتعديل باقات الصلاحيات,PACKAGE_MANAGEMENT,true,2026-02-09 22:32:12.44327,2026-02-09 22:32:12.44327
+6,MANAGE_PACKAGE_PRIVILEGES,Add/Remove Privileges to Packages,إضافة/حذف صلاحيات من الباقات,Allows adding or removing privileges from packages,يسمح بإضافة أو حذف صلاحيات من الباقات,PACKAGE_MANAGEMENT,true,2026-02-09 22:32:12.44327,2026-02-09 22:32:12.44327
+7,VIEW_AUDIT_LOGS,View Audit Logs,عرض سجلات العمليات,Allows viewing system audit logs,يسمح بعرض سجلات العمليات في النظام,ADMIN,true,2026-02-09 22:33:23.955675,2026-02-09 22:33:23.955675
+8,CREATE_EXECUTIVE_DIRECTOR,Create Executive Director Account,إنشاء حساب المدير التنفيذي,Allows creating an Executive Director account,يسمح بإنشاء حساب مدير تنفيذي,ADMIN,true,2026-02-09 22:33:23.955675,2026-02-09 22:33:23.955675
+10,VIEW_STAFF,View Staff,عرض الموظفين,View staff list and details,عرض قائمة الموظفين وتفاصيلهم,STAFF,true,2026-02-09 22:55:55.749969,2026-02-09 22:55:55.749969
+11,CREATE_STAFF,Create Staff,إضافة موظف,Add new staff member,إضافة موظف جديد,STAFF,true,2026-02-09 22:55:55.749969,2026-02-09 22:55:55.749969
+12,UPDATE_STAFF,Update Staff,تعديل موظف,Edit staff information,تعديل بيانات الموظف,STAFF,true,2026-02-09 22:55:55.749969,2026-02-09 22:55:55.749969
+13,CHANGE_STAFF_STATUS,Change Staff Status,تغيير حالة الموظف,Change Staff account status,تغيير حالة حساب الموظف,STAFF,true,2026-02-09 22:55:55.749969,2026-02-09 22:55:55.749969
+14,REVIEW_STAFF,Review Staff,"مراجعة الموظف ",Review Staff information,"مراجعة بيانات الموظف ",STAFF,true,2026-02-09 22:55:55.749969,2026-02-09 22:55:55.749969
+15,ASSIGN_STAFF_TYPE,Assign Staff Type,تحديد نوع الوظيفة,Assign staff type to employee,تحديد نوع الوظيفة للموظف,STAFF,true,2026-02-09 22:55:55.749969,2026-02-09 22:55:55.749969
+16,CHANGE_STAFF_TYPE,Change Staff Type,تغيير نوع الوظيفة,Change staff type,تغيير نوع الوظيفة للموظف,STAFF,true,2026-02-09 22:55:55.749969,2026-02-09 22:55:55.749969
+17,RESET_STAFF_PASSWORD,Reset Staff Password,إعادة تعيين كلمة مرور الموظف,Reset staff password,إعادة تعيين كلمة مرور الموظف,STAFF,true,2026-02-09 22:55:55.749969,2026-02-09 22:55:55.749969
+18,VIEW_STAFF_ATTENDANCE,View Staff Attendance,عرض حضور الموظفين,View staff attendance records,عرض سجلات حضور الموظفين,STAFF,true,2026-02-09 22:55:55.749969,2026-02-09 22:55:55.749969
+19,EDIT_STAFF_ATTENDANCE,Edit Staff Attendance,تعديل حضور الموظفين,Edit staff attendance records,تعديل سجلات حضور الموظفين,STAFF,true,2026-02-09 22:55:55.749969,2026-02-09 22:55:55.749969
+20,VIEW_STAFF_PERFORMANCE,View Staff Performance,عرض تقييم الموظفين,View staff performance reports,عرض تقارير تقييم الموظفين,STAFF,true,2026-02-09 22:55:55.749969,2026-02-09 22:55:55.749969
+21,EVALUATE_STAFF,Evaluate Staff,تقييم الموظفين,Evaluate staff performance,تقييم أداء الموظفين,STAFF,true,2026-02-09 22:55:55.749969,2026-02-09 22:55:55.749969
+22,TRANSFER_STAFF,Transfer Staff,نقل موظف,Transfer staff between departments,نقل الموظف بين الإدارات,STAFF,true,2026-02-09 22:55:55.749969,2026-02-09 22:55:55.749969
+23,TERMINATE_STAFF,Terminate Staff,إنهاء خدمة موظف,Terminate staff contract,إنهاء خدمة الموظف,STAFF,true,2026-02-09 22:55:55.749969,2026-02-09 22:55:55.749969
+24,VIEW_STAFF_PACKAGES,View Staff Packages,عرض باقات الموظف,Allows viewing which packages are assigned to a staff member,يسمح بعرض الباقات المخصصة لموظف معين,STAFF,true,2026-02-09 22:55:55.749969,2026-02-09 22:55:55.749969
+25,ASSIGN_REVOKE_PACKAGE,Assign/Revoke Packages to Staff,إسناد/سحب باقات للموظفين,Allows assigning or revoking packages for staff members,يسمح بإسناد أو سحب باقات من الموظفين,STAFF,true,2026-02-09 22:55:55.749969,2026-02-09 22:55:55.749969
+26,MANAGE_STAFF_PRIVILEGES,Add/Remove Privileges to Staff,إضافة/حذف صلاحيات من الموظف,Allows adding or removing privileges from staff,يسمح بإضافة أو حذف صلاحيات من الموظف,STAFF,true,2026-02-09 22:55:55.749969,2026-02-09 22:55:55.749969
+27,MANAGE_STAFF_REQUESTS,Manage Staff Requests,إدارة طلبات الموظف,Manage staff requests,إدارة طلبات الموظف,STAFF,true,2026-02-09 22:55:55.749969,2026-02-09 22:55:55.749969
+28,PRINT_STAFF_CARD,Print Staff Card,طباعة كارنيه الموظف,Print staff card,طباعة كارنيه الموظف,STAFF,true,2026-02-09 22:55:55.749969,2026-02-09 22:55:55.749969
+29,VIEW_STAFF_TYPES,View Staff Types,عرض أنواع الوظائف,View staff types,عرض أنواع الوظائف,STAFF_TYPES,true,2026-02-09 22:55:55.749969,2026-02-09 22:55:55.749969
+30,CREATE_STAFF_TYPE,Create Staff Type,إضافة نوع وظيفة,Create new staff type,إضافة نوع وظيفة جديد,STAFF_TYPES,true,2026-02-09 22:55:55.749969,2026-02-09 22:55:55.749969
+31,UPDATE_STAFF_TYPE,Update Staff Type,تعديل نوع وظيفة,Edit staff type,تعديل نوع الوظيفة,STAFF_TYPES,true,2026-02-09 22:55:55.749969,2026-02-09 22:55:55.749969
+32,DELETE_STAFF_TYPE,Delete Staff Type,حذف نوع وظيفة,Delete staff type,حذف نوع الوظيفة,STAFF_TYPES,true,2026-02-09 22:55:55.749969,2026-02-09 22:55:55.749969
+33,VIEW_MEMBERS,View Members,عرض الأعضاء,View members list and details,عرض قائمة الأعضاء وتفاصيلهم,MEMBERS,true,2026-02-09 23:01:17.134132,2026-02-09 23:01:17.134132
+34,CREATE_MEMBER,Create Member,إضافة عضو,Add new member,إضافة عضو جديد,MEMBERS,true,2026-02-09 23:01:17.134132,2026-02-09 23:01:17.134132
+35,UPDATE_MEMBER,Update Member,تعديل عضو,Edit member information,تعديل بيانات العضو,MEMBERS,true,2026-02-09 23:01:17.134132,2026-02-09 23:01:17.134132
+36,REVIEW_MEMBER,Review Member,مراجعة عضو,Review member information,مراجعة بيانات العضو,MEMBERS,true,2026-02-09 23:01:17.134132,2026-02-09 23:01:17.134132
+37,CHANGE_MEMBER_STATUS,Change Member Status,تغيير حالة العضو,Change member account status,تغيير حالة حساب العضو,MEMBERS,true,2026-02-09 23:01:17.134132,2026-02-09 23:01:17.134132
+38,MANAGE_MEMBER_BLOCK,Manage Member Block,إدارة حظر العضو,Block or unblock member account,حظر أو إلغاء حظر حساب العضو,MEMBERS,true,2026-02-09 23:01:17.134132,2026-02-09 23:01:17.134132
+39,RESET_MEMBER_PASSWORD,Reset Member Password,إعادة تعيين كلمة مرور العضو,Reset member password,إعادة تعيين كلمة مرور العضو,MEMBERS,true,2026-02-09 23:01:17.134132,2026-02-09 23:01:17.134132
+40,VIEW_MEMBER_HISTORY,View Member History,عرض سجل العضو,View member activity history,عرض سجل نشاط العضو,MEMBERS,true,2026-02-09 23:01:17.134132,2026-02-09 23:01:17.134132
+41,MANAGE_MEMBERSHIP_REQUEST,Manage Membership Request," إدارة طلب عضوية",Manage membership request,إدارة طلب العضوية,MEMBERS,true,2026-02-09 23:01:17.134132,2026-02-09 23:01:17.134132
+42,UPLOAD_MEMBER_DOCUMENT,Upload Member Document,رفع مستندات العضو,Upload member documents,رفع مستندات العضو,MEMBERS,true,2026-02-09 23:01:17.134132,2026-02-09 23:01:17.134132
+43,DELETE_MEMBER_DOCUMENT,Delete Member Document,حذف مستندات العضو,Delete member documents,حذف مستندات العضو,MEMBERS,true,2026-02-09 23:01:17.134132,2026-02-09 23:01:17.134132
+44,PRINT_MEMBER_DOCUMENT,Print Member Document,طباعة مستندات العضو,Print member documents,طباعة مستندات العضو,MEMBERS,true,2026-02-09 23:01:17.134132,2026-02-09 23:01:17.134132
+45,PRINT_MEMBER_CARD,Print Member Card,طباعة كارنيه العضو,Print member card,طباعة كارنيه العضو,MEMBERS,true,2026-02-09 23:01:17.134132,2026-02-09 23:01:17.134132
+46,VIEW_MEMBER_FORMS,View Member Forms,عرض استمارات العضو,View all forms submitted by members,عرض كل الاستمارات المقدمة من الأعضاء,MEMBER,true,2026-02-09 23:01:17.134132,2026-02-09 23:01:17.134132
+47,SUBMIT_MEMBER_FORM,Submit Member Form,تقديم استمارة عضو,Submit a new form by member,تقديم استمارة جديدة من العضو,MEMBER,true,2026-02-09 23:01:17.134132,2026-02-09 23:01:17.134132
+48,UPDATE_MEMBER_FORM,Update Member Form,تعديل استمارة عضو,Update member form,تعديل استمارة العضو,MEMBER,true,2026-02-09 23:01:17.134132,2026-02-09 23:01:17.134132
+49,DELETE_MEMBER_FORM,Delete Member Form,حذف استمارة عضو,Delete member form,حذف استمارة العضو,MEMBER,true,2026-02-09 23:01:17.134132,2026-02-09 23:01:17.134132
+50,VIEW_MEMBERSHIP_PLANS,View Membership Plans,عرض خطط العضوية,View membership plans,عرض خطط العضوية,MEMBERSHIP_PLANS,true,2026-02-09 23:01:59.513601,2026-02-09 23:01:59.513601
+51,CREATE_MEMBERSHIP_PLAN,Create Membership Plan,إضافة خطة عضوية,Create membership plan,إضافة خطة عضوية,MEMBERSHIP_PLANS,true,2026-02-09 23:01:59.513601,2026-02-09 23:01:59.513601
+52,UPDATE_MEMBERSHIP_PLAN,Update Membership Plan,تعديل خطة عضوية,Edit membership plan,تعديل خطة العضوية,MEMBERSHIP_PLANS,true,2026-02-09 23:01:59.513601,2026-02-09 23:01:59.513601
+53,DELETE_MEMBERSHIP_PLAN,Delete Membership Plan,حذف خطة عضوية,Delete membership plan,حذف خطة العضوية,MEMBERSHIP_PLANS,true,2026-02-09 23:01:59.513601,2026-02-09 23:01:59.513601
+54,CHANGE_MEMBERSHIP_PLAN_STATUS,Change Membership Plan Status,تغيير حالة العضوية,Change membership plan status,تغيير حالة العضوية,MEMBERSHIP_PLANS,true,2026-02-09 23:01:59.513601,2026-02-09 23:01:59.513601
+55,ASSIGN_MEMBERSHIP_PLAN_TO_MEMBER,Assign Membership Plan to Member,تعيين خطة عضوية لعضو,Assign membership plan to member,تعيين خطة العضوية للعضو,MEMBERSHIP_PLANS,true,2026-02-09 23:01:59.513601,2026-02-09 23:01:59.513601
+56,CHANGE_MEMBER_MEMBERSHIP_PLAN,Change Member Membership Plan,تغيير خطة عضوية عضو,Change member membership plan,تغيير خطة العضوية للعضو,MEMBERSHIP_PLANS,true,2026-02-09 23:01:59.513601,2026-02-09 23:01:59.513601
+57,VIEW_MEMBER_TYPES,View Member Types,عرض أنواع العضوية,View member types,عرض أنواع العضوية,MEMBER_TYPES,true,2026-02-09 23:01:59.513601,2026-02-09 23:01:59.513601
+58,CREATE_MEMBER_TYPE,Create Member Type,إضافة نوع عضوية,Create member type,إضافة نوع عضوية,MEMBER_TYPES,true,2026-02-09 23:01:59.513601,2026-02-09 23:01:59.513601
+59,UPDATE_MEMBER_TYPE,Update Member Type,تعديل نوع عضوية,Edit member type,تعديل نوع العضوية,MEMBER_TYPES,true,2026-02-09 23:01:59.513601,2026-02-09 23:01:59.513601
+60,DELETE_MEMBER_TYPE,Delete Member Type,حذف نوع عضوية,Delete member type,حذف نوع العضوية,MEMBER_TYPES,true,2026-02-09 23:01:59.513601,2026-02-09 23:01:59.513601
+61,ASSIGN_MEMBER_TYPE_TO_MEMBER,Assign Member Type to Member,تعيين نوع عضوية لعضو,Assign member type to member,تعيين نوع العضوية للعضو,MEMBER_TYPES,true,2026-02-09 23:01:59.513601,2026-02-09 23:01:59.513601
+62,VIEW_FACULTIES,View Faculties,عرض الكليات,View faculties,عرض الكليات,FACULTIES,true,2026-02-09 23:01:59.513601,2026-02-09 23:01:59.513601
+63,CREATE_FACULTY,Create Faculty,إضافة كلية,Create faculty,إضافة كلية,FACULTIES,true,2026-02-09 23:01:59.513601,2026-02-09 23:01:59.513601
+64,UPDATE_FACULTY,Update Faculty,تعديل كلية,Edit faculty,تعديل كلية,FACULTIES,true,2026-02-09 23:01:59.513601,2026-02-09 23:01:59.513601
+65,DELETE_FACULTY,Delete Faculty,حذف كلية,Delete faculty,حذف كلية,FACULTIES,true,2026-02-09 23:01:59.513601,2026-02-09 23:01:59.513601
+66,ASSIGN_FACULTY_TO_MEMBER,Assign Faculty to Member,تعيين كلية لعضو,Assign faculty to member,تعيين الكلية للعضو,FACULTIES,true,2026-02-09 23:01:59.513601,2026-02-09 23:01:59.513601
+67,VIEW_PROFESSIONS,View Professions,عرض الوظائف,View professions,عرض الوظائف,PROFESSIONS,true,2026-02-09 23:01:59.513601,2026-02-09 23:01:59.513601
+68,CREATE_PROFESSION,Create Profession,إضافة وظيفة,Create profession,إضافة وظيفة,PROFESSIONS,true,2026-02-09 23:01:59.513601,2026-02-09 23:01:59.513601
+69,UPDATE_PROFESSION,Update Profession,تعديل وظيفة,Edit profession,تعديل الوظيفة,PROFESSIONS,true,2026-02-09 23:01:59.513601,2026-02-09 23:01:59.513601
+70,DELETE_PROFESSION,Delete Profession,حذف وظيفة,Delete profession,حذف الوظيفة,PROFESSIONS,true,2026-02-09 23:01:59.513601,2026-02-09 23:01:59.513601
+71,ASSIGN_PROFESSION_TO_MEMBER,Assign Profession to Member,تعيين وظيفة لعضو,Assign profession to member,تعيين الوظيفة للعضو,PROFESSIONS,true,2026-02-09 23:01:59.513601,2026-02-09 23:01:59.513601
+72,VIEW_TEAM_MEMBERS,View Team Members,عرض أعضاء الفرق,View all team members,عرض كل أعضاء الفرق,TEAM_MEMBERS,true,2026-02-09 23:03:10.038474,2026-02-09 23:03:10.038474
+73,ADD_TEAM_MEMBER,Add Team Member,إضافة عضو لفريق,Add new team member,إضافة عضو جديد للفريق,TEAM_MEMBERS,true,2026-02-09 23:03:10.038474,2026-02-09 23:03:10.038474
+74,UPDATE_TEAM_MEMBER,Update Team Member,تعديل عضو فريق,Edit team member information,تعديل بيانات عضو الفريق,TEAM_MEMBERS,true,2026-02-09 23:03:10.038474,2026-02-09 23:03:10.038474
+75,REVIEW_TEAM_MEMBER,Review Team Member,مراجعة عضو الفريق,Review Team member information,مراجعة بيانات عضو الفريق,TEAM_MEMBERS,true,2026-02-09 23:03:10.038474,2026-02-09 23:03:10.038474
+76,CHANGE_TEAM_MEMBER_STATUS,Change Team Member Status,تغيير حالة عضو الفريق,Change Team member account status,تغيير حالة حساب عضو الفريق,TEAM_MEMBERS,true,2026-02-09 23:03:10.038474,2026-02-09 23:03:10.038474
+77,MANAGE_TEAM_MEMBER_BLOCK,Manage Team Member Block,إدارة حظر عضو الفريق,Block or unblock Team member account,حظر أو إلغاء حظر حساب عضو الفريق,TEAM_MEMBERS,true,2026-02-09 23:03:10.038474,2026-02-09 23:03:10.038474
+78,ASSIGN_TEAM_ROLE,Assign Team Role,تعيين دور في الفريق,Assign role to team member,تعيين دور للعضو في الفريق,TEAM_MEMBERS,true,2026-02-09 23:03:10.038474,2026-02-09 23:03:10.038474
+79,CHANGE_TEAM_ROLE,Change Team Role,تغيير دور عضو الفريق,Change team member role,تغيير دور العضو في الفريق,TEAM_MEMBERS,true,2026-02-09 23:03:10.038474,2026-02-09 23:03:10.038474
+80,VIEW_TEAM_HISTORY,View Team Member History,عرض سجل عضو الفريق,View team member activity history,عرض سجل نشاط عضو الفريق,TEAM_MEMBERS,true,2026-02-09 23:03:10.038474,2026-02-09 23:03:10.038474
+81,UPLOAD_TEAM_MEMBER_DOCUMENT,Upload Team Member Document,رفع مستندات عضو الفريق,Upload Team member documents,رفع مستندات عضو الفريق,TEAM_MEMBERS,true,2026-02-09 23:03:10.038474,2026-02-09 23:03:10.038474
+82,DELETE_TEAM_MEMBER_DOCUMENT,Delete Team Member Document,حذف مستندات عضو الفريق,Delete Teammember documents,حذف مستندات عضو الفريق,TEAM_MEMBERS,true,2026-02-09 23:03:10.038474,2026-02-09 23:03:10.038474
+83,PRINT_TEAM_MEMBER_DOCUMENT,Print Team Member Document,طباعة مستندات عضو الفريق,Print Team member documents,طباعة مستندات عضو الفريق,TEAM_MEMBERS,true,2026-02-09 23:03:10.038474,2026-02-09 23:03:10.038474
+84,PRINT_TEAM_MEMBER_CARD,Print Team Member Card,طباعة كارنيه عضو الفريق,Print Team member card,طباعة كارنيه عضو الفريق,TEAM_MEMBERS,true,2026-02-09 23:03:10.038474,2026-02-09 23:03:10.038474
+85,VIEW_TEAM_MEMBER_FORMS,View Team Member Forms,عرض استمارات عضو الفريق,View all forms submitted by Team members,عرض كل الاستمارات المقدمة من أعضاء الفرق,TEAM_MEMBERS,true,2026-02-09 23:03:10.038474,2026-02-09 23:03:10.038474
+86,SUBMIT_TEAM_MEMBER_FORM,Submit Team Member Form,تقديم استمارة عضو الفريق,Submit a new form by Team member,تقديم استمارة جديدة من عضو الفريق,TEAM_MEMBERS,true,2026-02-09 23:03:10.038474,2026-02-09 23:03:10.038474
+87,UPDATE_TEAM_MEMBER_FORM,Update Team Member Form,تعديل استمارة عضو الفريق,Update Team member form,تعديل استمارة عضو الفريق,TEAM_MEMBERS,true,2026-02-09 23:03:10.038474,2026-02-09 23:03:10.038474
+88,DELETE_TEAM_MEMBER_FORM,Delete Team Member Form,حذف استمارة عضو الفريق,Delete Team member form,حذف استمارة عضو الفريق,TEAM_MEMBERS,true,2026-02-09 23:03:10.038474,2026-02-09 23:03:10.038474
+89,VIEW_SPORTS,View Sports,عرض الرياضات,View sports,عرض الرياضات,SPORTS,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+90,CREATE_SPORT,Create Sport,إضافة رياضة,Create sport,إضافة رياضة,SPORTS,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+91,UPDATE_SPORT,Update Sport,تعديل رياضة,Edit sport,تعديل الرياضة,SPORTS,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+92,DELETE_SPORT,Delete Sport,حذف رياضة,Delete sport,حذف الرياضة,SPORTS,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+93,ASSIGN_SPORT_TO_MEMBER,Assign Sport to Member,تعيين رياضة لعضو,Assign sport to member,تعيين الرياضة للعضو,SPORTS,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+94,REMOVE_SPORT_FROM_MEMBER,Remove Sport from Member,إزالة رياضة من عضو,Remove sport from member,إزالة الرياضة من العضو,SPORTS,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+95,ASSIGN_SPORT_TO_TEAM_MEMBER,Assign Sport to Team Member," تعيين رياضة لعضو الفريق",Assign sport to member,تعيين الرياضة لعضو الفريق,SPORTS,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+96,REMOVE_SPORT_FROM_TEAM_MEMBER,Remove Sport from Team Member,إزالة رياضة من عضو الفريق,Remove sport from member,إزالة الرياضة من العضوالفريق,SPORTS,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+97,CREATE_TEAM,Create Team,إنشاء فريق,Create sports team,إنشاء فريق رياضي,SPORTS,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+98,UPDATE_TEAM,Update Team,تعديل فريق,Edit sports team,تعديل الفريق,SPORTS,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+99,DELETE_TEAM,Delete Team,حذف فريق,Delete sports team,حذف الفريق,SPORTS,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+100,ASSIGN_MEMBER_TO_TEAM,Assign Member to Team,إضافة عضو لفريق,Assign member to team,إضافة عضو للفريق,SPORTS,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+101,REMOVE_MEMBER_FROM_TEAM,Remove Member from Team,إزالة عضو من فريق,Remove member from team,إزالة عضو من الفريق,SPORTS,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+102,SCHEDULE_MATCH,Schedule Match,جدولة مباراة,Schedule match,جدولة مباراة,SPORTS,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+103,VIEW_SPORT_PRICING,View Sport Pricing,عرض أسعار الأنشطة الرياضية,View sport pricing details,عرض أسعار الأنشطة الرياضية,SPORTS,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+104,CREATE_SPORT_PRICING,Create Sport Pricing,إضافة سعر لنشاط رياضي,Add pricing for a sport,إضافة سعر لنشاط رياضي,SPORTS,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+105,UPDATE_SPORT_PRICING,Update Sport Pricing,تعديل سعر نشاط رياضي,Update sport pricing,تعديل أسعار الأنشطة الرياضية,SPORTS,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+106,DELETE_SPORT_PRICING,Delete Sport Pricing,حذف سعر نشاط رياضي,Delete sport pricing,حذف أسعار الأنشطة الرياضية,SPORTS,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+107,VIEW_EVENTS,View Events,عرض الفعاليات,View all events,عرض كل الفعاليات,EVENTS,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+108,CREATE_EVENT,Create Event,إنشاء فعالية,Create new event,إنشاء فعالية جديدة,EVENTS,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+109,UPDATE_EVENT,Update Event,تعديل فعالية,Edit event,تعديل الفعالية,EVENTS,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+110,DELETE_EVENT,Delete Event,حذف فعالية,Delete event,حذف الفعالية,EVENTS,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+111,APPROVE_EVENT,Approve Event,اعتماد فعالية,Approve event,اعتماد الفعالية,EVENTS,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+112,CANCEL_EVENT,Cancel Event,إلغاء فعالية,Cancel event,إلغاء الفعالية,EVENTS,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+113,VIEW_EVENT_REGISTRATIONS,View Event Registrations,عرض تسجيلات الفعاليات,View event registrations,عرض تسجيلات الفعاليات,EVENTS,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+114,REGISTER_MEMBER_IN_EVENT,Register Member in Event,تسجيل عضو في فعالية,Register member in event,تسجيل عضو في الفعالية,EVENTS,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+115,CANCEL_EVENT_REGISTRATION,Cancel Event Registration,إلغاء تسجيل فعالية,Cancel event registration,إلغاء تسجيل الفعالية,EVENTS,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+116,VIEW_INVOICES,View Invoices,عرض الفواتير,View invoices,عرض الفواتير,FINANCE,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+117,CREATE_INVOICE,Create Invoice,إنشاء فاتورة,Create invoice,إنشاء فاتورة,FINANCE,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+118,UPDATE_INVOICE,Update Invoice,تعديل فاتورة,Edit invoice,تعديل الفاتورة,FINANCE,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+119,DELETE_INVOICE,Delete Invoice,حذف فاتورة,Delete invoice,حذف فاتورة,FINANCE,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+120,APPROVE_INVOICE,Approve Invoice,اعتماد فاتورة,Approve invoice,اعتماد الفاتورة,FINANCE,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+121,VIEW_PAYMENTS,View Payments,عرض المدفوعات,View payments,عرض المدفوعات,FINANCE,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+122,CREATE_PAYMENT,Create Payment,إضافة دفعة,Create payment,إضافة دفعة مالية,FINANCE,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+123,REFUND_PAYMENT,Refund Payment,استرداد دفعة,Refund payment,استرداد دفعة مالية,FINANCE,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+124,VIEW_BUDGETS,View Budgets,عرض الميزانيات,View budgets,عرض الميزانيات,FINANCE,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+125,EDIT_BUDGETS,Edit Budgets,تعديل الميزانيات,Edit budgets,تعديل الميزانيات,FINANCE,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+126,EXPORT_FINANCIAL_REPORTS,Export Financial Reports,تصدير التقارير المالية,Export financial reports,تصدير التقارير المالية,FINANCE,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+127,VIEW_MAINTENANCE_REQUESTS,View Maintenance Requests,عرض طلبات الصيانة,View maintenance requests,عرض طلبات الصيانة,MAINTENANCE,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+128,CREATE_MAINTENANCE_REQUEST,Create Maintenance Request,إنشاء طلب صيانة,Create maintenance request,إنشاء طلب صيانة,MAINTENANCE,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+129,UPDATE_MAINTENANCE_REQUEST,Update Maintenance Request,تعديل طلب صيانة,Edit maintenance request,تعديل طلب صيانة,MAINTENANCE,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+130,DELETE_MAINTENANCE_REQUEST,Delete Maintenance Request,حذف طلب صيانة,Delete maintenance request,حذف طلب صيانة,MAINTENANCE,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+131,ASSIGN_MAINTENANCE_TASK,Assign Maintenance Task,تعيين مهمة صيانة,Assign maintenance task to staff,تعيين مهمة صيانة لموظف,MAINTENANCE,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+132,APPROVE_MAINTENANCE_REQUEST,Approve Maintenance Request,اعتماد طلب صيانة,Approve maintenance request,اعتماد طلب الصيانة,MAINTENANCE,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+133,VIEW_MEDIA_CONTENT,View Media Content,عرض المحتوى الإعلامي,View media content,عرض المحتوى الإعلامي,MEDIA,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+134,CREATE_MEDIA_CONTENT,Create Media Content,إضافة محتوى إعلامي,Create media content,إضافة محتوى إعلامي,MEDIA,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+135,UPDATE_MEDIA_CONTENT,Update Media Content,تعديل المحتوى الإعلامي,Edit media content,تعديل المحتوى الإعلامي,MEDIA,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+136,DELETE_MEDIA_CONTENT,Delete Media Content,حذف محتوى إعلامي,Delete media content,حذف المحتوى الإعلامي,MEDIA,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+137,PUBLISH_MEDIA_CONTENT,Publish Media Content,نشر محتوى إعلامي,Publish media content,نشر المحتوى الإعلامي,MEDIA,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+138,MANAGE_PUBLIC_RELATIONS,Manage Public Relations,إدارة العلاقات العامة,Manage PR activities,إدارة العلاقات العامة,MEDIA,true,2026-02-09 23:26:35.174504,2026-02-09 23:26:35.174504
+139,MEDIA_CENTER_CREATE,Create Media Center Ads,إنشاء إعلانات المركز الإعلامي,Allows creating new media center advertisements,يسمح بإنشاء إعلانات جديدة للمركز الإعلامي,MEDIA_CENTER,true,2026-02-13 20:46:48.451006,2026-02-13 20:46:48.451006
+140,MEDIA_CENTER_PUBLISH,Publish Media Center Ads,نشر إعلانات المركز الإعلامي,Allows publishing approved advertisements directly,يسمح بنشر الإعلانات المعتمدة مباشرة,MEDIA_CENTER,true,2026-02-13 20:46:48.451006,2026-02-13 20:46:48.451006
+141,MEDIA_CENTER_APPROVE,Approve Media Center Ads,اعتماد إعلانات المركز الإعلامي,Allows approving or rejecting pending advertisements,يسمح باعتماد أو رفض الإعلانات المعلقة,MEDIA_CENTER,true,2026-02-13 20:46:48.451006,2026-02-13 20:46:48.451006
+142,MEDIA_CENTER_EDIT,Edit Media Center Ads,تعديل إعلانات المركز الإعلامي,Allows editing pending advertisements,يسمح بتعديل الإعلانات المعلقة,MEDIA_CENTER,true,2026-02-13 20:46:48.451006,2026-02-13 20:46:48.451006
+143,MEDIA_CENTER_DELETE,Delete Media Center Ads,حذف إعلانات المركز الإعلامي,Allows deleting advertisements,يسمح بحذف الإعلانات,MEDIA_CENTER,true,2026-02-13 20:46:48.451006,2026-02-13 20:46:48.451006
+144,MEDIA_CENTER_MANAGE_CATEGORIES,Manage Media Center Categories,إدارة تصنيفات المركز الإعلامي,Allows managing advertisement categories,يسمح بإدارة تصنيفات الإعلانات,MEDIA_CENTER,true,2026-02-13 20:46:48.451006,2026-02-13 20:46:48.451006
+145,media.view,View Media,عرض الوسائط,,,MediaGallery,true,2026-02-16 07:53:30.82323,2026-02-16 07:53:30.82323
+146,media.create,Create Media,إضافة وسائط,,,MediaGallery,true,2026-02-16 07:53:31.852207,2026-02-16 07:53:31.852207
+147,media.edit,Edit Media,تعديل الوسائط,,,MediaGallery,true,2026-02-16 07:53:32.16393,2026-02-16 07:53:32.16393
+148,media.delete,Delete Media,حذف الوسائط,,,MediaGallery,true,2026-02-16 07:53:32.435094,2026-02-16 07:53:32.435094
+149,APPROVE_SPORT_SUBSCRIPTION,Approve Sport Subscription,اعتماد طلب الاشتراك في الرياضة,"Allows approving, declining, or cancelling member and team member sport subscription requests",يسمح باعتماد أو رفض أو إلغاء طلبات اشتراك الأعضاء وأعضاء الفريق في الرياضات,SPORTS,true,2026-02-25 04:01:12.760069,2026-02-25 04:01:12.760069
+151,VIEW_TEAMS,View Teams,عرض الفرق,Permission to view all teams and their details,إذن لعرض جميع الفرق وتفاصيلها,,true,2026-03-02 23:50:17.90847,2026-03-02 23:50:17.90847
+154,MANAGE_TEAM_STATUS,Manage Team Status,إدارة حالة الفريق,"Permission to change team status (active, inactive, suspended, archived)",إذن لتغيير حالة الفريق (نشط، غير نشط، معلق، مؤرشف),,true,2026-03-02 23:50:17.90847,2026-03-02 23:50:17.90847
+156,MANAGE_TEAM_TRAINING,Manage Team Training,إدارة تدريبات الفريق,Permission to create and manage team training schedules,إذن لإنشاء وإدارة جداول تدريب الفريق,,true,2026-03-02 23:50:17.90847,2026-03-02 23:50:17.90847
+157,VIEW_TEAM_TRAINING,View Team Training,عرض تدريبات الفريق,Permission to view team training schedules,إذن لعرض جداول تدريب الفريق,,true,2026-03-02 23:50:17.90847,2026-03-02 23:50:17.90847
+158,ASSIGN_TEAM_MEMBERS,Assign Team Members,تعيين أعضاء الفريق,Permission to assign or remove members from teams,إذن لتعيين أو إزالة الأعضاء من الفرق,,true,2026-03-02 23:50:17.90847,2026-03-02 23:50:17.90847
+159,VIEW_AVAILABLE_SLOTS,View Available Slots,عرض الأماكن المتاحة,Permission to view available slots in teams,إذن لعرض الأماكن المتاحة في الفرق,,true,2026-03-02 23:50:17.90847,2026-03-02 23:50:17.90847
+167,CREATE_FIELD,Create Field,إنشاء ملعب,Create new sports fields,إنشاء ملاعب رياضية جديدة,field_management,true,2026-03-03 00:41:20.467599,2026-03-03 00:41:20.467599
+168,VIEW_FIELDS,View Fields,عرض الملاعب,View sports fields and their details,عرض الملاعب الرياضية وتفاصيلها,field_management,true,2026-03-03 00:41:20.467599,2026-03-03 00:41:20.467599
+169,UPDATE_FIELD,Update Field,تحديث ملعب,Update field information,تحديث معلومات الملاعب,field_management,true,2026-03-03 00:41:20.467599,2026-03-03 00:41:20.467599
+170,DELETE_FIELD,Delete Field,حذف ملعب,Delete sports fields,حذف الملاعب الرياضية,field_management,true,2026-03-03 00:41:20.467599,2026-03-03 00:41:20.467599
+171,MANAGE_FIELD_STATUS,Manage Field Status,إدارة حالة الملعب,Manage field status (active/inactive/maintenance),إدارة حالة الملاعب (نشط/غير نشط/صيانة),field_management,true,2026-03-03 00:41:20.467599,2026-03-03 00:41:20.467599
+172,MANAGE_FIELD_HOURS,Manage Field Hours,إدارة ساعات الملعب,Manage field operating hours,إدارة ساعات عمل الملاعب,field_management,true,2026-03-03 00:41:20.467599,2026-03-03 00:41:20.467599

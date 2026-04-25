@@ -1,0 +1,1203 @@
+{
+  "info": {
+    "name": "Helwan Club - Packages & Privileges API",
+    "description": "Complete API collection for managing privilege packages and staff privileges. This collection covers all endpoints related to:\n\n1. **Privilege Management** - View, grant, and revoke privileges\n2. **Privilege Packages** - Manage predefined sets of privileges\n3. **Staff Privilege Assignment** - Assign packages and individual privileges to staff members\n4. **Privilege Verification** - Check if staff has specific privileges\n5. **Activity Tracking** - View privilege-related activity logs\n\nAuthentication: All endpoints (except staff types) require Bearer token in Authorization header.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "📋 Staff Types",
+      "description": "Get available staff types in the system",
+      "item": [
+        {
+          "name": "Get All Staff Types",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.environment.set('staff_types', JSON.stringify(jsonData.data));",
+                  "    console.log('Staff Types loaded:', jsonData.data);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/types",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff",
+                "types"
+              ]
+            },
+            "description": "Retrieves all available staff types in the system (ADMIN, EXECUTIVE_MANAGER, DEPUTY_EXEC_MANAGER, etc.)\n\nNo authentication required.\n\n**Response Example:**\n```json\n{\n  \"success\": true,\n  \"count\": 5,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"code\": \"ADMIN\",\n      \"name_en\": \"Administrator\",\n      \"name_ar\": \"مسؤول النظام\",\n      \"description_en\": \"Full system access\",\n      \"description_ar\": \"وصول كامل للنظام\",\n      \"is_active\": true\n    }\n  ]\n}\n```"
+          }
+        }
+      ]
+    },
+    {
+      "name": "🔐 Privileges",
+      "description": "Manage and view system privileges",
+      "item": [
+        {
+          "name": "Get All Privileges",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.environment.set('privileges', JSON.stringify(jsonData.data));",
+                  "    console.log('Privileges loaded:', jsonData.count);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/privileges?module=members",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff",
+                "privileges"
+              ],
+              "query": [
+                {
+                  "key": "module",
+                  "value": "members",
+                  "disabled": true,
+                  "description": "Optional: Filter by specific module (e.g., members, sports, finance)"
+                }
+              ]
+            },
+            "description": "Retrieves all available privileges in the system, optionally filtered by module.\n\n**Required Roles:** ADMIN (1) or EXECUTIVE_MANAGER (2)\n\n**Query Parameters:**\n- `module` (optional): Filter by module name (members, sports, finance, etc.)\n\n**Response Example:**\n```json\n{\n  \"success\": true,\n  \"count\": 45,\n  \"data\": {\n    \"members\": [\n      {\n        \"id\": 1,\n        \"code\": \"VIEW_MEMBERS\",\n        \"name_en\": \"View Members\",\n        \"name_ar\": \"عرض الأعضاء\",\n        \"module\": \"members\"\n      },\n      {\n        \"id\": 2,\n        \"code\": \"CREATE_MEMBER\",\n        \"name_en\": \"Create Member\",\n        \"name_ar\": \"إنشاء عضو\",\n        \"module\": \"members\"\n      }\n    ]\n  }\n}\n```"
+          }
+        },
+        {
+          "name": "Get Privileges by Module",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/privileges?module=sports",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff",
+                "privileges"
+              ],
+              "query": [
+                {
+                  "key": "module",
+                  "value": "sports",
+                  "description": "Filter by module name"
+                }
+              ]
+            },
+            "description": "Get privileges for a specific module (sports, members, finance, etc.)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "📦 Privilege Packages",
+      "description": "Manage privilege packages - predefined sets of privileges (CRUD operations)",
+      "item": [
+        {
+          "name": "Get All Privilege Packages",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.environment.set('packages', JSON.stringify(jsonData.data));",
+                  "    if (jsonData.data && jsonData.data.length > 0) {",
+                  "        pm.environment.set('package_id', jsonData.data[0].id);",
+                  "    }",
+                  "    console.log('Packages loaded:', jsonData.count);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/packages",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff",
+                "packages"
+              ]
+            },
+            "description": "Retrieves all privilege packages defined in the system.\n\n**Response Example:**\n```json\n{\n  \"success\": true,\n  \"count\": 3,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"code\": \"MEMBER_MANAGER\",\n      \"name_en\": \"Member Manager\",\n      \"name_ar\": \"مدير الأعضاء\",\n      \"description_en\": \"Full member management access\",\n      \"description_ar\": \"وصول كامل لإدارة الأعضاء\",\n      \"is_active\": true\n    },\n    {\n      \"id\": 2,\n      \"code\": \"SPORT_MANAGER\",\n      \"name_en\": \"Sport Manager\",\n      \"name_ar\": \"مدير الرياضات\",\n      \"description_en\": \"Sports management access\",\n      \"description_ar\": \"وصول إدارة الرياضات\",\n      \"is_active\": true\n    }\n  ]\n}\n```"
+          }
+        },
+        {
+          "name": "Create Privilege Package",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    var jsonData = pm.response.json();",
+                  "    if (jsonData.data && jsonData.data.id) {",
+                  "        pm.environment.set('new_package_id', jsonData.data.id);",
+                  "    }",
+                  "    console.log('Package created:', jsonData.data);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"FINANCE_MANAGER\",\n  \"name_en\": \"Finance Manager\",\n  \"name_ar\": \"مدير المالية\",\n  \"description_en\": \"Full financial management access\",\n  \"description_ar\": \"وصول كامل لإدارة المالية\",\n  \"privilege_ids\": [1, 2, 5, 10]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/packages",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff",
+                "packages"
+              ]
+            },
+            "description": "Create a new privilege package.\n\n**Authorization:** ADMIN (staff_type_id=1) or EXECUTIVE_MANAGER (staff_type_id=2)\n\n**Request Body:**\n```json\n{\n  \"code\": \"PACKAGE_CODE\",              // Unique identifier (required)\n  \"name_en\": \"Package Name (English)\", // (required)\n  \"name_ar\": \"اسم الحزمة (عربي)\",      // (required)\n  \"description_en\": \"Description\",     // (optional)\n  \"description_ar\": \"وصف\",             // (optional)\n  \"privilege_ids\": [1, 2, 5, 10]       // Array of privilege IDs (required)\n}\n```\n\n**Response:**\n```json\n{\n  \"success\": true,\n  \"message\": \"Privilege package created successfully\",\n  \"data\": {\n    \"id\": 5,\n    \"code\": \"FINANCE_MANAGER\",\n    \"name_en\": \"Finance Manager\",\n    \"privileges_count\": 4\n  }\n}\n```\n\n**Error Cases:**\n- 400: Missing required fields\n- 403: Insufficient privileges\n- 409: Package code already exists"
+          }
+        },
+        {
+          "name": "Get Package by ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    console.log('Package details:', jsonData.data);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/packages/{{package_id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff",
+                "packages",
+                "{{package_id}}"
+              ]
+            },
+            "description": "Get detailed information about a specific privilege package including all its privileges.\n\n**Path Parameters:**\n- `packageId`: ID of the package\n\n**Response Example:**\n```json\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"code\": \"MEMBER_MANAGER\",\n    \"name_en\": \"Member Manager\",\n    \"name_ar\": \"مدير الأعضاء\",\n    \"description_en\": \"Full member management access\",\n    \"description_ar\": \"وصول كامل لإدارة الأعضاء\",\n    \"is_active\": true,\n    \"privileges_count\": 8,\n    \"privileges\": [\n      {\n        \"id\": 1,\n        \"code\": \"VIEW_MEMBERS\",\n        \"name_en\": \"View Members\",\n        \"name_ar\": \"عرض الأعضاء\"\n      }\n    ]\n  }\n}\n```"
+          }
+        },
+        {
+          "name": "Update Privilege Package",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name_en\": \"Updated Member Manager\",\n  \"name_ar\": \"مدير الأعضاء المحدث\",\n  \"description_en\": \"Updated description\",\n  \"is_active\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/packages/{{package_id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff",
+                "packages",
+                "{{package_id}}"
+              ]
+            },
+            "description": "Update a privilege package.\n\n**Authorization:** ADMIN (staff_type_id=1) or EXECUTIVE_MANAGER (staff_type_id=2)\n\n**Request Body (all fields optional):**\n```json\n{\n  \"code\": \"UPDATED_CODE\",            // Optional: change package code\n  \"name_en\": \"Updated Name\",         // Optional\n  \"name_ar\": \"الاسم المحدث\",        // Optional\n  \"description_en\": \"New desc\",      // Optional\n  \"description_ar\": \"وصف جديد\",      // Optional\n  \"is_active\": true,                 // Optional\n  \"privilege_ids\": [1, 2, 5]         // Optional: update privileges (replaces all)\n}\n```\n\n**Response:**\n```json\n{\n  \"success\": true,\n  \"message\": \"Privilege package updated successfully\",\n  \"data\": { /* updated package */ }\n}\n```"
+          }
+        },
+        {
+          "name": "Update Package Privileges",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"privilege_ids\": [1, 2, 3, 5, 10, 15]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/packages/{{package_id}}/privileges",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff",
+                "packages",
+                "{{package_id}}",
+                "privileges"
+              ]
+            },
+            "description": "Update the privileges in a package (replaces all existing privileges).\n\n**Authorization:** ADMIN (staff_type_id=1) or EXECUTIVE_MANAGER (staff_type_id=2)\n\n**Request Body:**\n```json\n{\n  \"privilege_ids\": [1, 2, 3, 5, 10, 15]  // New array of privilege IDs\n}\n```\n\n**Response:**\n```json\n{\n  \"success\": true,\n  \"message\": \"Package privileges updated successfully\",\n  \"data\": {\n    \"package_id\": 1,\n    \"privileges_count\": 6,\n    \"privilege_ids\": [1, 2, 3, 5, 10, 15]\n  }\n}\n```"
+          }
+        },
+        {
+          "name": "Delete Privilege Package",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/packages/{{package_id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff",
+                "packages",
+                "{{package_id}}"
+              ]
+            },
+            "description": "Delete a privilege package.\n\n**Authorization:** ADMIN only (staff_type_id=1)\n\n**Restrictions:**\n- Cannot delete if package is assigned to active staff members\n- Will return 409 Conflict if deletion not allowed\n\n**Response on Success:**\n```json\n{\n  \"success\": true,\n  \"message\": \"Privilege package deleted successfully\",\n  \"data\": {\n    \"deleted_package_id\": 1,\n    \"privileges_removed\": 8\n  }\n}\n```\n\n**Error Cases:**\n- 403: Only ADMIN can delete\n- 409: Package is assigned to staff members\n- 404: Package not found"
+          }
+        },
+        {
+          "name": "Get Package Privileges",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.environment.set('package_privileges', JSON.stringify(jsonData.data));",
+                  "    console.log('Package privileges:', jsonData.count);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/packages/{{package_id}}/privileges",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff",
+                "packages",
+                "{{package_id}}",
+                "privileges"
+              ]
+            },
+            "description": "Get all privileges included in a specific package.\n\n**Path Parameters:**\n- `packageId`: ID of the package\n\n**Response Example:**\n```json\n{\n  \"success\": true,\n  \"count\": 8,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"code\": \"VIEW_MEMBERS\",\n      \"name_en\": \"View Members\",\n      \"name_ar\": \"عرض الأعضاء\",\n      \"module\": \"members\"\n    },\n    {\n      \"id\": 2,\n      \"code\": \"CREATE_MEMBER\",\n      \"name_en\": \"Create Member\",\n      \"name_ar\": \"إنشاء عضو\",\n      \"module\": \"members\"\n    }\n  ]\n}\n```"
+          }
+        }
+      ]
+    },
+    {
+      "name": "👥 Staff Management",
+      "description": "Staff registration and basic operations",
+      "item": [
+        {
+          "name": "Register New Staff",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.environment.set('staff_id', jsonData.data.id);",
+                  "    console.log('Staff registered:', jsonData.data);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name_en\": \"Ahmed\",\n  \"first_name_ar\": \"أحمد\",\n  \"last_name_en\": \"Hassan\",\n  \"last_name_ar\": \"حسن\",\n  \"national_id\": \"12345678901234\",\n  \"phone\": \"+201234567890\",\n  \"address\": \"Cairo, Egypt\",\n  \"staff_type_id\": 4,\n  \"employment_start_date\": \"2024-01-15\",\n  \"employment_end_date\": null\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff",
+                "register"
+              ]
+            },
+            "description": "Register a new staff member in the system.\n\n**Authorization Rules:**\n- Only ADMIN can register EXECUTIVE_MANAGER\n- ADMIN and EXECUTIVE_MANAGER can register other staff\n- DEPUTY_EXEC_MANAGER registrations require approval\n\n**Request Body:**\n- `first_name_en`: English first name (required)\n- `last_name_en`: English last name (required)\n- `first_name_ar`: Arabic first name (optional, defaults to English)\n- `last_name_ar`: Arabic last name (optional, defaults to English)\n- `national_id`: National ID (required)\n- `phone`: Phone number (required)\n- `address`: Address (optional)\n- `staff_type_id`: Type of staff (required)\n- `employment_start_date`: Start date YYYY-MM-DD (required)\n- `employment_end_date`: End date YYYY-MM-DD (optional)\n\n**Note:** Email is auto-generated as `staff.{national_id}@helwan-club.local` and initial password is set to the national_id."
+          }
+        },
+        {
+          "name": "Get All Staff",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    console.log('Staff list retrieved:', jsonData.total);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff?page=1&limit=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Get paginated list of all staff members.\n\n**Query Parameters:**\n- `page`: Page number (default: 1)\n- `limit`: Items per page (default: 10)"
+          }
+        },
+        {
+          "name": "Get Staff by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff",
+                "1"
+              ]
+            },
+            "description": "Get detailed information for a specific staff member including their assigned packages and privileges."
+          }
+        },
+        {
+          "name": "Update Staff",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\": \"+201234567899\",\n  \"address\": \"New Address, Cairo\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff",
+                "1"
+              ]
+            },
+            "description": "Update staff member information."
+          }
+        },
+        {
+          "name": "Deactivate Staff",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/1/deactivate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff",
+                "1",
+                "deactivate"
+              ]
+            },
+            "description": "Deactivate a staff member account."
+          }
+        }
+      ]
+    },
+    {
+      "name": "🎯 Staff Privilege Assignment",
+      "description": "Assign privilege packages and individual privileges to staff",
+      "item": [
+        {
+          "name": "Assign Privilege Packages to Staff",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"package_ids\": [1, 2, 3]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/1/assign-packages",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff",
+                "1",
+                "assign-packages"
+              ]
+            },
+            "description": "Assign one or more privilege packages to a staff member.\n\n**Request Body:**\n```json\n{\n  \"package_ids\": [1, 2, 3]  // Array of package IDs\n}\n```\n\n**Response:**\n```json\n{\n  \"success\": true,\n  \"message\": \"Privilege packages assigned successfully\",\n  \"data\": {\n    \"staff_id\": 1,\n    \"assigned_packages\": [1, 2, 3],\n    \"total_privileges\": 24,\n    \"assigned_at\": \"2024-01-15T10:30:00Z\"\n  }\n}\n```"
+          }
+        },
+        {
+          "name": "Grant Individual Privilege to Staff",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"privilege_id\": 5,\n  \"reason\": \"Special authorization for reporting access\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/1/grant-privilege",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff",
+                "1",
+                "grant-privilege"
+              ]
+            },
+            "description": "Grant a single privilege to a staff member beyond their package assignments.\n\n**Request Body:**\n```json\n{\n  \"privilege_id\": 5,              // Single privilege ID\n  \"reason\": \"Optional reason\"      // Optional reason for audit\n}\n```\n\nOr for multiple privileges:\n```json\n{\n  \"privilege_ids\": [5, 10, 15],   // Array of privilege IDs\n  \"reason\": \"Optional reason\"\n}\n```"
+          }
+        },
+        {
+          "name": "Grant Multiple Privileges to Staff",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"privilege_ids\": [5, 10, 15],\n  \"reason\": \"Special reporting access granted\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/1/grant-privilege",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff",
+                "1",
+                "grant-privilege"
+              ]
+            },
+            "description": "Grant multiple individual privileges to a staff member.\n\n**Response:**\n```json\n{\n  \"success\": true,\n  \"count\": 3,\n  \"results\": [\n    {\n      \"success\": true,\n      \"privilege_id\": 5,\n      \"message\": \"Privilege granted\",\n      \"granted_at\": \"2024-01-15T10:35:00Z\"\n    },\n    {\n      \"success\": true,\n      \"privilege_id\": 10,\n      \"message\": \"Privilege granted\",\n      \"granted_at\": \"2024-01-15T10:35:01Z\"\n    }\n  ]\n}\n```"
+          }
+        },
+        {
+          "name": "Revoke Privilege from Staff",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"privilege_id\": 5,\n  \"reason\": \"User no longer needs reporting access\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/1/revoke-privilege",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff",
+                "1",
+                "revoke-privilege"
+              ]
+            },
+            "description": "Revoke a privilege from a staff member. The privilege will be removed from their individual privileges but they may still have it through a package.\n\n**Request Body:**\n```json\n{\n  \"privilege_id\": 5,                    // Single privilege ID\n  \"reason\": \"No longer needed\"          // Optional reason\n}\n```\n\nOr for multiple:\n```json\n{\n  \"privilege_ids\": [5, 10],\n  \"reason\": \"Revoked as per security policy\"\n}\n```"
+          }
+        },
+        {
+          "name": "Revoke Multiple Privileges from Staff",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"privilege_ids\": [5, 10, 15],\n  \"reason\": \"Revoked due to role change\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/1/revoke-privilege",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff",
+                "1",
+                "revoke-privilege"
+              ]
+            },
+            "description": "Revoke multiple privileges from a staff member at once."
+          }
+        }
+      ]
+    },
+    {
+      "name": "🔍 Privilege Verification & Status",
+      "description": "Check and verify staff privileges",
+      "item": [
+        {
+          "name": "Get Staff Privileges",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/1/privileges",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff",
+                "1",
+                "privileges"
+              ]
+            },
+            "description": "Get all effective privileges for a staff member (from packages + individual grants).\n\n**Response Example:**\n```json\n{\n  \"success\": true,\n  \"count\": 15,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"code\": \"VIEW_MEMBERS\",\n      \"name_en\": \"View Members\",\n      \"name_ar\": \"عرض الأعضاء\",\n      \"module\": \"members\",\n      \"source\": \"package_1\"\n    },\n    {\n      \"id\": 5,\n      \"code\": \"EXPORT_REPORTS\",\n      \"name_en\": \"Export Reports\",\n      \"name_ar\": \"تصدير التقارير\",\n      \"module\": \"reporting\",\n      \"source\": \"individual_grant\"\n    }\n  ]\n}\n```"
+          }
+        },
+        {
+          "name": "Get Final Privileges (Computed)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/1/final-privileges",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff",
+                "1",
+                "final-privileges"
+              ]
+            },
+            "description": "Get the computed final set of privileges for a staff member, taking into account package assignments and individual overrides."
+          }
+        },
+        {
+          "name": "Get Final Privilege Codes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/1/privilege-codes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff",
+                "1",
+                "privilege-codes"
+              ]
+            },
+            "description": "Get just the privilege codes (not full details) for a staff member. Useful for quick checks.\n\n**Response Example:**\n```json\n{\n  \"success\": true,\n  \"staff_id\": 1,\n  \"privilege_codes\": [\n    \"VIEW_MEMBERS\",\n    \"CREATE_MEMBER\",\n    \"UPDATE_MEMBER\",\n    \"DELETE_MEMBER\",\n    \"VIEW_SPORTS\",\n    \"CREATE_SPORT\"\n  ]\n}\n```"
+          }
+        },
+        {
+          "name": "Check Single Privilege",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/1/has-privilege/VIEW_MEMBERS",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff",
+                "1",
+                "has-privilege",
+                "VIEW_MEMBERS"
+              ]
+            },
+            "description": "Quick check if a staff member has a specific privilege.\n\n**Response Example:**\n```json\n{\n  \"success\": true,\n  \"staff_id\": 1,\n  \"privilege_code\": \"VIEW_MEMBERS\",\n  \"has_privilege\": true\n}\n```"
+          }
+        },
+        {
+          "name": "Check Privilege (POST - Single)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/1/check-privilege/VIEW_MEMBERS",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff",
+                "1",
+                "check-privilege",
+                "VIEW_MEMBERS"
+              ]
+            },
+            "description": "Check if staff has a specific privilege (POST method)."
+          }
+        },
+        {
+          "name": "Check Any Privilege (Multiple)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"privilege_codes\": [\"VIEW_MEMBERS\", \"VIEW_SPORTS\", \"VIEW_FINANCE\"]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/1/check-privileges/any",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff",
+                "1",
+                "check-privileges",
+                "any"
+              ]
+            },
+            "description": "Check if staff has ANY of the specified privileges (at least one).\n\n**Request Body:**\n```json\n{\n  \"privilege_codes\": [\"VIEW_MEMBERS\", \"VIEW_SPORTS\", \"VIEW_FINANCE\"]\n}\n```\n\n**Response Example:**\n```json\n{\n  \"success\": true,\n  \"staff_id\": 1,\n  \"has_any_privilege\": true,\n  \"matched_privileges\": [\"VIEW_MEMBERS\"],\n  \"missing_privileges\": [\"VIEW_SPORTS\", \"VIEW_FINANCE\"]\n}\n```"
+          }
+        },
+        {
+          "name": "Check All Privileges (Multiple)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"privilege_codes\": [\"VIEW_MEMBERS\", \"CREATE_MEMBER\", \"UPDATE_MEMBER\"]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/1/check-privileges/all",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff",
+                "1",
+                "check-privileges",
+                "all"
+              ]
+            },
+            "description": "Check if staff has ALL of the specified privileges.\n\n**Request Body:**\n```json\n{\n  \"privilege_codes\": [\"VIEW_MEMBERS\", \"CREATE_MEMBER\", \"UPDATE_MEMBER\"]\n}\n```\n\n**Response Example:**\n```json\n{\n  \"success\": true,\n  \"staff_id\": 1,\n  \"has_all_privileges\": false,\n  \"matched_privileges\": [\"VIEW_MEMBERS\", \"CREATE_MEMBER\"],\n  \"missing_privileges\": [\"UPDATE_MEMBER\"]\n}\n```"
+          }
+        },
+        {
+          "name": "Get Privilege Statistics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/1/privilege-stats",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff",
+                "1",
+                "privilege-stats"
+              ]
+            },
+            "description": "Get statistics about a staff member's privileges.\n\n**Response Example:**\n```json\n{\n  \"success\": true,\n  \"staff_id\": 1,\n  \"stats\": {\n    \"total_privileges\": 15,\n    \"from_packages\": 12,\n    \"individual_grants\": 3,\n    \"individual_revokes\": 0,\n    \"assigned_packages\": 2,\n    \"modules_with_access\": [\"members\", \"sports\", \"finance\"]\n  }\n}\n```"
+          }
+        },
+        {
+          "name": "Get Privilege Breakdown",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/1/privilege-breakdown",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff",
+                "1",
+                "privilege-breakdown"
+              ]
+            },
+            "description": "Get detailed breakdown of privileges by source and module.\n\n**Response Example:**\n```json\n{\n  \"success\": true,\n  \"staff_id\": 1,\n  \"breakdown\": {\n    \"by_package\": {\n      \"package_1\": [\"VIEW_MEMBERS\", \"CREATE_MEMBER\", \"UPDATE_MEMBER\"],\n      \"package_2\": [\"VIEW_SPORTS\", \"CREATE_SPORT\"]\n    },\n    \"individual_grants\": [\"EXPORT_REPORTS\"],\n    \"individual_revokes\": [],\n    \"by_module\": {\n      \"members\": 3,\n      \"sports\": 2,\n      \"reporting\": 1\n    }\n  }\n}\n```"
+          }
+        }
+      ]
+    },
+    {
+      "name": "📊 Activity & Audit Logs",
+      "description": "View activity logs and audit trails",
+      "item": [
+        {
+          "name": "Get Staff Activity Logs",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/1/activity-logs?limit=50&offset=0",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "staff",
+                "1",
+                "activity-logs"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "50"
+                },
+                {
+                  "key": "offset",
+                  "value": "0"
+                }
+              ]
+            },
+            "description": "Get activity logs for a specific staff member.\n\n**Query Parameters:**\n- `limit`: Number of records (default: 50)\n- `offset`: Pagination offset (default: 0)\n\n**Response Example:**\n```json\n{\n  \"success\": true,\n  \"staff_id\": 1,\n  \"total\": 25,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"action\": \"privilege_granted\",\n      \"description\": \"Granted privilege VIEW_MEMBERS\",\n      \"performed_by\": \"Admin User\",\n      \"timestamp\": \"2024-01-15T10:30:00Z\",\n      \"status\": \"success\"\n    },\n    {\n      \"id\": 2,\n      \"action\": \"package_assigned\",\n      \"description\": \"Assigned package MEMBER_MANAGER\",\n      \"performed_by\": \"Admin User\",\n      \"timestamp\": \"2024-01-15T10:25:00Z\",\n      \"status\": \"success\"\n    }\n  ]\n}\n```"
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "your_jwt_token_here",
+      "type": "string"
+    },
+    {
+      "key": "staff_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "package_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "privilege_id",
+      "value": "1",
+      "type": "string"
+    }
+  ]
+}

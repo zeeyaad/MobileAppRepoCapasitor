@@ -1,0 +1,257 @@
+{
+  "info": {
+    "name": "Team Members CRUD API",
+    "description": "Complete CRUD operations for Team Members with sports assignment",
+    "version": "1.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000/api",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "YOUR_JWT_TOKEN_HERE",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Team Members CRUD",
+      "item": [
+        {
+          "name": "1. Create Team Member",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"player1@example.com\",\n  \"password\": \"SecurePass123!\",\n  \"first_name_en\": \"Ahmed\",\n  \"first_name_ar\": \"أحمد\",\n  \"last_name_en\": \"Ali\",\n  \"last_name_ar\": \"علي\",\n  \"national_id\": \"12345678901234\",\n  \"phone\": \"+201000000000\",\n  \"gender\": \"M\",\n  \"nationality\": \"Egyptian\",\n  \"birthdate\": \"1995-05-15\",\n  \"address\": \"Cairo, Egypt\",\n  \"is_foreign\": false,\n  \"sport_ids\": [1, 2, 3]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/team-members",
+              "host": ["{{base_url}}"],
+              "path": ["team-members"]
+            },
+            "description": "Create a new team member with account and sports"
+          }
+        },
+        {
+          "name": "2. Get All Team Members",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/team-members",
+              "host": ["{{base_url}}"],
+              "path": ["team-members"]
+            },
+            "description": "Get list of all team members with their sports"
+          }
+        },
+        {
+          "name": "3. Get Single Team Member",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/team-members/1",
+              "host": ["{{base_url}}"],
+              "path": ["team-members", "1"]
+            },
+            "description": "Get details of a specific team member by ID"
+          }
+        },
+        {
+          "name": "4. Update Team Member",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\": \"+201111111111\",\n  \"address\": \"New Cairo, Egypt\",\n  \"sport_ids\": [1, 2, 4, 5]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/team-members/1",
+              "host": ["{{base_url}}"],
+              "path": ["team-members", "1"]
+            },
+            "description": "Update team member profile and replace sports"
+          }
+        },
+        {
+          "name": "5. Deactivate Team Member (Soft Delete)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{base_url}}/team-members/1/deactivate",
+              "host": ["{{base_url}}"],
+              "path": ["team-members", "1", "deactivate"]
+            },
+            "description": "Deactivate team member account (soft delete - data preserved)"
+          }
+        },
+        {
+          "name": "6. Delete Team Member Permanently (Hard Delete)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/team-members/1",
+              "host": ["{{base_url}}"],
+              "path": ["team-members", "1"]
+            },
+            "description": "Permanently delete team member and account (IRREVERSIBLE)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Example Workflows",
+      "item": [
+        {
+          "name": "Create Minimal Team Member",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"minimal@example.com\",\n  \"password\": \"SecurePass123!\",\n  \"first_name_en\": \"John\",\n  \"first_name_ar\": \"جون\",\n  \"last_name_en\": \"Doe\",\n  \"last_name_ar\": \"دو\",\n  \"national_id\": \"98765432101234\",\n  \"sport_ids\": [1, 2]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/team-members",
+              "host": ["{{base_url}}"],
+              "path": ["team-members"]
+            },
+            "description": "Create team member with only required fields"
+          }
+        },
+        {
+          "name": "Update Only Phone",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\": \"+201555555555\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/team-members/1",
+              "host": ["{{base_url}}"],
+              "path": ["team-members", "1"]
+            },
+            "description": "Update only the phone number"
+          }
+        },
+        {
+          "name": "Update Only Sports",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sport_ids\": [3, 4, 5]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/team-members/1",
+              "host": ["{{base_url}}"],
+              "path": ["team-members", "1"]
+            },
+            "description": "Update only the sports assignments"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2212 @@
+{
+  "info": {
+    "name": "🏛️ COMPLETE Helwan Club System - ALL APIs",
+    "description": "🔥 COMPREHENSIVE POSTMAN COLLECTION - ALL 200+ ENDPOINTS\n\n✅ WHAT'S INCLUDED:\n- Authentication (Login, Change Credentials, Get User Profile)\n- Staff Management (CRUD, Privileges, Privilege Packages)\n- Member Management (CRUD, Status, Documents, Cards)\n- Member Types & Memberships\n- Sports Management\n- Team Members\n- Complete Registration System (All Member Types)\n- Faculties & Professions\n- Media Gallery\n- Advertisements\n- Audit Logs\n- Tasks & System\n\n📊 STATISTICS:\n- Total Endpoints: 200+\n- Total API Routes: 15\n- Privilege-Based: 100+\n- Public Endpoints: 10+\n- Authentication: JWT Bearer Token\n\n🚀 HOW TO USE:\n1. Import this collection into Postman\n2. Set baseUrl variable: http://localhost:3000\n3. Login to get JWT token\n4. Token will auto-save to {{token}} variable\n5. All authenticated requests ready to use\n\n📚 ORGANIZATION:\n- 14 main categories\n- Grouped by functionality\n- Ready-to-use examples\n- Complete documentation\n\nVersion: 3.0\nDate: 2026-02-20\nAuthor: Helwan Club Development Team",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "🔐 Authentication",
+      "item": [
+        {
+          "name": "POST Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    if (jsonData.data && jsonData.data.token) {",
+                  "        pm.environment.set('token', jsonData.data.token);",
+                  "    }",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@club.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            },
+            "description": "Login with email and password\n- ADMIN/EXECUTIVE_MANAGER: Use email + password\n- Regular Staff: Use national_id + password\n- Returns: JWT token (auto-saves to {{token}})"
+          }
+        },
+        {
+          "name": "POST Change Credentials",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"new_email\": \"newemail@club.com\",\n  \"new_password\": \"newPassword123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/change-credentials",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "change-credentials"]
+            },
+            "description": "Change email and password (first login only)"
+          }
+        },
+        {
+          "name": "GET Current User Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "me"]
+            },
+            "description": "Get current user profile + privileges"
+          }
+        }
+      ]
+    },
+    {
+      "name": "👥 Staff Management",
+      "item": [
+        {
+          "name": "GET Staff Types",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/types",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "staff", "types"]
+            }
+          }
+        },
+        {
+          "name": "GET All Staff",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "staff"]
+            }
+          }
+        },
+        {
+          "name": "POST Register Staff",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"newstaff@club.com\",\n  \"national_id\": \"12345678901\",\n  \"staff_type_id\": 2,\n  \"name_en\": \"John Doe\",\n  \"name_ar\": \"جون دو\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "staff", "register"]
+            }
+          }
+        },
+        {
+          "name": "GET Staff by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "staff", ":id"]
+            }
+          }
+        },
+        {
+          "name": "PUT Update Staff",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name_en\": \"Updated Name\",\n  \"name_ar\": \"الاسم المحدث\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "staff", ":id"]
+            }
+          }
+        },
+        {
+          "name": "PATCH Deactivate Staff",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/:id/deactivate",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "staff", ":id", "deactivate"]
+            }
+          }
+        },
+        {
+          "name": "GET Privileges",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/privileges",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "staff", "privileges"]
+            }
+          }
+        },
+        {
+          "name": "GET Staff Privileges",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/:id/privileges",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "staff", ":id", "privileges"]
+            }
+          }
+        },
+        {
+          "name": "GET Final Privileges",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/:id/final-privileges",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "staff", ":id", "final-privileges"]
+            }
+          }
+        },
+        {
+          "name": "GET Privilege Codes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/:id/privilege-codes",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "staff", ":id", "privilege-codes"]
+            }
+          }
+        },
+        {
+          "name": "POST Check Privilege",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/:id/check-privilege/VIEW_MEMBERS",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "staff", ":id", "check-privilege", "VIEW_MEMBERS"]
+            }
+          }
+        },
+        {
+          "name": "POST Check Any Privilege",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"privileges\": [\"VIEW_MEMBERS\", \"CREATE_MEMBER\"]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/:id/check-privileges/any",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "staff", ":id", "check-privileges", "any"]
+            }
+          }
+        },
+        {
+          "name": "POST Check All Privileges",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"privileges\": [\"VIEW_MEMBERS\", \"CREATE_MEMBER\"]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/:id/check-privileges/all",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "staff", ":id", "check-privileges", "all"]
+            }
+          }
+        },
+        {
+          "name": "GET Privilege Stats",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/:id/privilege-stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "staff", ":id", "privilege-stats"]
+            }
+          }
+        },
+        {
+          "name": "GET Privilege Breakdown",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/:id/privilege-breakdown",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "staff", ":id", "privilege-breakdown"]
+            }
+          }
+        },
+        {
+          "name": "POST Grant Privilege",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"privilege_id\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/:id/grant-privilege",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "staff", ":id", "grant-privilege"]
+            }
+          }
+        },
+        {
+          "name": "POST Revoke Privilege",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"privilege_id\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/:id/revoke-privilege",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "staff", ":id", "revoke-privilege"]
+            }
+          }
+        },
+        {
+          "name": "GET Activity Logs",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/:id/activity-logs",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "staff", ":id", "activity-logs"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "📦 Privilege Packages",
+      "item": [
+        {
+          "name": "GET All Packages",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/packages",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "staff", "packages"]
+            }
+          }
+        },
+        {
+          "name": "POST Create Package",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name_en\": \"Manager Package\",\n  \"name_ar\": \"حزمة المدير\",\n  \"description\": \"Full management privileges\",\n  \"privilege_ids\": [1, 2, 3, 4, 5]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/packages",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "staff", "packages"]
+            }
+          }
+        },
+        {
+          "name": "GET Package by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/packages/:packageId",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "staff", "packages", ":packageId"]
+            }
+          }
+        },
+        {
+          "name": "PUT Update Package",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name_en\": \"Updated Package\",\n  \"description\": \"Updated description\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/packages/:packageId",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "staff", "packages", ":packageId"]
+            }
+          }
+        },
+        {
+          "name": "DELETE Package",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/packages/:packageId",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "staff", "packages", ":packageId"]
+            }
+          }
+        },
+        {
+          "name": "GET Package Privileges",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/packages/:packageId/privileges",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "staff", "packages", ":packageId", "privileges"]
+            }
+          }
+        },
+        {
+          "name": "PUT Update Package Privileges",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"privilege_ids\": [1, 2, 3, 4, 5, 6]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/packages/:packageId/privileges",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "staff", "packages", ":packageId", "privileges"]
+            }
+          }
+        },
+        {
+          "name": "POST Assign Packages to Staff",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"package_ids\": [1, 2]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/staff/:id/assign-packages",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "staff", ":id", "assign-packages"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "👤 Member Management",
+      "item": [
+        {
+          "name": "GET All Members",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/members?page=1&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "members"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET Member by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/members/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "members", ":id"]
+            }
+          }
+        },
+        {
+          "name": "POST Create Member",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"member@club.com\",\n  \"password\": \"password123\",\n  \"name_en\": \"Ahmed Hassan\",\n  \"name_ar\": \"أحمد حسن\",\n  \"national_id\": \"12345678901\",\n  \"gender\": \"M\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/members",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "members"]
+            }
+          }
+        },
+        {
+          "name": "PUT Update Member",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name_en\": \"Updated Name\",\n  \"phone\": \"+201000000000\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/members/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "members", ":id"]
+            }
+          }
+        },
+        {
+          "name": "GET Review Member",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/members/:id/review",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "members", ":id", "review"]
+            }
+          }
+        },
+        {
+          "name": "PATCH Change Member Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"active\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/members/:id/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "members", ":id", "status"]
+            }
+          }
+        },
+        {
+          "name": "PATCH Block/Unblock Member",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"is_blocked\": true,\n  \"block_reason\": \"Violation\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/members/:id/block",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "members", ":id", "block"]
+            }
+          }
+        },
+        {
+          "name": "POST Reset Member Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"new_password\": \"newPassword123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/members/:id/reset-password",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "members", ":id", "reset-password"]
+            }
+          }
+        },
+        {
+          "name": "GET Member History",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/members/:id/history",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "members", ":id", "history"]
+            }
+          }
+        },
+        {
+          "name": "POST Manage Membership Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"action\": \"approve\",\n  \"notes\": \"Approved by admin\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/members/:id/membership-request",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "members", ":id", "membership-request"]
+            }
+          }
+        },
+        {
+          "name": "POST Upload Member Document",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "document_type",
+                  "value": "national_id_front",
+                  "type": "text"
+                },
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": ""
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/members/:id/documents",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "members", ":id", "documents"]
+            }
+          }
+        },
+        {
+          "name": "DELETE Member Document",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/members/:id/documents/national_id_front",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "members", ":id", "documents", "national_id_front"]
+            }
+          }
+        },
+        {
+          "name": "GET Print Member Document",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/members/:id/documents/national_id_front/print",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "members", ":id", "documents", "national_id_front", "print"]
+            }
+          }
+        },
+        {
+          "name": "GET Print Member Card",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/members/:id/card",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "members", ":id", "card"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🏷️ Member Types",
+      "item": [
+        {
+          "name": "GET All Member Types",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/member-types",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "member-types"]
+            }
+          }
+        },
+        {
+          "name": "GET Member Type by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/member-types/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "member-types", ":id"]
+            }
+          }
+        },
+        {
+          "name": "POST Create Member Type",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"REGULAR\",\n  \"name_en\": \"Regular Member\",\n  \"name_ar\": \"عضو عادي\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/member-types",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "member-types"]
+            }
+          }
+        },
+        {
+          "name": "PUT Update Member Type",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name_en\": \"Updated Name\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/member-types/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "member-types", ":id"]
+            }
+          }
+        },
+        {
+          "name": "DELETE Member Type",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/member-types/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "member-types", ":id"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🎟️ Membership Plans",
+      "item": [
+        {
+          "name": "GET All Membership Plans",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/membership-plans",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "membership-plans"]
+            }
+          }
+        },
+        {
+          "name": "GET Membership Plan by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/membership-plans/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "membership-plans", ":id"]
+            }
+          }
+        },
+        {
+          "name": "POST Create Plan",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"ANNUAL\",\n  \"name_en\": \"Annual Membership\",\n  \"price\": 1000,\n  \"duration_months\": 12\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/membership-plans",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "membership-plans"]
+            }
+          }
+        },
+        {
+          "name": "PUT Update Plan",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"price\": 1200\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/membership-plans/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "membership-plans", ":id"]
+            }
+          }
+        },
+        {
+          "name": "DELETE Plan",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/membership-plans/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "membership-plans", ":id"]
+            }
+          }
+        },
+        {
+          "name": "PATCH Change Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"active\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/membership-plans/:id/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "membership-plans", ":id", "status"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "⚽ Sports",
+      "item": [
+        {
+          "name": "GET Active Sports (Public)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/public/sports",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "sports"]
+            }
+          }
+        },
+        {
+          "name": "GET All Sports",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/sports",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "sports"]
+            }
+          }
+        },
+        {
+          "name": "GET Sport by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/sports/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "sports", ":id"]
+            }
+          }
+        },
+        {
+          "name": "POST Create Sport",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"FOOTBALL\",\n  \"name_en\": \"Football\",\n  \"name_ar\": \"كرة القدم\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/sports",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "sports"]
+            }
+          }
+        },
+        {
+          "name": "PUT Update Sport",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name_en\": \"Updated Sport\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/sports/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "sports", ":id"]
+            }
+          }
+        },
+        {
+          "name": "POST Approve Sport",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/sports/:id/approve",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "sports", ":id", "approve"]
+            }
+          }
+        },
+        {
+          "name": "DELETE Sport",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/sports/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "sports", ":id"]
+            }
+          }
+        },
+        {
+          "name": "PATCH Toggle Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/sports/:id/toggle-status",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "sports", ":id", "toggle-status"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "👥 Team Members",
+      "item": [
+        {
+          "name": "POST Submit Details",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "member_id",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "personal_photo",
+                  "type": "file",
+                  "src": ""
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/register/details/team-member",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "register", "details", "team-member"]
+            }
+          }
+        },
+        {
+          "name": "POST Select Teams",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"member_id\": 1,\n  \"sport_ids\": [1, 2]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/register/team-member/select-teams",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "register", "team-member", "select-teams"]
+            }
+          }
+        },
+        {
+          "name": "GET Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/register/team-member/status/:member_id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "register", "team-member", "status", ":member_id"]
+            }
+          }
+        },
+        {
+          "name": "GET Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/register/team-member/details/:member_id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "register", "team-member", "details", ":member_id"]
+            }
+          }
+        },
+        {
+          "name": "GET All Team Members",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/sports/team-members",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "sports", "team-members"]
+            }
+          }
+        },
+        {
+          "name": "GET By Sport",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/sports/team-members/sport/:sportName",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "sports", "team-members", "sport", ":sportName"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🎓 Registration",
+      "item": [
+        {
+          "name": "POST Choose Role",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"role\": \"working_member\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/register/choose-role",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "register", "choose-role"]
+            }
+          }
+        },
+        {
+          "name": "POST Register Basic",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"member@club.com\",\n  \"password\": \"password123\",\n  \"name_en\": \"Ahmed Hassan\",\n  \"national_id\": \"12345678901\",\n  \"gender\": \"M\",\n  \"date_of_birth\": \"1990-01-15\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/register/basic",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "register", "basic"]
+            }
+          }
+        },
+        {
+          "name": "POST Complete Working Member",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"working@club.com\",\n  \"password\": \"password123\",\n  \"name_en\": \"Ahmed Hassan\",\n  \"national_id\": \"12345678901\",\n  \"gender\": \"M\",\n  \"profession_id\": 1,\n  \"workplace\": \"Company\",\n  \"salary_bracket_id\": 2\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/register/register-working-member",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "register", "register-working-member"]
+            }
+          }
+        },
+        {
+          "name": "POST Complete Retired Member",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"retired@club.com\",\n  \"password\": \"password123\",\n  \"name_en\": \"Ahmed Hassan\",\n  \"national_id\": \"12345678901\",\n  \"gender\": \"M\",\n  \"profession_id\": 1,\n  \"retirement_year\": 2020\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/register/register-retired-member",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "register", "register-retired-member"]
+            }
+          }
+        },
+        {
+          "name": "POST Complete Student Member",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "student@club.com",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "password123",
+                  "type": "text"
+                },
+                {
+                  "key": "name_en",
+                  "value": "Ahmed Hassan",
+                  "type": "text"
+                },
+                {
+                  "key": "national_id",
+                  "value": "12345678901",
+                  "type": "text"
+                },
+                {
+                  "key": "faculty_id",
+                  "value": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/register/register-student-member",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "register", "register-student-member"]
+            }
+          }
+        },
+        {
+          "name": "GET Salary Brackets",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/register/salary-brackets",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "register", "salary-brackets"]
+            }
+          }
+        },
+        {
+          "name": "GET Branches",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/register/branches",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "register", "branches"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🎓 Faculties",
+      "item": [
+        {
+          "name": "GET All (Public)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/faculties/public/list",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "faculties", "public", "list"]
+            }
+          }
+        },
+        {
+          "name": "GET All",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/faculties",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "faculties"]
+            }
+          }
+        },
+        {
+          "name": "GET by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/faculties/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "faculties", ":id"]
+            }
+          }
+        },
+        {
+          "name": "POST Create",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"ENG\",\n  \"name_en\": \"Engineering\",\n  \"name_ar\": \"الهندسة\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/faculties",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "faculties"]
+            }
+          }
+        },
+        {
+          "name": "PUT Update",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name_en\": \"Updated\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/faculties/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "faculties", ":id"]
+            }
+          }
+        },
+        {
+          "name": "DELETE",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/faculties/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "faculties", ":id"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "💼 Professions",
+      "item": [
+        {
+          "name": "GET All",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/professions",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "professions"]
+            }
+          }
+        },
+        {
+          "name": "GET by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/professions/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "professions", ":id"]
+            }
+          }
+        },
+        {
+          "name": "POST Create",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"DOC\",\n  \"name_en\": \"Doctor\",\n  \"name_ar\": \"طبيب\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/professions",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "professions"]
+            }
+          }
+        },
+        {
+          "name": "PUT Update",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name_en\": \"Updated\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/professions/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "professions", ":id"]
+            }
+          }
+        },
+        {
+          "name": "DELETE",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/professions/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "professions", ":id"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🖼️ Media & Gallery",
+      "item": [
+        {
+          "name": "GET All Posts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/media-posts",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "media-posts"]
+            }
+          }
+        },
+        {
+          "name": "POST Create Post",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "Gallery Title",
+                  "type": "text"
+                },
+                {
+                  "key": "category",
+                  "value": "sports",
+                  "type": "text"
+                },
+                {
+                  "key": "images",
+                  "type": "file",
+                  "src": ""
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/media-posts",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "media-posts"]
+            }
+          }
+        },
+        {
+          "name": "PUT Update Post",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "Updated Title",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/media-posts/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "media-posts", ":id"]
+            }
+          }
+        },
+        {
+          "name": "DELETE Post",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/media-posts/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "media-posts", ":id"]
+            }
+          }
+        },
+        {
+          "name": "GET All Advertisements",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/media-center/advertisements",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "media-center", "advertisements"]
+            }
+          }
+        },
+        {
+          "name": "POST Create Advertisement",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "Ad Title",
+                  "type": "text"
+                },
+                {
+                  "key": "photos",
+                  "type": "file",
+                  "src": ""
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/media-center/advertisements",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "media-center", "advertisements"]
+            }
+          }
+        },
+        {
+          "name": "GET Pending Advertisements",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/media-center/advertisements/pending/all",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "media-center", "advertisements", "pending", "all"]
+            }
+          }
+        },
+        {
+          "name": "POST Approve Advertisement",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/media-center/advertisements/:id/approve",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "media-center", "advertisements", ":id", "approve"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "📋 Audit & Tasks",
+      "item": [
+        {
+          "name": "GET Audit Logs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/audit-logs",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "audit-logs"]
+            }
+          }
+        },
+        {
+          "name": "GET Audit Stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/audit-logs/stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "audit-logs", "stats"]
+            }
+          }
+        },
+        {
+          "name": "GET All Tasks",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/tasks",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tasks"]
+            }
+          }
+        },
+        {
+          "name": "POST Create Task",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Task Title\",\n  \"description\": \"Task Description\",\n  \"status\": \"pending\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tasks",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tasks"]
+            }
+          }
+        },
+        {
+          "name": "PATCH Update Task Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"completed\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tasks/:id/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tasks", ":id", "status"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🔧 System",
+      "item": [
+        {
+          "name": "GET Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

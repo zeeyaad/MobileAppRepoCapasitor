@@ -1,0 +1,322 @@
+{
+  "dashboard": {
+    "title": "Team member dashboard",
+    "meta_title": "Team Member Dashboard | Helwan University Club",
+    "meta_description": "Team member dashboard: Profile, sports, court booking, and notifications.",
+    "loading": "Loading...",
+    "page_title": "Dashboard",
+    "page_subtitle": "Comprehensive view of your training and monthly sessions schedule",
+    "join_date_label": "Join Date:",
+    "stats": {
+      "attended_sessions": "Attended Sessions",
+      "total_sessions": "Total Sessions",
+      "enrolled_sports": "Enrolled Sports",
+      "attendance_rate": "Attendance Rate"
+    },
+    "my_sports_section": "My Sports & Attendance Record",
+    "calendar": {
+      "summary": {
+        "attended": "Attended",
+        "absent": "Absent",
+        "upcoming": "Upcoming"
+      },
+      "filter_all": "All",
+      "no_sessions": "No sessions for this day",
+      "select_day": "Select a day from the calendar",
+      "booking_prefix": "Booking:",
+      "copy_invite": "Copy Invite Link",
+      "copying": "Copying...",
+      "no_invite_token": "No invite link available for this booking.",
+      "copy_success": "Invite link copied to clipboard.",
+      "copy_failed": "Failed to copy invite link. Try again."
+    }
+  },
+  "training_card": {
+      "registration": "Registration:",
+      "next_session": "Next Session",
+      "day": "Day",
+      "time": "Time",
+      "location": "Location",
+      "attended": "Attended",
+      "absent": "Absent",
+      "remaining": "Remaining",
+      "attendance_rate": "Cumulative Attendance Rate",
+      "sessions_completed": "{{attended}} out of {{total}} sessions completed"
+    },
+    "my_sports": {
+      "title": "My Sports",
+      "limit": "{{count}} / {{max}} Sports",
+      "subscribe": "Subscribe to Sport",
+      "loading": "Loading your sports data...",
+      "empty": "You haven't joined any sports yet",
+      "status_filter": "Status",
+      "clear": "Clear",
+      "error": "Failed to load sports data. Please try again.",
+      "next_session": "Next Session:"
+    },
+    "sport_card": {
+    "status": {
+      "expired_today": "Expires Today",
+      "expires_in": "Expires in {{days}} days",
+      "expired": "Subscription Expired"
+    },
+    "alerts": {
+      "expires_today": "Your subscription expires today!",
+      "expires_soon": "Your subscription expires in {{days}} {{unit}}. Renew now.",
+      "expired": "Your subscription has expired. Rejoin to continue training."
+    },
+    "actions": {
+      "renew": "Renew Subscription"
+    },
+    "schedule_title": "Training Schedule",
+    "expiry_date": "Expiry Date"
+  },
+  "navbar": {
+    "brand": "Helwan University Club",
+    "role": "Team Member",
+    "notifications": "Show notifications",
+    "menu": "Menu"
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "my_sports": "My Sports",
+    "explore_sports": "Explore Sports",
+    "court_booking": "Court Rental",
+    "logout": "Logout"
+  },
+  "logout_modal": {
+    "title": "Are you sure you want to logout?",
+    "description": "Your current session will end and you can log in again later.",
+    "confirm": "Logout",
+    "cancel": "Cancel"
+  },
+  "profile": {
+    "header_title": "Personal Information",
+    "membership_id": "Membership ID",
+    "edit_data": "Edit Data",
+    "personal_info": "Personal Info",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "email": "Email",
+    "phone": "Phone Number",
+    "birth_date": "Birth Date",
+    "national_id": "National ID",
+    "join_date": "Join Date",
+    "documents_title": "Documents",
+    "avatar": "Personal Photo",
+    "national_id_front": "National ID (Front)",
+    "national_id_back": "National ID (Back)",
+    "medical_report": "Medical Report",
+    "proof": "Proof Document",
+    "no_file": "No file",
+    "change_file": "Change",
+    "save_changes": "Save Changes",
+    "validation": {
+      "first_name_required": "First name is required",
+      "first_name_arabic": "First name must contain only Arabic letters",
+      "last_name_required": "Last name is required",
+      "last_name_arabic": "Last name must contain only Arabic letters",
+      "email_required": "Email is required",
+      "email_invalid": "Invalid email format",
+      "phone_required": "Phone number is required",
+      "phone_invalid": "Phone must be 11 digits and start with 010, 011, 012, or 015",
+      "national_id_required": "National ID is required",
+      "national_id_invalid": "National ID must be 14 digits and not start with zero",
+      "birth_date_required": "Birth date is required",
+      "age_min": "Age must be 16 years or older",
+      "file_unsupported": "File type not supported. Allowed: JPG, PNG, PDF",
+      "file_too_large": "File size must not exceed 5MB",
+      "update_success": "Data updated successfully",
+      "update_failed": "Failed to update data"
+    }
+  },
+  "sports": {
+    "title": "Enrolled Sports",
+    "no_sports": "You haven't joined any sports yet",
+    "join_new": "Join New Sport",
+    "select_sport": "Select Sport",
+    "start_date": "Start Date",
+    "end_date": "End Date",
+    "total_price": "Total Subscription Fee",
+    "currency": "EGP",
+    "info_message": "The sports activity management will review your join request. You can join a maximum of 4 sports.",
+    "confirm_join": "Confirm Join",
+    "status": {
+      "active": "Active",
+      "pending": "Pending",
+      "expired": "Expired",
+      "upcoming": "Upcoming"
+    },
+    "validation": {
+      "complete_fields": "Please complete all fields",
+      "date_invalid": "End date must be after start date",
+      "max_sports": "You cannot join more than 4 sports",
+      "join_failed": "Failed to join sport"
+    },
+    "court": "Court",
+    "unknown_sport": "Unnamed Sport"
+  },
+  "explore_sports": {
+    "title": "Explore Sports",
+    "subtitle": "Discover available sports teams loaded from the system",
+    "no_sports": "No sports currently available in the system",
+    "refresh": "Refresh List",
+    "loading": "Loading sports...",
+    "status": {
+      "payment_required": "💳 PAYMENT REQUIRED",
+      "pending_review": "⏳ PENDING REVIEW",
+      "joined": "✓ JOINED"
+    },
+    "slots": {
+      "no_slots": "No slots currently available",
+      "monthly_cost": "Monthly Cost",
+      "per_month": "EGP / Month",
+      "select_time": "Select a slot",
+      "unknown_time": "Not specified",
+      "outdoor_court": "Outdoor Court"
+    },
+    "actions": {
+      "join_now": "Join Now",
+      "rejoin": "Rejoin",
+      "go_to_payment": "Go to Payment",
+      "sending": "⏳ Sending...",
+      "already_joined": "Already Joined"
+    },
+    "alerts": {
+      "already_active": "You already have an active subscription for this sport. You can only rejoin after your current subscription expires.",
+      "load_failed": "Failed to load sports from server"
+    }
+  },
+  "court_rental": {
+    "title": "Court Rental",
+    "subtitle": "Easily choose courts and activities based on available times for this week.",
+    "controls": {
+      "activity": "Sport Activity",
+      "field": "Court or Hall",
+      "select_activity": "Select Activity",
+      "select_field": "Select Court",
+      "no_active_fields": "No active courts",
+      "loading": "Loading..."
+    },
+    "calendar": {
+      "available_times": "Available Times Today",
+      "legend_available": "Available (Click to start)",
+      "legend_unavailable": "Unavailable",
+      "book_now": "+ Book",
+      "not_available": "Not Available",
+      "time_reserved_alert": "Time is pre-reserved and cannot be selected.",
+      "select_future_time": "Please select a future available time.",
+      "time_conflict": "This time is reserved or conflicts. Please choose another time."
+    },
+    "dialog": {
+      "title": "Confirm Court Appointment",
+      "description": "Make sure to choose your timing accurately, you can book in half-hour intervals!",
+      "activity": "Activity",
+      "field": "Court",
+      "date": "Date",
+      "from_time": "From",
+      "to_time": "To",
+      "placeholder_start": "Start Time",
+      "placeholder_end": "End Time",
+      "total_cost": "Total Estimated Cost:",
+      "confirm_button": "Book Court",
+      "cancel_button": "Cancel"
+    },
+    "alerts": {
+      "specify_times": "Please specify start and end times for the booking.",
+      "end_after_start": "End time must be after start time.",
+      "min_duration": "Minimum booking duration is 30 minutes.",
+      "conflict": "This time is reserved or conflicts. Please choose another time.",
+      "login_required": "You must log in first to complete the booking",
+      "success": "✅ Booking request submitted successfully! Redirecting to payment...",
+      "fail": "Failed to complete booking. Please try again",
+      "load_sports_fail": "Failed to load sports from server",
+      "load_fields_fail": "Failed to load fields from server"
+    }
+  },
+  "notifications": {
+    "welcome_title": "Welcome!",
+    "welcome_msg": "Your account has been successfully activated as a team member.",
+    "training_today_title": "Training Today",
+    "training_today_msg": "You have a {{sport}} training session today at {{time}}.",
+    "new_subscription_title": "New Subscription",
+    "new_subscription_msg": "Your subscription to {{sport}} has been successfully confirmed.",
+    "court_booking_title": "Court Booking",
+    "court_booking_msg": "{{court}} has been booked for {{date}}.",
+    "expiry_title": "Alert: {{sport}} subscription",
+    "expiry_msg_today": "Your subscription to {{sport}} expires today. Rejoin to continue training.",
+    "expiry_msg_days": "Your subscription to {{sport}} will expire in {{days}} {{day_unit}}.",
+    "important_notice_title": "Important Notice",
+    "important_notice_msg": "Please follow the training schedule and adhere to the timings.",
+    "time": {
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "now": "Now",
+      "days_ago": "{{count}} days ago",
+      "day": "day",
+      "days": "days",
+      "am": "AM",
+      "pm": "PM"
+    }
+  },
+  "pending_access": {
+    "welcome": "Welcome, {{name}}!",
+    "under_review": "Account Under Review",
+    "description": "Thank you for joining us! Your data is currently being reviewed by the club management. We will activate your account as soon as the verification process is complete.",
+    "status_label": "Request Status: Pending",
+    "logout": "Logout",
+    "footer": "© {{year}} Helwan University Club - All rights reserved"
+  },
+  "payment": {
+    "title": "Payment Page",
+    "description_subscription": "Complete payment first. After payment, your subscription will be activated immediately.",
+    "description_booking": "Complete payment to confirm court booking.",
+    "invalid_data": "Incomplete payment data. Please go back and select the slot again.",
+    "labels": {
+      "sport": "Sport",
+      "time": "Time",
+      "days": "Days",
+      "court": "Court",
+      "reference": "Payment Reference",
+      "amount": "Amount",
+      "waiting_cost": "Waiting for cost determination",
+      "invite_link": "Participant Invite Link:"
+    },
+    "actions": {
+      "pay_now": "Pay Now",
+      "back": "Back",
+      "processing": "Processing...",
+      "copy": "Copy Link",
+      "copied": "✅ Copied",
+      "return_home": "Return Home"
+    },
+    "alerts": {
+      "incomplete_data": "Incomplete payment data. Please try again.",
+      "missing_booking_id": "Booking ID missing",
+      "missing_subscription": "Could not find your subscription. Please join the sport again.",
+      "success_booking": "✅ Booking and payment confirmed successfully.",
+      "success_subscription": "Payment completed successfully. Your subscription is now active.",
+      "fail": "Payment failed"
+    },
+    "success_modal": {
+      "title": "Booking Confirmed Successfully!",
+      "description": "Your booking has been registered and fees paid successfully. You can now invite your friends to join this booking via the following link."
+    }
+  },
+  "calendar_utils": {
+    "days": {
+      "short": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+      "long": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    },
+    "months": [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ],
+    "status": {
+      "attended": "Attended",
+      "absent": "Absent",
+      "upcoming": "Upcoming"
+    }
+  }
+}

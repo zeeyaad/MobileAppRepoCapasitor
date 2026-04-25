@@ -1,0 +1,261 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+    --color-background: #F4F6F9;
+    --color-foreground: #1F2937;
+    --color-card: #FFFFFF;
+    --color-card-foreground: #1F2937;
+    --color-border: #E5E7EB;
+    --color-muted: #F9FAFB;
+    --color-muted-foreground: #6C757D;
+
+    --color-primary: #1F3A5F;
+    --color-primary-foreground: #FFFFFF;
+    --color-secondary: #244A73;
+    --color-secondary-foreground: #FFFFFF;
+    --color-accent: #2EA7C9;
+    --color-accent-foreground: #FFFFFF;
+
+    --color-destructive: #DC3545;
+    --color-destructive-foreground: #FFFFFF;
+
+    --color-ring: #2EA7C9;
+    --radius: 12px;
+
+    --color-huc-orange: #F4A623;
+    --color-huc-orange-foreground: #FFFFFF;
+
+    /* Dashboard Custom Theme */
+    --color-ds-primary: #1F6FD5;
+    --color-ds-primary-dark: #1558B0;
+    --color-ds-primary-light: #EBF3FF;
+    --color-ds-navy: #1B2D48;
+    --color-ds-navy-deep: #13213A;
+    --color-ds-navy-light: #243E5E;
+    --color-ds-teal: #17A2B8;
+    --color-ds-teal-light: #E8F8FB;
+    --color-ds-orange: #F59E0B;
+    --color-ds-orange-light: #FFF7ED;
+    --color-ds-success: #16A34A;
+    --color-ds-success-light: #F0FDF4;
+    --color-ds-error: #DC2626;
+    --color-ds-error-light: #FEF2F2;
+    --color-ds-text-primary: #0F1E2E;
+    --color-ds-text-secondary: #4A5568;
+    --color-ds-text-muted: #8FA3BB;
+    --color-ds-border: #DDE5F0;
+
+    --shadow-ds-card: 0 2px 12px rgba(15, 30, 60, 0.06), 0 1px 3px rgba(15, 30, 60, 0.04);
+    --shadow-ds-hover: 0 6px 24px rgba(15, 30, 60, 0.10);
+
+    @keyframes fadeUp {
+        from {
+            opacity: 0;
+            transform: translateY(14px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes toastIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    --animate-fade-up: fadeUp 0.45s ease both;
+    --animate-slide-in-right: slideInRight 0.4s ease both;
+    --animate-toast-in: toastIn 0.35s ease both;
+
+    /* Compatibility tokens used by some components */
+    --color-input: var(--color-border);
+    --color-popover: var(--color-card);
+    --color-popover-foreground: var(--color-card-foreground);
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Basic RTL-safe page styling */
+html,
+body,
+#root {
+    height: 100%;
+}
+
+body {
+    @apply bg-background text-foreground;
+    margin: 0;
+    font-family: "Cairo", "IBM Plex Sans Arabic", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1;
+    font-kerning: normal;
+    direction: rtl;
+}
+
+/* Better Arabic font rendering */
+[dir="rtl"] {
+    font-variant-ligatures: common-ligatures;
+    text-rendering: optimizeLegibility;
+}
+
+/* Fix Radix UI portals inheriting RTL direction */
+[data-radix-portal] {
+    direction: rtl;
+}
+
+/* Ensure dialogs always render above sidebar (z-30) and navbar (z-50) */
+[data-radix-dialog-overlay] {
+    z-index: 9999 !important;
+}
+
+[data-radix-dialog-content] {
+    z-index: 9999 !important;
+}
+
+/* Fix Radix popovers and dropdowns too */
+[data-radix-popper-content-wrapper] {
+    z-index: 9999 !important;
+    direction: rtl;
+}
+
+.mask-gradient-x {
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+:root {
+    --scroller-gap: 3rem;
+}
+
+@media (min-width: 768px) {
+    :root {
+        --scroller-gap: 6rem;
+    }
+}
+
+@keyframes scroll {
+    to {
+        transform: translateX(calc(-50% - var(--scroller-gap) / 2));
+    }
+}
+
+.animate-scroll {
+    animation: scroll 40s linear infinite;
+}
+
+.animate-scroll:hover {
+    animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animate-scroll {
+        animation-play-state: paused;
+    }
+}
+
+/* Hide scrollbar while keeping scroll functionality */
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* ─── Phase 2: CSS Logical Properties for RTL/LTR ─────────────────────── */
+/* These utilities support proper bidirectional layout without physical left/right */
+
+/* Logical property utilities for positioning */
+.inset-inline-start-0 {
+  inset-inline-start: 0;
+}
+
+.inset-inline-end-0 {
+  inset-inline-end: 0;
+}
+
+/* Margin logical properties */
+.ms-auto {
+  margin-inline-start: auto;
+}
+
+.me-auto {
+  margin-inline-end: auto;
+}
+
+/* Padding logical properties */
+.ps-4 {
+  padding-inline-start: 1rem;
+}
+
+.pe-4 {
+  padding-inline-end: 1rem;
+}
+
+.ps-6 {
+  padding-inline-start: 1.5rem;
+}
+
+.pe-6 {
+  padding-inline-end: 1.5rem;
+}
+
+/* Text alignment logical properties */
+.text-start {
+  text-align: start;
+}
+
+.text-end {
+  text-align: end;
+}
+
+/* Border logical properties */
+.border-inline-start {
+  border-inline-start: 1px solid currentColor;
+}
+
+.border-inline-end {
+  border-inline-end: 1px solid currentColor;
+}
+
+/* Display: inline-block with logical spacing */
+.inline-block-start {
+  display: inline-block;
+  margin-inline-start: auto;
+}
+
+.inline-block-end {
+  display: inline-block;
+  margin-inline-end: auto;
+}

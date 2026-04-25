@@ -1,0 +1,60 @@
+{
+  "groups": {
+    "home": "الرئيسية",
+    "members": "الأعضاء",
+    "dailyOps": "العمليات اليومية",
+    "sports": "إدارة الرياضات",
+    "finance": "المالية والخدمات",
+    "staff": "الموظفون",
+    "system": "النظام"
+  },
+  "nav": {
+    "dashboard": "لوحة التحكم",
+    "registrations": "طلبات التسجيل",
+    "membersManage": "إدارة الأعضاء",
+    "membersNew": "إضافة عضو نادي",
+    "membersNewTeam": "إضافة لاعب فريق",
+    "bookings": "حجوزات الملاعب",
+    "invitations": "إدارة الدعوات",
+    "sports": "الرياضات",
+    "teams": "الفرق",
+    "courts": "الملاعب والفيلدات",
+    "assignSports": "تعيين الرياضات",
+    "sportsView": "الأعضاء بالرياضة",
+    "subscriptions": "الاشتراكات والدفع",
+    "memberships": "العضويات",
+    "media": "معرض الوسائط",
+    "staffNew": "إضافة موظف جديد",
+    "staffManage": "إدارة الموظفين",
+    "branches": "إدارة الفروع",
+    "faculties": "إدارة الكليات",
+    "professions": "إدارة المهن",
+    "privilegePackages": "باقات الصلاحيات",
+    "assignPrivileges": "تعيين الصلاحيات",
+    "revokePrivileges": "سحب الصلاحيات",
+    "auditLog": "سجل التدقيق",
+    "profile": "ملفي الشخصي"
+  },
+  "member": {
+    "home": "الرئيسية",
+    "profile": "ملفي الشخصي",
+    "memberships": "عضويتي",
+    "sports": "اشتراكاتي الرياضية",
+    "subscribe": "استكشف الرياضات",
+    "courts": "حجز الملاعب"
+  },
+  "sidebar": {
+    "expand": "توسيع القائمة",
+    "collapse": "طي القائمة"
+  },
+  "navbar": {
+    "logout": "تسجيل الخروج",
+    "profile": "الملف الشخصي",
+    "changePassword": "تغيير كلمة المرور",
+    "language": "اللغة",
+    "logoutConfirmTitle": "هل أنت متأكد من تسجيل الخروج؟",
+    "logoutConfirmDesc": "سيتم إنهاء جلستك الحالية ويمكنك تسجيل الدخول مرة أخرى لاحقًا.",
+    "clubName": "نادي جامعة حلوان"
+  }
+}
+

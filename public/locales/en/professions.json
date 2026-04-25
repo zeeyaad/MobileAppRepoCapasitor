@@ -1,0 +1,70 @@
+{
+  "page": {
+    "title": "Manage Professions",
+    "totalCount": "Total registered professions:",
+    "btnAdd": "Add Profession"
+  },
+  "toast": {
+    "fetchFailTitle": "Fetch Failed",
+    "fetchFailDesc": "Unable to load professions",
+    "missingData": "Missing Data",
+    "missingDataDesc": "Please fill all required fields.",
+    "updateSuccess": "Updated",
+    "updateSuccessDesc": "Profession data updated successfully",
+    "addSuccess": "Added",
+    "addSuccessDesc": "Profession added successfully",
+    "saveFail": "Save Failed",
+    "saveFailDesc": "Unexpected error occurred during save",
+    "deleteSuccess": "Deleted",
+    "deleteSuccessDesc": "Profession deleted successfully",
+    "deleteFail": "Delete Failed",
+    "deleteFailDesc": "Unexpected error occurred during delete",
+    "assignSuccess": "Assigned",
+    "assignSuccessDesc": "Member linked to profession successfully",
+    "assignFail": "Assign Failed",
+    "assignFailDesc": "Unexpected error occurred during assignment",
+    "missingMemberDesc": "Please select the required member."
+  },
+  "table": {
+    "serial": "#",
+    "code": "Reference Code",
+    "nameAr": "Profession (Arabic)",
+    "nameEn": "Profession (English)",
+    "actions": "Actions",
+    "emptyTitle": "No Professions Registered",
+    "emptyDesc": "No professions have been added yet. Add your professions now."
+  },
+  "modal": {
+    "addTitle": "Add New Profession",
+    "editTitle": "Edit Profession",
+    "addDesc": "Enter new profession details. Code is used for quick identification.",
+    "editDesc": "Modify selected profession details."
+  },
+  "form": {
+    "codeLabel": "Code",
+    "nameArLabel": "Name (Arabic)",
+    "nameEnLabel": "Name (English)",
+    "codePlaceholder": "ENG",
+    "nameArPlaceholder": "Ex: مهندس",
+    "nameEnPlaceholder": "Engineer",
+    "save": "Save Profession",
+    "saving": "Saving..."
+  },
+  "delete": {
+    "title": "Confirm Deletion",
+    "desc": "Are you sure you want to delete this profession? This action cannot be undone and will affect linked records.",
+    "btn": "Confirm Delete",
+    "deleting": "Deleting..."
+  },
+  "assign": {
+    "title": "Assign Member to Profession",
+    "desc": "Select member to link to profession:",
+    "btn": "Confirm Assignment",
+    "assigning": "Linking...",
+    "memberLookupPlaceholder": "Member ID (e.g., 5049)",
+    "memberLookupLabel": "Member ID",
+    "memberNotFound": "No member applies to this ID",
+    "memberFound": "Name: {{name}}",
+    "memberHint": "Enter valid numbers for auto-search"
+  }
+}

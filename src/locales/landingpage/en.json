@@ -1,0 +1,367 @@
+{
+  "roles": {
+    "admin": "Admin Dashboard",
+    "sports_director": "Sports Director",
+    "sports_officer": "Sports Officer",
+    "financial_director": "Financial Director",
+    "registration_staff": "Registration Staff",
+    "team_manager": "Team Manager",
+    "support": "Technical Support",
+    "auditor": "Financial Auditor",
+    "staff": "Staff Dashboard",
+    "member": "Member Dashboard",
+    "team_member": "Team Member Dashboard",
+    "default": "Dashboard"
+  },
+  "news": {
+    "title": "Latest News",
+    "subtitle": "Follow the latest news from Helwan Club, achievements, and events",
+    "filter_by": "Filter by:",
+    "search_placeholder": "Search news...",
+    "featured": "Featured News",
+    "loading": "Loading news...",
+    "read_more": "Read More",
+    "no_news": "No news available currently.",
+    "all_news": "All News",
+    "no_results": "No results match your search or filter.",
+    "load_more": "Show More News",
+    "subscribe": {
+      "title": "Subscribe to Newsletter",
+      "subtitle": "Get the latest news and achievements straight to your inbox",
+      "placeholder": "Enter your email address",
+      "button": "Subscribe Now"
+    },
+    "cats": {
+      "all": "All",
+      "photos": "Photos",
+      "videos": "Videos",
+      "events": "Events",
+      "promotions": "Promotions",
+      "news": "News",
+      "announcements": "Announcements",
+      "maintenance": "Maintenance"
+    },
+    "badge": {
+      "photos": "Photos",
+      "video": "Video",
+      "event": "Event",
+      "offer": "Offer",
+      "news": "News",
+      "announcement": "Announcement",
+      "maintenance": "Maintenance",
+      "post": "Post"
+    }
+  },
+  "testimonials": {
+    "person1_name": "Omar Abdel Rahman",
+    "person1_text": "From the very first training session, I felt a huge difference. Thank God, now I know the correct body posture and training techniques.",
+    "person2_name": "Youssef El Sayed",
+    "person2_text": "The club here isn't just about equipment; the coaches are highly experienced, and the focus on results made me progress fast.",
+    "person3_name": "Mona Khaled",
+    "person3_text": "Excellent services, the place is spotless, and I love the attention given to nutrition and training programs."
+  },
+  "newsItems": {
+    "dummy1": "Capital University Club signs a major partnership with Mo Salah and Sando Ali",
+    "dummy2": "Internal tournament this week at the Maadi branch",
+    "dummy3": "Exclusive discount campaign on annual memberships",
+    "dummy4": "Free training session for International Sports Day"
+  },
+  "common": {
+    "club_name": "Capital University Club",
+    "location": "Location",
+    "address": "Address",
+    "schedule": "Schedule",
+    "all_week": "All Week",
+    "map_location": "View on Map"
+  },
+  "hero": {
+    "title": "Capital University Club",
+    "subtitle": "Spirit of Competition.. Energy of the Future",
+    "description": "Join the largest university sports community with modern facilities, professional coaches, programs for all levels, and world-class equipment serving over 5,000 members."
+  },
+  "auth": {
+    "register": "Register Now",
+    "login": "Login",
+    "logout": "Logout"
+  },
+  "branches": {
+    "title": "Our Premium Branches",
+    "subtitle": "Choose your nearest branch and experience a fully equipped sports ecosystem.",
+    "helwan_name": "Helwan Branch",
+    "helwan_loc": "Helwan",
+    "maadi_name": "Maadi Branch",
+    "maadi_loc": "Zahraa El Maadi",
+    "tagamoa_name": "Tagamoa Branch",
+    "tagamoa_loc": "5th Settlement",
+    "zayed_name": "Zayed Branch",
+    "zayed_loc": "Sheikh Zayed",
+    "main_branch": "Main Branch",
+    "new_branch": "New Branch",
+    "branch_description": "{{branch_name}} provides an integrated sports experience with wide green spaces, Olympic swimming pools, and facilities equipped to the highest standards.",
+    "explore_btn": "Explore Club"
+  },
+  "sports": {
+    "academy_title": "Capital University Academy - {{sport}}",
+    "history_title": "Capital University Academy Record - {{sport}}",
+    "history_subtitle": "Best achievements for Capital University Academy - {{sport}}",
+    "names": {
+      "football": "Football",
+      "swimming": "Swimming",
+      "tennis": "Tennis",
+      "basketball": "Basketball",
+      "gymnastics": "Gymnastics",
+      "handball": "Handball",
+      "karate": "Karate",
+      "boxing": "Boxing"
+    },
+    "academies_title": "Sports Academies",
+    "academies_description": "Capital University Club is home to professional sports academies, each evolving with the latest athletic and coaching standards. We aim to provide more opportunities, competition, and development for members of all ages.",
+    "discover_btn": "Discover Sports",
+    "stats": {
+      "founded": "Founded Year",
+      "players": "Players",
+      "coaches": "Coaches",
+      "court": "Courts"
+    },
+    "facilities": {
+      "title": "Our Facilities",
+      "subtitle": "Modern facilities for training and competition",
+      "size": "Size {{size}}"
+    },
+    "subscribe": {
+      "title": "Subscribe to Newsletter",
+      "subtitle": "Get the latest news and updates about our sports academy",
+      "placeholder": "Enter your email address",
+      "button": "Subscribe Now"
+    },
+    "contact": {
+      "phone": "Phone",
+      "email": "Email",
+      "location": "Location",
+      "map": "Location on Map"
+    },
+    "cta": {
+      "title": "Ready to Join Us?",
+      "subtitle": "Start your sports journey with Capital University Academy today",
+      "become_member": "Become a Member",
+      "contact": "Contact Us"
+    },
+    "info": {
+      "football": {
+        "name": "Football",
+        "desc": "The football academy is one of the largest academies in the region. Registration starts from 4 years for both genders. Players are evaluated on a quarterly basis",
+        "achievements": {
+          "1": {
+            "title": "Cairo Championship",
+            "desc": "First Place"
+          },
+          "2": {
+            "title": "Egypt Cup",
+            "desc": "Second Place - U2003 Team"
+          },
+          "3": {
+            "title": "Youth League",
+            "desc": "Second Place - U2004 Team"
+          },
+          "4": {
+            "title": "Cairo Championship",
+            "desc": "First Place - U2003 Team"
+          },
+          "5": {
+            "title": "Youth League",
+            "desc": "Second Place - U2004 Team"
+          },
+          "6": {
+            "title": "Egypt Cup",
+            "desc": "Second Place - U2004 Team"
+          }
+        },
+        "facilities": {
+          "1": {
+            "name": "Football Pitch",
+            "desc": "Professional football pitch with 360-degree view"
+          },
+          "2": {
+            "name": "Training Ground",
+            "desc": "Advanced training facilities"
+          },
+          "3": {
+            "name": "Academy Center",
+            "desc": "Modern academic training center"
+          }
+        }
+      },
+      "swimming": {
+        "name": "Swimming",
+        "desc": "Modern swimming facilities with Olympic standards",
+        "achievements": {
+          "1": {
+            "title": "National Championship",
+            "desc": "First Place"
+          },
+          "2": {
+            "title": "Regional Competition",
+            "desc": "Second Place"
+          }
+        },
+        "facilities": {
+          "1": {
+            "name": "Olympic Swimming Pool",
+            "desc": "Swimming pool with Olympic standards"
+          }
+        }
+      }
+    }
+  },
+  "app": {
+    "points_title_part1": "Earn ",
+    "points_title_part2": "Points",
+    "points_title_part3": " Through",
+    "app_title": "The CUC App",
+    "subtitle": "Download the app now and enjoy exclusive features"
+  },
+  "reservations": {
+    "title": "Court Reservations",
+    "subtitle": "A smart and easy reservation system to schedule sports time with your friends.",
+    "instructions_title": "Important Instructions",
+    "instruction_1": "Please arrive 15 minutes prior to your booking.",
+    "instruction_2": "Cancellations are free up to 24 hours in advance.",
+    "instruction_3": "Proper athletic attire is strictly required.",
+    "help_title": "For Immediate Help"
+  },
+  "memberships": {
+    "title": "Memberships",
+    "subtitle": "Choose the Perfect Plan",
+    "no_plans": "No available plans at the moment. Please try again later.",
+    "yearly": "Yearly",
+    "monthly": "Monthly",
+    "every_x_months": "Every {{count}} months",
+    "benefit_access": "Full club access and facility usage",
+    "benefit_discount": "Discounts on sports activities",
+    "benefit_invites": "Complimentary guest invitations",
+    "subscribe": "Subscribe Now"
+  },
+  "nav": {
+    "home": "Home",
+    "clubs": "Branches",
+    "sports": "Sports",
+    "memberships": "Memberships",
+    "news": "Latest News",
+    "contact": "Contact Us",
+    "menu": "Menu"
+  },
+  "footer": {
+    "slogan": "Heritage.. Sports.. Life",
+    "description": "A leading athletic institution providing an integrated community with world-class services that cater to the whole family.",
+    "important_links": "Important Links",
+    "contact_us": "Contact Us",
+    "copyright": "© {{year}} Capital University Club — All rights reserved"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Want to become a member, supplier, or have a question? Use the form below to contact us.",
+    "or_call": "Or call us at",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address",
+    "map": "View on Map",
+    "faq": {
+      "q1": "How can I register as a new member?",
+      "a1": "You can register by visiting our Maadi branch or contacting us by phone. Our team will help you choose the right membership package.",
+      "q2": "What payment methods are available?",
+      "a2": "We accept cash, credit cards, and bank transfers. We also offer installment options for some packages.",
+      "q3": "Can I cancel my membership?",
+      "a3": "Yes, you can cancel according to our cancellation policy. Please contact customer service for details.",
+      "q4": "Do you provide parking?",
+      "a4": "Yes, there is a large free parking area for all members and visitors."
+    },
+    "form": {
+      "title": "Send us a message",
+      "subtitle": "Fill out the form and we will contact you shortly",
+      "name": "Full Name",
+      "name_placeholder": "Enter your name",
+      "phone": "Phone Number",
+      "subject": "Subject",
+      "subject_empty": "Select Subject",
+      "subj_membership": "Membership Inquiry",
+      "subj_vendor": "Become a Supplier",
+      "subj_reservation": "Court/Activity Reservation",
+      "subj_complaint": "Complaint or Suggestion",
+      "subj_other": "Other",
+      "message": "Message",
+      "message_placeholder": "Type your message here...",
+      "sending": "Sending...",
+      "success": "✓ Sent Successfully!",
+      "submit": "Send Message",
+      "msg_from_form": "Message from Contact Form"
+    },
+    "hours": {
+      "title": "Working Hours",
+      "sat_thu": "Saturday - Thursday",
+      "sat_thu_time": "6:00 AM - 11:00 PM",
+      "fri": "Friday",
+      "fri_time": "8:00 AM - 12:00 AM",
+      "offers": "🎉 Special offers available on weekends"
+    },
+    "social": {
+      "title": "Follow us on"
+    },
+    "faq_section": {
+      "title": "FAQ",
+      "subtitle": "Quick answers to common questions"
+    },
+    "cta": {
+      "title": "Ready to Join?",
+      "subtitle": "Start your sports journey with us today and enjoy the best services",
+      "subscribe": "Subscribe Now",
+      "contact": "Contact Us"
+    }
+  },
+  "clubs": {
+    "title": "Branches",
+    "select_branch": "Select Branch",
+    "courts": "Courts",
+    "pools": "Swimming Pools",
+    "restaurants": "Restaurants",
+    "kids_area": "Kids Area",
+    "academies_title": "Sports Academies",
+    "players": "Players",
+    "coaches": "Coaches",
+    "academy_desc": "The academy is one of the largest football academies in the region. Registration starts from 4 years old for both genders. Players are evaluated quarterly.",
+    "become_member": "Become a Member",
+    "more_details": "More Details",
+    "gym": {
+      "title": "Gymnasium",
+      "desc": "Our gym is equipped with the latest equipment and professional personal trainers, ready to help you achieve your health and fitness dreams and live a healthy lifestyle."
+    },
+    "subscribe_now": "Subscribe Now",
+    "other_services": "Other Services",
+    "names": {
+      "maadi": "Maadi",
+      "manshiyat": "Manshiyat Naser",
+      "matarya": "Matariya"
+    },
+    "services": {
+      "social": {
+        "name": "Social Area",
+        "desc": "Enjoy great times with friends and family in our luxurious social area equipped with all amenities."
+      },
+      "kids": {
+        "name": "Kids Area",
+        "desc": "A safe and fun area for children with various educational and entertaining activities under expert supervision."
+      },
+      "wadi": {
+        "name": "Arts Valley",
+        "desc": "Explore the world of arts and creativity in the Arts Valley where you can develop your artistic and cultural skills."
+      },
+      "restaurants": {
+        "name": "Restaurants",
+        "desc": "Enjoy a unique culinary experience in our fine dining restaurants serving delicious local and international cuisines."
+      },
+      "library": {
+        "name": "Library",
+        "desc": "A modern library containing thousands of books and references in various fields for reading and acquiring knowledge."
+      }
+    }
+  }
+}
